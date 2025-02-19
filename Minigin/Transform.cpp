@@ -1,7 +1,7 @@
 #include "Transform.h"
 
-dae::Transform::Transform(GameObject* parent) 
-	:m_parent(parent), m_localPosition(0, 0, 0), m_worldPosition(0, 0, 0), m_positionIsDirty(false)
+dae::Transform::Transform(GameObject* owner) 
+	:m_owner(owner), m_localPosition(0, 0, 0), m_worldPosition(0, 0, 0), m_positionIsDirty(false)
 {
 
 }
@@ -36,10 +36,10 @@ void dae::Transform::UpdateWorldPosition()
 {
 	if (m_positionIsDirty)
 	{
-		if (m_parent == nullptr)
+		if (m_owner == nullptr)
 			m_worldPosition = m_localPosition;
 		else
-			m_worldPosition = m_parent->GetWorldPosition() + m_localPosition;
+			m_worldPosition = m_owner->GetWorldPosition() + m_localPosition;
 	}
 	m_positionIsDirty = false;
 }

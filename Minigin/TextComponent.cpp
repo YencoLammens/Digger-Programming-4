@@ -7,13 +7,13 @@
 #include "GameObject.h"
 
 
-dae::TextComponent::TextComponent(GameObject* parent, const std::string& text, std::shared_ptr<Font> font)
-    : m_parent(parent), m_needsUpdate(true), m_text(text), m_font(font), m_textTexture(nullptr)
+dae::TextComponent::TextComponent(GameObject* owner, const std::string& text, std::shared_ptr<Font> font)
+    : m_owner(owner), m_needsUpdate(true), m_text(text), m_font(font), m_textTexture(nullptr)
 {
     SetText(text);
-    if (m_parent)
+    if (m_owner)
     {
-        m_position = m_parent->GetWorldPosition();
+        m_position = m_owner->GetWorldPosition();
     }
     
 }
@@ -37,9 +37,9 @@ void dae::TextComponent::Update()
         m_textTexture = std::make_shared<Texture2D>(texture);
         m_needsUpdate = false;
     }
-    if (m_parent)
+    if (m_owner)
     {
-        m_position = m_parent->GetWorldPosition();
+        m_position = m_owner->GetWorldPosition();
     }
     
 }

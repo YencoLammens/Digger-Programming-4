@@ -32,6 +32,8 @@ namespace dae
 		//Tries to find the component type inside of the component vector by attempting to dynamic cast it to the given type, if it finds one, that one gets returned (the first one)
 		template <typename T>
 		std::unique_ptr<T> GetComponent() const;
+
+		void SetParent(GameObject* parent, bool keepWorldPosition);
 		
 
 		void Update();

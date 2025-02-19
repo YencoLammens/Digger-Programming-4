@@ -2,16 +2,16 @@
 #include "Renderer.h"
 #include "GameObject.h"
 
-dae::RenderComponent::RenderComponent(GameObject* parent)
-	: m_parent(parent), m_position{0, 0, 0}
+dae::RenderComponent::RenderComponent(GameObject* owner)
+	: m_owner(owner), m_position{0, 0, 0}
 {
 }
 
 void dae::RenderComponent::Update()
 {
-	if (m_parent)
+	if (m_owner)
 	{
-		m_position = m_parent->GetWorldPosition();
+		m_position = m_owner->GetWorldPosition();
 	}
 	
 }

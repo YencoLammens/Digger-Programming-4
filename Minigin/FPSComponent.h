@@ -22,7 +22,7 @@ namespace dae
 
 	private:
 		void UpdateFPS();
-		GameObject* m_parent;
+		GameObject* m_owner;
 
 		glm::vec3 m_position;
 

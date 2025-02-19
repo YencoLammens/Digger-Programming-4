@@ -23,7 +23,7 @@ namespace dae
 	private:
 		std::shared_ptr<Texture2D> m_texture;
 
-		GameObject* m_parent;
+		GameObject* m_owner;
 
 		glm::vec3 m_position;
 	};

@@ -12,7 +12,7 @@ namespace dae
 	class TextComponent : public BaseComponent
 	{
 	public:
-		TextComponent(GameObject* parent, const std::string& text, std::shared_ptr<Font> font);
+		TextComponent(GameObject* owner, const std::string& text, std::shared_ptr<Font> font);
 		~TextComponent() = default;
 
 		void Update() override;
@@ -27,7 +27,7 @@ namespace dae
 		std::string m_text;
 		std::shared_ptr<Font> m_font;
 		std::shared_ptr<Texture2D> m_textTexture;
-		GameObject* m_parent;
+		GameObject* m_owner;
 
 		glm::vec3 m_position;
 

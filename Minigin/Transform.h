@@ -19,6 +19,6 @@ namespace dae
 		glm::vec3 m_localPosition;
 		glm::vec3 m_worldPosition;
 		bool m_positionIsDirty = false;
-		GameObject* m_parent = nullptr;
+		GameObject* m_owner = nullptr;
 	};
 }
