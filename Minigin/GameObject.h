@@ -20,8 +20,8 @@ namespace dae
 		GameObject& operator=(GameObject&& other) = delete;
 
 		//Methods
-		void AddComponent(std::shared_ptr<BaseComponent> component);
-		void RemoveComponent(std::shared_ptr<BaseComponent> component);
+		void AddComponent(std::unique_ptr<BaseComponent> component);
+		void RemoveComponent(BaseComponent* baseComponent);
 		
 		
 		//Templates
@@ -30,7 +30,7 @@ namespace dae
 
 		//Tries to find the component type inside of the component vector by attempting to dynamic cast it to the given type, if it finds one, that one gets returned (the first one)
 		template <typename T>
-		std::shared_ptr<T> GetComponent() const;
+		std::unique_ptr<T> GetComponent() const;
 		/*{
 			for (const auto& component : m_componentsArr)
 			{
@@ -47,7 +47,7 @@ namespace dae
 		void Render() const;
 
 	private:
-		
-		std::vector<std::shared_ptr<BaseComponent>> m_componentsArr;
+		void RemoveFlaggedComponents();
+		std::vector<std::unique_ptr<BaseComponent>> m_componentsArr;
 	};
 }

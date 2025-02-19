@@ -9,16 +9,24 @@
 
 dae::GameObject::~GameObject() = default;
 
-void dae::GameObject::AddComponent(std::shared_ptr<BaseComponent> component)
+void dae::GameObject::AddComponent(std::unique_ptr<BaseComponent> component)
 {
-	m_componentsArr.emplace_back(component);
+	m_componentsArr.emplace_back(std::move(component));
 }
 
 
-void dae::GameObject::RemoveComponent(std::shared_ptr<BaseComponent> component)
+void dae::GameObject::RemoveComponent(BaseComponent* toBeDeletedComponent)
 {
-	m_componentsArr.erase(std::remove(m_componentsArr.begin(), m_componentsArr.end(), component), m_componentsArr.end());
+    for (auto& component : m_componentsArr)
+    {
+        if (component.get() == toBeDeletedComponent)
+        {
+			component->m_ToBeDeleted = true;
+            break;
+        }
+    }
 }
+
 
 template <typename T>
 bool dae::GameObject::HasComponentBeenAdded() const
@@ -34,7 +42,7 @@ bool dae::GameObject::HasComponentBeenAdded() const
 }
 
 template <typename T>
-std::shared_ptr<T> dae::GameObject::GetComponent() const
+std::unique_ptr<T> dae::GameObject::GetComponent() const
 {
     for (const auto& component : m_componentsArr)
     {
@@ -68,30 +76,14 @@ void dae::GameObject::Render() const
     {
         for (const auto& component : m_componentsArr)
         {
-            if (component->GetType() == BaseComponent::Type::Render)
-            {
-				if (auto renderComponent = dynamic_cast<RenderComponent*>(component.get()))
-				{
-					renderComponent->Render();
-				}
-            }
-            if (component->GetType() == BaseComponent::Type::Text)
-            {
-                if (auto textComponent = dynamic_cast<TextComponent*>(component.get()))
-                {
-                    textComponent->Render();
-                }
-            }
-            if (component->GetType() == BaseComponent::Type::FPS)
-            {
-                if (auto fpsComponent = dynamic_cast<FPSComponent*>(component.get()))
-                {
-                    fpsComponent->Render();
-                }
-            }
-            
+            component->Render();
         }
     }
 
 }
 
+void dae::GameObject::RemoveFlaggedComponents()
+{
+    m_componentsArr.erase(std::remove_if(m_componentsArr.begin(), m_componentsArr.end(),
+        [](const std::unique_ptr<BaseComponent>& component) { return component->m_ToBeDeleted; }), m_componentsArr.end());
+}

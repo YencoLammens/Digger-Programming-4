@@ -18,7 +18,7 @@ namespace dae
 		void FixedUpdate() override;
 		void Render() const override;
 
-		Type GetType() const override;
+		
 
 	private:
 		void UpdateFPS();

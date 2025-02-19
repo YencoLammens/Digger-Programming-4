@@ -13,12 +13,11 @@ namespace dae
 
 		virtual void Update() override;
 		virtual void FixedUpdate() override;
-		virtual void Render() const;
+		virtual void Render() const override;
 
 		void SetTexture(const std::shared_ptr<Texture2D>& texture);
 		void SetPosition(float x, float y);
 
-		Type GetType() const override;
 
 	private:
 		std::shared_ptr<Texture2D> m_texture;

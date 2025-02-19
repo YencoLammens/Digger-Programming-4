@@ -20,7 +20,6 @@ namespace dae
 		virtual void SetText(const std::string& text);
 		virtual void SetPosition(float x, float y);
 
-		virtual Type GetType() const override;
 
 	private:
 		bool m_needsUpdate;

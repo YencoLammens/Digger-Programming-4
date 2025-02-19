@@ -122,13 +122,15 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		sceneManager.Update();
 		renderer.Render();
 		
-
+		
 		const Uint32 frameTime = SDL_GetTicks() - frameStart;
 		if (frameDelay > frameTime)
 		{
 			SDL_Delay(frameDelay - frameTime);
 			
 		}
+
+		//Check if anything needs to be deleted from components, access gameobject, then delete here
 	}
 }
 

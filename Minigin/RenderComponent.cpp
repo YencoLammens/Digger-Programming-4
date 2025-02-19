@@ -30,7 +30,4 @@ void dae::RenderComponent::SetPosition(float x, float y)
 	m_transform.SetPosition(x, y, 0.0f);
 }
 
-dae::BaseComponent::Type dae::RenderComponent::GetType() const
-{
-    return Type::Render;
-}
+

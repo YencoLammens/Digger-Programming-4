@@ -45,10 +45,6 @@ void dae::FPSComponent::Render() const
     }
 }
 
-dae::BaseComponent::Type dae::FPSComponent::GetType() const
-{
-    return BaseComponent::Type::FPS;
-}
 
 void dae::FPSComponent::UpdateFPS()
 {

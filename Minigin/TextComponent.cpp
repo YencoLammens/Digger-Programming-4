@@ -50,7 +50,3 @@ void dae::TextComponent::SetPosition(float x, float y)
     m_transform.SetPosition(x, y, 0.0f);
 }
 
-dae::BaseComponent::Type dae::TextComponent::GetType() const
-{
-    return Type::Text;
-}
