@@ -2,6 +2,7 @@
 #include <memory>
 #include <vector>
 #include "BaseComponent.h"
+#include <glm.hpp>
 
 namespace dae
 {
@@ -12,7 +13,7 @@ namespace dae
 		//void Update();
 		//void Render() const;
 
-		GameObject() = default;
+		GameObject();
 		~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
@@ -31,23 +32,18 @@ namespace dae
 		//Tries to find the component type inside of the component vector by attempting to dynamic cast it to the given type, if it finds one, that one gets returned (the first one)
 		template <typename T>
 		std::unique_ptr<T> GetComponent() const;
-		/*{
-			for (const auto& component : m_componentsArr)
-			{
-				if (auto castedComponent = std::dynamic_pointer_cast<T>(component))
-				{
-					return castedComponent;
-				}
-			}
-			return nullptr;
-		}*/
+		
 
 		void Update();
 		void FixedUpdate();
 		void Render() const;
 
+		const glm::vec3& GetWorldPosition();
+
 	private:
 		void RemoveFlaggedComponents();
 		std::vector<std::unique_ptr<BaseComponent>> m_componentsArr;
+		glm::vec3 m_worldPosition;
+		
 	};
 }

@@ -9,6 +9,7 @@ namespace dae
 	{
 	public:
 		RenderComponent() = default;
+		RenderComponent(GameObject* parent);
 		~RenderComponent() override = default;
 
 		virtual void Update() override;
@@ -21,7 +22,10 @@ namespace dae
 
 	private:
 		std::shared_ptr<Texture2D> m_texture;
-		Transform m_transform;
+
+		GameObject* m_parent;
+
+		glm::vec3 m_position;
 	};
 }
 

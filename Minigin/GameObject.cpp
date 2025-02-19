@@ -7,6 +7,11 @@
 #include "TextComponent.h"
 #include "FPSComponent.h"
 
+dae::GameObject::GameObject()
+    : m_worldPosition(0.0f, 0.0f, 0.0f)
+{
+}
+
 dae::GameObject::~GameObject() = default;
 
 void dae::GameObject::AddComponent(std::unique_ptr<BaseComponent> component)
@@ -80,6 +85,11 @@ void dae::GameObject::Render() const
         }
     }
 
+}
+
+const glm::vec3& dae::GameObject::GetWorldPosition()
+{
+    return m_worldPosition;
 }
 
 void dae::GameObject::RemoveFlaggedComponents()

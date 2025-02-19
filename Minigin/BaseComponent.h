@@ -4,11 +4,7 @@ namespace dae
 	class BaseComponent
 	{
 	public:
-
-		
-
 		BaseComponent() = default;
-
 		BaseComponent(const BaseComponent&) = delete;
 		BaseComponent(BaseComponent&&) = delete;
 

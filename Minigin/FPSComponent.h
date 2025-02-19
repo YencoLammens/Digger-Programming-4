@@ -8,10 +8,10 @@
 #include "Transform.h"
 namespace dae
 {
-	class FPSComponent : public RenderComponent
+	class FPSComponent : public BaseComponent
 	{
 	public:
-		FPSComponent(std::shared_ptr<Font> font);
+		FPSComponent(GameObject* parent, std::shared_ptr<Font> font);
 		~FPSComponent() override = default;
 
 		void Update() override;
@@ -22,12 +22,14 @@ namespace dae
 
 	private:
 		void UpdateFPS();
+		GameObject* m_parent;
+
+		glm::vec3 m_position;
 
 		bool m_needsUpdate;
 		std::string m_text;
 		std::shared_ptr<Font> m_font;
 		std::shared_ptr<Texture2D> m_textTexture;
-		Transform m_transform;
 		int m_frameCount;
 		float m_elapsedTime;
 		float m_fps;
