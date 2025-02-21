@@ -3,10 +3,10 @@
 #include <SDL_ttf.h>
 #include <stdexcept>
 
-dae::FPSComponent::FPSComponent(std::shared_ptr<Font> font)
-	: m_font(font), m_frameCount(0), m_elapsedTime(0), m_fps(0), m_needsUpdate(true)
+dae::FPSComponent::FPSComponent(GameObject* owner, std::shared_ptr<Font> font)
+	: m_owner(owner), m_font(font), m_frameCount(0), m_elapsedTime(0), m_fps(0), m_needsUpdate(true), m_position{0,0,0}
 {
-	m_transform.SetPosition(10, 10, 0);
+	
 	m_lastTime = std::chrono::high_resolution_clock::now();
 }
 
@@ -29,6 +29,13 @@ void dae::FPSComponent::Update()
         UpdateFPS();
         m_needsUpdate = false;
     }
+
+
+    if (m_owner)
+    {
+        m_position = m_owner->GetWorldPosition();
+    }
+    
 }
 
 void dae::FPSComponent::FixedUpdate()
@@ -40,15 +47,10 @@ void dae::FPSComponent::Render() const
 {
     if (m_textTexture)
     {
-        const auto pos = m_transform.GetPosition();
-        Renderer::GetInstance().RenderTexture(*m_textTexture, pos.x , pos.y);
+        Renderer::GetInstance().RenderTexture(*m_textTexture, m_position.x , m_position.y);
     }
 }
 
-dae::BaseComponent::Type dae::FPSComponent::GetType() const
-{
-    return BaseComponent::Type::FPS;
-}
 
 void dae::FPSComponent::UpdateFPS()
 {

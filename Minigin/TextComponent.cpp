@@ -2,11 +2,20 @@
 #include <SDL_ttf.h>
 #include "TextComponent.h"
 #include "Renderer.h"
+#include "Font.h"
+#include "Texture2D.h"
+#include "GameObject.h"
 
-dae::TextComponent::TextComponent(const std::string& text, std::shared_ptr<Font> font)
-    : m_needsUpdate(true), m_text(text), m_font(font), m_textTexture(nullptr)
+
+dae::TextComponent::TextComponent(GameObject* owner, const std::string& text, std::shared_ptr<Font> font)
+    : m_owner(owner), m_needsUpdate(true), m_text(text), m_font(font), m_textTexture(nullptr)
 {
     SetText(text);
+    if (m_owner)
+    {
+        m_position = m_owner->GetWorldPosition();
+    }
+    
 }
 
 void dae::TextComponent::Update()
@@ -28,14 +37,22 @@ void dae::TextComponent::Update()
         m_textTexture = std::make_shared<Texture2D>(texture);
         m_needsUpdate = false;
     }
+    if (m_owner)
+    {
+        m_position = m_owner->GetWorldPosition();
+    }
+    
+}
+
+void dae::TextComponent::FixedUpdate()
+{
 }
 
 void dae::TextComponent::Render() const
 {
     if (m_textTexture != nullptr)
     {
-        const auto& pos = m_transform.GetPosition();
-        Renderer::GetInstance().RenderTexture(*m_textTexture, pos.x, pos.y);
+        Renderer::GetInstance().RenderTexture(*m_textTexture, m_position.x, m_position.y);
     }
 }
 
@@ -45,12 +62,5 @@ void dae::TextComponent::SetText(const std::string& text)
     m_needsUpdate = true;
 }
 
-void dae::TextComponent::SetPosition(float x, float y)
-{
-    m_transform.SetPosition(x, y, 0.0f);
-}
 
-dae::BaseComponent::Type dae::TextComponent::GetType() const
-{
-    return Type::Text;
-}
+

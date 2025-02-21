@@ -4,17 +4,7 @@ namespace dae
 	class BaseComponent
 	{
 	public:
-
-		enum class Type
-		{
-			Render,
-			Text,
-			FPS,
-			// Add other component types as needed
-		};
-
 		BaseComponent() = default;
-
 		BaseComponent(const BaseComponent&) = delete;
 		BaseComponent(BaseComponent&&) = delete;
 
@@ -27,12 +17,14 @@ namespace dae
 		//Methods
 		virtual void Update() = 0;
 		virtual void FixedUpdate() = 0;
-		virtual Type GetType() const = 0;
-		
+		virtual void Render() const = 0;
+
+
+		bool m_ToBeDeleted = false;
 
 	protected:
 
-		bool m_ToBeDeleted = false;
+		
 
 	private:
 	};

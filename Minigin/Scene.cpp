@@ -7,6 +7,8 @@ using namespace dae;
 
 unsigned int Scene::m_idCounter = 0;
 
+
+
 Scene::Scene(const std::string& name) : m_name(name) {}
 
 Scene::~Scene() = default;
@@ -24,6 +26,11 @@ void Scene::Remove(std::shared_ptr<GameObject> object)
 void Scene::RemoveAll()
 {
 	m_objects.clear();
+}
+
+std::vector<std::shared_ptr<GameObject>>& Scene::GetGameObjects() 
+{
+	return m_objects;
 }
 
 void Scene::Update()

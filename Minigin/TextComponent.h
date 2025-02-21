@@ -1,33 +1,35 @@
 #pragma once
 #include <string>
 #include <memory>
-#include "RenderComponent.h"
 #include "Font.h"
 #include "Texture2D.h"
-#include "Transform.h"
+#include "BaseComponent.h"
+#include "GameObject.h"
+
 
 namespace dae
 {
-	class TextComponent : public RenderComponent
+	class TextComponent : public BaseComponent
 	{
 	public:
-		TextComponent(const std::string& text, std::shared_ptr<Font> font);
-		~TextComponent() override = default;
+		TextComponent(GameObject* owner, const std::string& text, std::shared_ptr<Font> font);
+		~TextComponent() = default;
 
-		virtual void Update() override;
-		virtual void Render() const override;
+		void Update() override;
+		void FixedUpdate() override;
+		void Render() const override;
 
-		virtual void SetText(const std::string& text);
-		virtual void SetPosition(float x, float y);
+		void SetText(const std::string& text);
 
-		virtual Type GetType() const override;
 
 	private:
 		bool m_needsUpdate;
 		std::string m_text;
 		std::shared_ptr<Font> m_font;
 		std::shared_ptr<Texture2D> m_textTexture;
-		Transform m_transform;
+		GameObject* m_owner;
+
+		glm::vec3 m_position;
 
 	};
 }
