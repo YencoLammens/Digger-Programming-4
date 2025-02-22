@@ -10,17 +10,13 @@ dae::FPSComponent::FPSComponent(GameObject* owner, std::shared_ptr<Font> font)
 	m_lastTime = std::chrono::high_resolution_clock::now();
 }
 
-void dae::FPSComponent::Update()
+void dae::FPSComponent::Update(float deltaTime)
 {
     m_frameCount++;
-	auto currentTime = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<float> deltaTime = currentTime - m_lastTime;
-
-    if (deltaTime.count() >= 0.1f)
+    if (deltaTime >= 0.1f)
     {
-        m_fps = m_frameCount / deltaTime.count();
+        m_fps = m_frameCount / deltaTime;
         m_frameCount = 0;
-        m_lastTime = currentTime;
         m_needsUpdate = true;
     }
 

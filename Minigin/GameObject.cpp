@@ -7,8 +7,8 @@
 #include "TextComponent.h"
 #include "FPSComponent.h"
 
-dae::GameObject::GameObject(Scene* scene)
-    : m_ownerScene(scene), m_worldPosition(0.0f, 0.0f, 0.0f), m_localPosition(0.0f, 0.0f, 0.0f)
+dae::GameObject::GameObject()
+    : m_worldPosition(0.0f, 0.0f, 0.0f), m_localPosition(0.0f, 0.0f, 0.0f)
 {
 }
 
@@ -27,10 +27,13 @@ void dae::GameObject::RemoveComponent(BaseComponent* toBeDeletedComponent)
         if (component.get() == toBeDeletedComponent)
         {
 			component->m_ToBeDeleted = true;
+            m_mustAComponentBeDeleted = true;
+
             break;
         }
+        //m_ownerScene->AComponentWasMarkedForDeletion();
     }
-    m_ownerScene->AComponentWasMarkedForDeletion();
+    
 }
 
 
@@ -61,13 +64,20 @@ std::unique_ptr<T> dae::GameObject::GetComponent() const
 }
 
 
-void dae::GameObject::Update()
+void dae::GameObject::Update(float deltaTime)
 {
-    
+
     for (auto& component : m_componentsArr)
     {
-        component->Update();
-    }    
+        component->Update(deltaTime);
+    }
+
+    
+    if (m_mustAComponentBeDeleted == true)
+    {
+        RemoveFlaggedComponents(); //Could cause issues in the future if components of game objects interact with each other, it's this or letting the components deletions happen in the scene which would make a lot of things accesible in an uncomfortable way as far as i can tell.
+        m_mustAComponentBeDeleted = false;
+    }
 }
 
 void dae::GameObject::FixedUpdate()

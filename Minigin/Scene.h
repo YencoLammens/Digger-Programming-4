@@ -12,7 +12,7 @@ namespace dae
 		void Remove(std::shared_ptr<GameObject> object);
 		void RemoveAll();
 
-		void Update();
+		void Update(float deltaTime);
 		void Render() const;
 
 		~Scene();
@@ -24,7 +24,7 @@ namespace dae
 
 		std::vector<std::shared_ptr<GameObject>>& GetGameObjects(); // Add this method
 
-		void AComponentWasMarkedForDeletion();
+		//void AComponentWasMarkedForDeletion();
 
 	private: 
 		explicit Scene(const std::string& name);
@@ -34,7 +34,7 @@ namespace dae
 
 		static unsigned int m_idCounter; 
 
-		bool m_isThereAComponentToBeDeleted = false;
+		//bool m_isThereAComponentToBeDeleted = false;
 	};
 
 }

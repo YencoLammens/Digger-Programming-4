@@ -18,7 +18,7 @@ dae::TextComponent::TextComponent(GameObject* owner, const std::string& text, st
     
 }
 
-void dae::TextComponent::Update()
+void dae::TextComponent::Update(float deltaTime)
 {
     if (m_needsUpdate)
     {
@@ -36,10 +36,13 @@ void dae::TextComponent::Update()
         SDL_FreeSurface(surf);
         m_textTexture = std::make_shared<Texture2D>(texture);
         m_needsUpdate = false;
+
+
+
     }
     if (m_owner)
     {
-        m_position = m_owner->GetWorldPosition();
+        m_position = m_owner->GetWorldPosition() * deltaTime;
     }
     
 }

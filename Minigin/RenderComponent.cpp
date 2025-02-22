@@ -7,11 +7,11 @@ dae::RenderComponent::RenderComponent(GameObject* owner)
 {
 }
 
-void dae::RenderComponent::Update()
+void dae::RenderComponent::Update(float deltaTime)
 {
 	if (m_owner)
 	{
-		m_position = m_owner->GetWorldPosition();
+		m_position = m_owner->GetWorldPosition() * deltaTime;
 	}
 	
 }

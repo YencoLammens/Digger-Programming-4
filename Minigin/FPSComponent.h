@@ -14,7 +14,7 @@ namespace dae
 		FPSComponent(GameObject* parent, std::shared_ptr<Font> font);
 		~FPSComponent() override = default;
 
-		void Update() override;
+		void Update(float deltaTime) override;
 		void FixedUpdate() override;
 		void Render() const override;
 

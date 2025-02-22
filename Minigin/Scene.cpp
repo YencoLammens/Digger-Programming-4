@@ -33,27 +33,27 @@ std::vector<std::shared_ptr<GameObject>>& Scene::GetGameObjects()
 	return m_objects;
 }
 
-void dae::Scene::AComponentWasMarkedForDeletion()
-{
-	m_isThereAComponentToBeDeleted = true;
-}
+//void dae::Scene::AComponentWasMarkedForDeletion()
+//{
+//	m_isThereAComponentToBeDeleted = true;
+//}
 
-void Scene::Update()
+void Scene::Update(float deltaTime)
 {
 	for(auto& object : m_objects)
 	{
-		object->Update();
+		object->Update(deltaTime);
 	}
 
-	//if check necessary so it doesn't check all objects every update every time
-	if (m_isThereAComponentToBeDeleted == true)
-	{
-		for (auto& object : m_objects)
-		{
-			object->RemoveFlaggedComponents();
-		}
-		m_isThereAComponentToBeDeleted = false;
-	}
+	////if check necessary so it doesn't check all objects every update every time
+	//if (m_isThereAComponentToBeDeleted == true)
+	//{
+	//	for (auto& object : m_objects)
+	//	{
+	//		object->RemoveFlaggedComponents();
+	//	}
+	//	m_isThereAComponentToBeDeleted = false;
+	//}
 	
 }
 

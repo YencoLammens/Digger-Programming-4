@@ -11,10 +11,8 @@ namespace dae
 	class GameObject final
 	{
 	public:
-		//void Update();
-		//void Render() const;
-
-		GameObject(Scene* scene);
+		GameObject();
+		//GameObject(Scene* scene);
 		~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
@@ -37,7 +35,7 @@ namespace dae
 		
 		
 		//General methods
-		void Update();
+		void Update(float deltaTime);
 		void FixedUpdate();
 		void Render() const;
 
@@ -55,11 +53,12 @@ namespace dae
 		bool IsChild(GameObject* possibleChild);
 
 
-		void RemoveFlaggedComponents(); //Public in order for the deletions to happen after all game objects have finished updating, as it therefore needs to be accessed in the Scene, although i might be wrong for the best spot for deletion.
+		
 	protected:
 		
 	private:
-		Scene* m_ownerScene;
+		void RemoveFlaggedComponents();
+		//Scene* m_ownerScene;
 		
 		std::vector<std::unique_ptr<BaseComponent>> m_componentsArr;
 		std::vector<GameObject*> m_ChildrenArr;
@@ -68,6 +67,7 @@ namespace dae
 		glm::vec3 m_localPosition;
 
 		bool m_positionIsDirty = false;
+		bool m_mustAComponentBeDeleted = false;
 		
 	};
 }
