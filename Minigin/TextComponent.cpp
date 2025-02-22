@@ -8,17 +8,19 @@
 
 
 dae::TextComponent::TextComponent(GameObject* owner, const std::string& text, std::shared_ptr<Font> font)
-    : m_owner(owner), m_needsUpdate(true), m_text(text), m_font(font), m_textTexture(nullptr)
+    : RenderComponent(owner), m_needsUpdate(true), m_text(text), m_font(font), m_textTexture(nullptr)
 {
     SetText(text);
-    if (m_owner)
-    {
-        m_position = m_owner->GetWorldPosition();
-    }
+    
+    m_position = GetOwner()->GetTransform()->GetWorldPosition();
+    
+    auto& renderer = Renderer::GetInstance();
+
+    renderer.AddRenderComponent(this);
     
 }
 
-void dae::TextComponent::Update(float deltaTime)
+void dae::TextComponent::Update(float)
 {
     if (m_needsUpdate)
     {
@@ -37,13 +39,10 @@ void dae::TextComponent::Update(float deltaTime)
         m_textTexture = std::make_shared<Texture2D>(texture);
         m_needsUpdate = false;
 
-
-
     }
-    if (m_owner)
-    {
-        m_position = m_owner->GetWorldPosition() * deltaTime;
-    }
+    
+    m_position = GetOwner()->GetTransform()->GetWorldPosition();
+    
     
 }
 

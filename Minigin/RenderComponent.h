@@ -8,13 +8,12 @@ namespace dae
 	class RenderComponent : public BaseComponent
 	{
 	public:
-		RenderComponent() = default;
-		RenderComponent(GameObject* parent);
+		RenderComponent(GameObject* owner);
 		~RenderComponent() override = default;
 
-		virtual void Update(float deltaTime) override;
+		virtual void Update(float elapsedSec) override;
 		virtual void FixedUpdate() override;
-		virtual void Render() const override;
+		virtual void Render() const;
 
 		void SetTexture(const std::shared_ptr<Texture2D>& texture);
 		//void SetPosition(float x, float y);
@@ -22,8 +21,6 @@ namespace dae
 
 	private:
 		std::shared_ptr<Texture2D> m_texture;
-
-		GameObject* m_owner;
 
 		glm::vec3 m_position;
 	};

@@ -107,9 +107,9 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
 	
-	// std::chrono::duration<float> deltaTime = currentTime - m_lastTime;
-	//const int frameRate = 60;
-	//const int frameDelay = 1000 / frameRate;
+	
+	const int frameRate = 180;
+	const int frameDelay = 1000 / frameRate;
 	
 
 	bool doContinue = true;
@@ -118,7 +118,7 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	std::chrono::time_point<std::chrono::high_resolution_clock> lastTime = std::chrono::high_resolution_clock::now();
 	while (doContinue)
 	{
-		/*const Uint32 frameStart = SDL_GetTicks();*/
+		const Uint32 frameStart = SDL_GetTicks();
 
 		doContinue = input.ProcessInput();
 
@@ -141,12 +141,12 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		renderer.Render();
 		
 		
-		/*const Uint32 frameTime = SDL_GetTicks() - frameStart;
+		const Uint32 frameTime = SDL_GetTicks() - frameStart;
 		if (frameDelay > frameTime)
 		{
 			SDL_Delay(frameDelay - frameTime);
 			
-		}*/
+		}
 
 		//Check if anything needs to be deleted from components, access gameobject, then delete here
 	}

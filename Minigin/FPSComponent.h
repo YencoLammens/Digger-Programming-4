@@ -8,7 +8,7 @@
 #include "Transform.h"
 namespace dae
 {
-	class FPSComponent : public BaseComponent
+	class FPSComponent : public RenderComponent
 	{
 	public:
 		FPSComponent(GameObject* parent, std::shared_ptr<Font> font);
@@ -22,7 +22,7 @@ namespace dae
 
 	private:
 		void UpdateFPS();
-		GameObject* m_owner;
+		
 
 		glm::vec3 m_position;
 

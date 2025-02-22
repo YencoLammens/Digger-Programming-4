@@ -33,8 +33,13 @@ void dae::Renderer::Render() const
 	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
 	SDL_RenderClear(m_renderer);
 
-	SceneManager::GetInstance().Render();
+	//SceneManager::GetInstance().Render();
 	
+	for (const auto& component : m_renderComponentsArr)
+	{
+		component->Render();
+	}
+
 	SDL_RenderPresent(m_renderer);
 }
 
@@ -67,3 +72,8 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const
 }
 
 SDL_Renderer* dae::Renderer::GetSDLRenderer() const { return m_renderer; }
+
+void dae::Renderer::AddRenderComponent(RenderComponent* renderComponent)
+{
+	m_renderComponentsArr.push_back(renderComponent);
+}

@@ -4,7 +4,7 @@
 
 namespace dae
 {
-	class Transform final
+	class Transform : public BaseComponent
 	{
 	public:
 		Transform(GameObject* parent);
@@ -13,12 +13,15 @@ namespace dae
 		void SetLocalPosition(float x, float y, float z);
 		const glm::vec3& GetWorldPosition();
 		void UpdateWorldPosition();
-		void IsPositionDirty(bool isDirty);
+		bool IsPositionDirty();
+		void SetPositionDirty();
+
+		void Update(float elapsedSec) override;
+		void FixedUpdate() override;
 		
 	private:
 		glm::vec3 m_localPosition;
 		glm::vec3 m_worldPosition;
 		bool m_positionIsDirty = false;
-		GameObject* m_owner = nullptr;
 	};
 }

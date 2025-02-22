@@ -8,6 +8,7 @@
 namespace dae
 {
 	// todo: this should become final.
+	class Transform;
 	class GameObject final
 	{
 	public:
@@ -30,29 +31,35 @@ namespace dae
 
 		//Tries to find the component type inside of the component vector by attempting to dynamic cast it to the given type, if it finds one, that one gets returned (the first one)
 		template <typename T>
-		std::unique_ptr<T> GetComponent() const;
+		T* GetComponent() const
+		{
+			for (const auto& component : m_componentsArr)
+			{
+				if (auto castedComponent = dynamic_cast<T*>(component.get()))
+				{
+					return castedComponent;
+				}
+			}
+			return nullptr;
+		}
 
 		
 		
 		//General methods
 		void Update(float deltaTime);
 		void FixedUpdate();
-		void Render() const;
-
-		void SetPositionDirty();
-
+		//void Render() const;
 
 		//Parent-child related
 		void SetParent(GameObject* parent, bool keepWorldPosition);
-		const glm::vec3& GetWorldPosition();
-		void SetLocalPosition(const glm::vec3& pos);
-		void UpdateWorldPosition();
+		GameObject* GetParent();
 
 		void AddChild(GameObject* newChild);
 		void RemoveChild(GameObject* orphanedChild);
 		bool IsChild(GameObject* possibleChild);
 
 
+		Transform* GetTransform();
 		
 	protected:
 		
@@ -65,6 +72,7 @@ namespace dae
 		GameObject* m_parent{nullptr};
 		glm::vec3 m_worldPosition;
 		glm::vec3 m_localPosition;
+		std::unique_ptr<Transform> m_transform;
 
 		bool m_positionIsDirty = false;
 		bool m_mustAComponentBeDeleted = false;

@@ -4,10 +4,13 @@
 #include <stdexcept>
 
 dae::FPSComponent::FPSComponent(GameObject* owner, std::shared_ptr<Font> font)
-	: m_owner(owner), m_font(font), m_frameCount(0), m_elapsedTime(0), m_fps(0), m_needsUpdate(true), m_position{0,0,0}
+	: RenderComponent(owner), m_font(font), m_frameCount(0), m_elapsedTime(0), m_fps(0), m_needsUpdate(true), m_position{0,0,0}
 {
 	
 	m_lastTime = std::chrono::high_resolution_clock::now();
+    auto& renderer = Renderer::GetInstance();
+
+    renderer.AddRenderComponent(this);
 }
 
 void dae::FPSComponent::Update(float deltaTime)
@@ -27,10 +30,9 @@ void dae::FPSComponent::Update(float deltaTime)
     }
 
 
-    if (m_owner)
-    {
-        m_position = m_owner->GetWorldPosition();
-    }
+   
+    m_position = GetOwner()->GetTransform()->GetWorldPosition();
+    
     
 }
 
