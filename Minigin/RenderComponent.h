@@ -17,7 +17,7 @@ namespace dae
 		virtual void Render() const override;
 
 		void SetTexture(const std::shared_ptr<Texture2D>& texture);
-		void SetPosition(float x, float y);
+		//void SetPosition(float x, float y);
 
 
 	private:

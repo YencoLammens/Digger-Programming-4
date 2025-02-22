@@ -15,7 +15,7 @@ Scene::~Scene() = default;
 
 void Scene::Add(std::shared_ptr<GameObject> object)
 {
-	m_objects.emplace_back(std::move(object));
+	m_objects.push_back(std::move(object));
 }
 
 void Scene::Remove(std::shared_ptr<GameObject> object)
@@ -33,12 +33,28 @@ std::vector<std::shared_ptr<GameObject>>& Scene::GetGameObjects()
 	return m_objects;
 }
 
+void dae::Scene::AComponentWasMarkedForDeletion()
+{
+	m_isThereAComponentToBeDeleted = true;
+}
+
 void Scene::Update()
 {
 	for(auto& object : m_objects)
 	{
 		object->Update();
 	}
+
+	//if check necessary so it doesn't check all objects every update every time
+	if (m_isThereAComponentToBeDeleted == true)
+	{
+		for (auto& object : m_objects)
+		{
+			object->RemoveFlaggedComponents();
+		}
+		m_isThereAComponentToBeDeleted = false;
+	}
+	
 }
 
 void Scene::Render() const

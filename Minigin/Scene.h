@@ -24,6 +24,7 @@ namespace dae
 
 		std::vector<std::shared_ptr<GameObject>>& GetGameObjects(); // Add this method
 
+		void AComponentWasMarkedForDeletion();
 
 	private: 
 		explicit Scene(const std::string& name);
@@ -32,6 +33,8 @@ namespace dae
 		std::vector < std::shared_ptr<GameObject>> m_objects;
 
 		static unsigned int m_idCounter; 
+
+		bool m_isThereAComponentToBeDeleted = false;
 	};
 
 }

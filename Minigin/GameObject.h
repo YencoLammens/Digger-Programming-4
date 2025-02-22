@@ -3,6 +3,7 @@
 #include <vector>
 #include "BaseComponent.h"
 #include <glm.hpp>
+#include "Scene.h"
 
 namespace dae
 {
@@ -13,7 +14,7 @@ namespace dae
 		//void Update();
 		//void Render() const;
 
-		GameObject();
+		GameObject(Scene* scene);
 		~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
@@ -51,17 +52,17 @@ namespace dae
 
 		void AddChild(GameObject* newChild);
 		void RemoveChild(GameObject* orphanedChild);
-		bool IsChild(GameObject* parent);
+		bool IsChild(GameObject* possibleChild);
 
 
-
+		void RemoveFlaggedComponents(); //Public in order for the deletions to happen after all game objects have finished updating, as it therefore needs to be accessed in the Scene, although i might be wrong for the best spot for deletion.
+	protected:
 		
-
-
 	private:
-		void RemoveFlaggedComponents();
+		Scene* m_ownerScene;
+		
 		std::vector<std::unique_ptr<BaseComponent>> m_componentsArr;
-		std::vector<std::unique_ptr<GameObject>> m_ChildrenArr;
+		std::vector<GameObject*> m_ChildrenArr;
 		GameObject* m_parent{nullptr};
 		glm::vec3 m_worldPosition;
 		glm::vec3 m_localPosition;

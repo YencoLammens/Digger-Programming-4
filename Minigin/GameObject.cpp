@@ -7,8 +7,8 @@
 #include "TextComponent.h"
 #include "FPSComponent.h"
 
-dae::GameObject::GameObject()
-    : m_worldPosition(0.0f, 0.0f, 0.0f), m_localPosition(0.0f, 0.0f, 0.0f)
+dae::GameObject::GameObject(Scene* scene)
+    : m_ownerScene(scene), m_worldPosition(0.0f, 0.0f, 0.0f), m_localPosition(0.0f, 0.0f, 0.0f)
 {
 }
 
@@ -16,7 +16,7 @@ dae::GameObject::~GameObject() = default;
 
 void dae::GameObject::AddComponent(std::unique_ptr<BaseComponent> component)
 {
-	m_componentsArr.emplace_back(std::move(component));
+	m_componentsArr.push_back(std::move(component));
 }
 
 
@@ -30,6 +30,7 @@ void dae::GameObject::RemoveComponent(BaseComponent* toBeDeletedComponent)
             break;
         }
     }
+    m_ownerScene->AComponentWasMarkedForDeletion();
 }
 
 
@@ -135,26 +136,31 @@ void dae::GameObject::UpdateWorldPosition()
 
 void dae::GameObject::AddChild(GameObject* newChild)
 {
-    m_ChildrenArr.emplace_back(newChild);
+    m_ChildrenArr.push_back(newChild);
 }
 
 void dae::GameObject::RemoveChild(GameObject* orphanedChild)
 {
-    for (auto& child : m_ChildrenArr)
+    for (int idx{0}; idx < m_ChildrenArr.size(); ++idx )
     {
-        if (child.get() == orphanedChild)
+        if (m_ChildrenArr[idx] == orphanedChild)
         {
-            //m_ChildrenArr.erase(orphanedChild); //fix this
+            m_ChildrenArr[idx]->SetParent(nullptr, true);
+            m_ChildrenArr.erase(m_ChildrenArr.begin() + idx);
+            return;
         }
     }
 
 }
 
-bool dae::GameObject::IsChild(GameObject* parent)
+bool dae::GameObject::IsChild(GameObject* possibleChild)
 {
-    if (parent)
+    for (int idx{ 0 }; idx < m_ChildrenArr.size(); ++idx)
     {
-        //make something fancy happen
+        if (m_ChildrenArr[idx] == possibleChild)
+        {
+            return true;
+        }
     }
     return false;
 }
@@ -162,6 +168,12 @@ bool dae::GameObject::IsChild(GameObject* parent)
 
 void dae::GameObject::RemoveFlaggedComponents()
 {
-    m_componentsArr.erase(std::remove_if(m_componentsArr.begin(), m_componentsArr.end(),
-        [](const std::unique_ptr<BaseComponent>& component) { return component->m_ToBeDeleted; }), m_componentsArr.end());
+    for (int idx{ 0 }; idx < m_componentsArr.size(); ++idx)
+    {
+        if (m_componentsArr[idx]->m_ToBeDeleted == true)
+        {
+            m_componentsArr.erase(m_componentsArr.begin() + idx);
+            --idx; //to make sure the index doesn't go out of bounds and iterates over every element
+        }
+    }
 }
