@@ -9,6 +9,7 @@ dae::FPSComponent::FPSComponent(GameObject* owner, std::shared_ptr<Font> font)
 	
 	m_lastTime = std::chrono::high_resolution_clock::now();
     auto& renderer = Renderer::GetInstance();
+    _textComponent = std::make_unique<TextComponent>(owner, std::to_string(m_fps), font.get());
 
     renderer.AddRenderComponent(this);
 }
@@ -56,17 +57,6 @@ void dae::FPSComponent::UpdateFPS()
     stream << std::fixed << std::setprecision(1) << m_fps;
     m_text = stream.str() + " FPS";
 
-    const auto surface = TTF_RenderText_Blended(m_font->GetFont(), m_text.c_str(), SDL_Color{ 255, 255, 255 });
-    if (surface == nullptr)
-    {
-        throw std::runtime_error(std::string("Render text failed: ") + SDL_GetError());
-    }
-    auto texture = SDL_CreateTextureFromSurface(Renderer::GetInstance().GetSDLRenderer(), surface);
-    if (texture == nullptr)
-    {
-        SDL_FreeSurface(surface);
-        throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
-    }
-    SDL_FreeSurface(surface);
-    m_textTexture = std::make_shared<Texture2D>(texture);
+    _textComponent->SetText(m_text);
+    _textComponent->TextToSurface();
 }

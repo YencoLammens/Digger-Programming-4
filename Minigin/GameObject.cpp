@@ -39,21 +39,6 @@ void dae::GameObject::RemoveComponent(BaseComponent* toBeDeletedComponent)
     
 }
 
-
-template <typename T>
-bool dae::GameObject::HasComponentBeenAdded() const
-{
-    for (const auto& component : m_componentsArr)
-    {
-        if (dynamic_cast<T>(component))
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
-
 void dae::GameObject::Update(float deltaTime)
 {
 

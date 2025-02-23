@@ -5,9 +5,11 @@
 #include <chrono>
 #include "Font.h"
 #include "Texture2D.h"
-#include "Transform.h"
+#include "TextComponent.h"
+
 namespace dae
 {
+	class TextComponent;
 	class FPSComponent : public RenderComponent
 	{
 	public:
@@ -34,6 +36,8 @@ namespace dae
 		float m_elapsedTime;
 		float m_fps;
 		std::chrono::time_point<std::chrono::high_resolution_clock> m_lastTime;
+
+		std::unique_ptr<TextComponent> _textComponent;
 	};
 }
 

@@ -13,7 +13,7 @@ namespace dae
 	class TextComponent : public RenderComponent
 	{
 	public:
-		TextComponent(GameObject* owner, const std::string& text, std::shared_ptr<Font> font);
+		TextComponent(GameObject* owner, std::string text, Font* font);
 		~TextComponent() = default;
 
 		void Update(float deltaTime) override;
@@ -22,11 +22,13 @@ namespace dae
 
 		void SetText(const std::string& text);
 
+		void TextToSurface();
+
 
 	private:
 		bool m_needsUpdate;
 		std::string m_text;
-		std::shared_ptr<Font> m_font;
+		Font* m_font;
 		std::shared_ptr<Texture2D> m_textTexture;
 
 		glm::vec3 m_position;
