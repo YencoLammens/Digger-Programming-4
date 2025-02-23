@@ -19,31 +19,13 @@ void dae::FPSComponent::Update(float deltaTime)
 {
     m_frameCount++;
     m_fps = 1 / deltaTime;
-   
-        
-    
-
     
     UpdateFPS();
-   
-    
 
     m_position = GetOwner()->GetTransform()->GetWorldPosition();
 
 }
 
-void dae::FPSComponent::FixedUpdate()
-{
-   
-}
-
-void dae::FPSComponent::Render() const
-{
-    if (m_textTexture)
-    {
-        Renderer::GetInstance().RenderTexture(*m_textTexture, m_position.x , m_position.y);
-    }
-}
 
 
 void dae::FPSComponent::UpdateFPS()

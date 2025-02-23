@@ -17,11 +17,7 @@ namespace dae
 		~TextComponent() = default;
 
 		void Update(float deltaTime) override;
-		void FixedUpdate() override;
-		void Render() const override;
-
 		void SetText(const std::string& text);
-
 		void TextToSurface();
 
 
@@ -32,6 +28,8 @@ namespace dae
 		std::shared_ptr<Texture2D> m_textTexture;
 
 		glm::vec3 m_position;
+
+		
 
 	};
 }

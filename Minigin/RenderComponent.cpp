@@ -24,7 +24,7 @@ void dae::RenderComponent::Render() const
 {
 	if (m_texture != nullptr)
 	{
-		Renderer::GetInstance().RenderTexture(*m_texture, m_position.x, m_position.y);
+		Renderer::GetInstance().RenderTexture(*m_texture, GetOwner()->GetTransform()->GetWorldPosition().x, GetOwner()->GetTransform()->GetWorldPosition().y);
 	}
 }
 

@@ -10,6 +10,7 @@
 dae::TextComponent::TextComponent(GameObject* owner, std::string text, Font* font)
     : RenderComponent(owner), m_needsUpdate(true), m_text(text), m_font(font), m_textTexture(nullptr)
 {
+
     SetText(text);
     
     m_position = GetOwner()->GetTransform()->GetWorldPosition();
@@ -17,39 +18,33 @@ dae::TextComponent::TextComponent(GameObject* owner, std::string text, Font* fon
     auto& renderer = Renderer::GetInstance();
 
     renderer.AddRenderComponent(this);
+
+    
+    
     
 }
 
 void dae::TextComponent::Update(float)
 {
+    
     if (m_needsUpdate)
     {
         TextToSurface();
 
     }
 
+    
     m_position = GetOwner()->GetTransform()->GetWorldPosition();
     
-    
 }
 
-void dae::TextComponent::FixedUpdate()
-{
-}
-
-void dae::TextComponent::Render() const
-{
-    if (m_textTexture != nullptr)
-    {
-        Renderer::GetInstance().RenderTexture(*m_textTexture, m_position.x, m_position.y);
-    }
-}
 
 void dae::TextComponent::SetText(const std::string& text)
 {
     m_text = text;
     m_needsUpdate = true;
 }
+
 
 void dae::TextComponent::TextToSurface()
 {
@@ -67,7 +62,10 @@ void dae::TextComponent::TextToSurface()
     }
     SDL_FreeSurface(surface);
     m_textTexture = std::make_shared<Texture2D>(texture);
+    GetOwner()->GetComponent<RenderComponent>()->SetTexture(m_textTexture);
+    //GetOwner()->GetComponent<RenderComponent>()->Render();
     m_needsUpdate = false;
+    
 }
 
 

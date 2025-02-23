@@ -106,7 +106,7 @@ void dae::GameObject::AddChild(GameObject* newChild)
 
 void dae::GameObject::RemoveChild(GameObject* orphanedChild)
 {
-    for (int idx{0}; idx < m_ChildrenArr.size(); ++idx )
+    for (unsigned int idx{0}; idx < m_ChildrenArr.size(); ++idx )
     {
         if (m_ChildrenArr[idx] == orphanedChild)
         {
@@ -120,7 +120,7 @@ void dae::GameObject::RemoveChild(GameObject* orphanedChild)
 
 bool dae::GameObject::IsChild(GameObject* possibleChild)
 {
-    for (int idx{ 0 }; idx < m_ChildrenArr.size(); ++idx)
+    for (unsigned int idx{ 0 }; idx < m_ChildrenArr.size(); ++idx)
     {
         if (m_ChildrenArr[idx] == possibleChild)
         {
@@ -143,7 +143,7 @@ dae::Transform* dae::GameObject::GetTransform()
 
 void dae::GameObject::RemoveFlaggedComponents()
 {
-    for (int idx{ 0 }; idx < m_componentsArr.size(); ++idx)
+    for (unsigned int idx{ 0 }; idx < m_componentsArr.size(); ++idx)
     {
         if (m_componentsArr[idx]->IsMarkedForDeletion())
         {

@@ -17,8 +17,8 @@ namespace dae
 		~FPSComponent() override = default;
 
 		void Update(float deltaTime) override;
-		void FixedUpdate() override;
-		void Render() const override;
+		
+		
 
 		
 
