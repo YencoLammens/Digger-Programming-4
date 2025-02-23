@@ -1,30 +1,36 @@
 #include "RotatorComponent.h"
 #include <cmath>
+#include <iostream>
 
-dae::RotatorComponent::RotatorComponent(GameObject* owner, const glm::vec3& targetPosition)
-	:BaseComponent(owner), m_targetPosition(targetPosition)
+dae::RotatorComponent::RotatorComponent(GameObject* owner, const glm::vec3& targetPosition, float speed)
+	:BaseComponent(owner), m_targetPosition(targetPosition), m_angle(0), m_speed(speed)
 {
+	auto ownerPos = GetOwner()->GetTransform()->GetWorldPosition();
+	m_startingDistance = sqrt(pow(ownerPos.x - m_targetPosition.x, 2.0f) + pow(ownerPos.y - m_targetPosition.y, 2.0f));
 }
 
 void dae::RotatorComponent::Update(float elapsedSec)
 {
-	
-	auto owner = GetOwner();
-	auto currentPosition = owner->GetTransform()->GetWorldPosition();
 
-	float anglePerTick{ 5 };
-	owner->GetTransform()->SetLocalPosition(RotateAroundTarget(m_targetPosition.x, m_targetPosition.y, currentPosition.x, currentPosition.y, anglePerTick*elapsedSec));
+	m_angle += m_speed * elapsedSec;
+	
+	GetOwner()->GetTransform()->SetLocalPosition(RotateAroundTarget());
 }
 
-glm::vec3 dae::RotatorComponent::RotateAroundTarget(float centerX, float centerY, float pointX, float pointY, float angleInDegrees) {
+glm::vec3 dae::RotatorComponent::RotateAroundTarget() {
 	
-	
-	float angleInRadians = angleInDegrees * 3.14f / 180.0f;
+	auto ownerPos = GetOwner()->GetTransform()->GetWorldPosition();
+	//Apply rotation transformatio
 
-	//Apply rotation transformation
-	float rotatedPointX = centerX + (pointX - centerX) * cos(angleInRadians) - (pointY - centerY) * sin(angleInRadians);
-	float rotatedPointY = centerY + (pointX - centerX) * sin(angleInRadians) + (pointY - centerY) * cos(angleInRadians);
-	return glm::vec3{ rotatedPointX, rotatedPointY, 0 };
+
+	//float distanceCurrentAndTarget = sqrt(pow(ownerPos.x - m_targetPosition.x, 2.0f) + pow(ownerPos.y + m_targetPosition.y, 2.0f));
+	//std::cout << distanceCurrentAndTarget << std::endl;
+
+	
+	float x = m_targetPosition.x + m_startingDistance * cos(m_angle);
+	float y = m_targetPosition.y + m_startingDistance * sin(m_angle);
+	
+	return glm::vec3{ x, y, 0 };
 }
 
 void dae::RotatorComponent::FixedUpdate()

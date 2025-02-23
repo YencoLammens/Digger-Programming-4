@@ -10,6 +10,7 @@
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include <chrono>
+#include <thread>
 
 
 SDL_Window* g_window{};
@@ -108,45 +109,38 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	auto& input = InputManager::GetInstance();
 	
 	
-	const int frameRate = 180;
-	const int frameDelay = 1000 / frameRate;
+	/*const int frameRate = 180;
+	const int frameDelay = 1000 / frameRate;*/
 	
 
-	bool doContinue = true;
 	
 	
-	std::chrono::time_point<std::chrono::high_resolution_clock> lastTime = std::chrono::high_resolution_clock::now();
-	while (doContinue)
+	//std::chrono::time_point<std::chrono::high_resolution_clock> lastTime = std::chrono::high_resolution_clock::now();
+
+	bool do_continue = true;
+	auto last_time = std::chrono::high_resolution_clock::now();
+	float lag = 0.0f;
+	//float fixed_time_step = 0.1f;
+	long ms_per_frame = 16;
+
+	while (do_continue)
 	{
-		const Uint32 frameStart = SDL_GetTicks();
+		const auto current_time = std::chrono::high_resolution_clock::now();
+		const float delta_time = std::chrono::duration<float>(current_time - last_time).count();
+		last_time = current_time;
+		lag += delta_time;
 
-		doContinue = input.ProcessInput();
-
-		auto currentTime = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<float> deltaTime = currentTime - lastTime;
-
-
-		if (deltaTime.count() >= 0.1f)
+		do_continue = input.ProcessInput();
+		/*while (lag >= fixed_time_step)
 		{
-			lastTime = currentTime;
-			
-		}
-
-
-		sceneManager.Update(deltaTime.count());
-
-
-
-
+			fixed_update(fixed_time_step);
+			lag -= fixed_time_step;
+		}*/
+		sceneManager.Update(delta_time);
 		renderer.Render();
-		
-		
-		const Uint32 frameTime = SDL_GetTicks() - frameStart;
-		if (frameDelay > frameTime)
-		{
-			SDL_Delay(frameDelay - frameTime);
-			
-		}
+		const auto sleep_time = current_time + std::chrono::milliseconds(ms_per_frame) - std::chrono::high_resolution_clock::now();
+		std::this_thread::sleep_for(sleep_time);
+
 
 		//Check if anything needs to be deleted from components, access gameobject, then delete here
 	}

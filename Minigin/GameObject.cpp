@@ -54,6 +54,8 @@ void dae::GameObject::Update(float deltaTime)
         RemoveFlaggedComponents(); //Could cause issues in the future if components of game objects interact with each other, it's this or letting the components deletions happen in the scene which would make a lot of things accesible in an uncomfortable way as far as i can tell.
         m_mustAComponentBeDeleted = false;
     }
+
+    
 }
 
 void dae::GameObject::FixedUpdate()
@@ -126,6 +128,11 @@ bool dae::GameObject::IsChild(GameObject* possibleChild)
         }
     }
     return false;
+}
+
+std::vector<dae::GameObject*> dae::GameObject::GetChildren()
+{
+    return m_ChildrenArr;
 }
 
 dae::Transform* dae::GameObject::GetTransform()

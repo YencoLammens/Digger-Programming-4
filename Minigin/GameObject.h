@@ -64,18 +64,20 @@ namespace dae
 		void SetParent(GameObject* parent, bool keepWorldPosition);
 		GameObject* GetParent();
 
-		void AddChild(GameObject* newChild);
-		void RemoveChild(GameObject* orphanedChild);
-		bool IsChild(GameObject* possibleChild);
-
-
 		Transform* GetTransform();
 		
+		std::vector<GameObject*> GetChildren();
 	protected:
 		
 	private:
 		void RemoveFlaggedComponents();
 		//Scene* m_ownerScene;
+
+		void AddChild(GameObject* newChild);
+		void RemoveChild(GameObject* orphanedChild);
+		bool IsChild(GameObject* possibleChild);
+
+		
 		
 		std::vector<std::unique_ptr<BaseComponent>> m_componentsArr;
 		std::vector<GameObject*> m_ChildrenArr;

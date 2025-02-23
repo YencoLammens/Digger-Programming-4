@@ -14,7 +14,7 @@ const glm::vec3& dae::Transform::GetLocalPosition() const
 void dae::Transform::SetLocalPosition(const glm::vec3& pos)
 {
 	m_localPosition = pos;
-	m_positionIsDirty = true;
+	SetPositionDirty();
 }
 
 void dae::Transform::SetLocalPosition(float x, float y, float z)
@@ -52,6 +52,10 @@ bool dae::Transform::IsPositionDirty()
 void dae::Transform::SetPositionDirty()
 {
 	m_positionIsDirty = true;
+	for (auto& child : GetOwner()->GetChildren())
+	{
+		child->GetTransform()->SetPositionDirty();
+	}
 }
 
 void dae::Transform::Update(float elapsedSec)

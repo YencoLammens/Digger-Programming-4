@@ -7,19 +7,22 @@ namespace dae
 {
 	class RotatorComponent : public BaseComponent
 	{
-		
-		public:
-			RotatorComponent(GameObject* owner, const glm::vec3& targetPosition);
-			~RotatorComponent() override = default;
 
-			void Update(float deltaTime) override;
-			void FixedUpdate() override;
+	public:
+		RotatorComponent(GameObject* owner, const glm::vec3& targetPosition, float speed);
+		~RotatorComponent() override = default;
 
-			glm::vec3 RotateAroundTarget(float centerX, float centerY, float pointX, float pointY, float angleInDegrees);
+		void Update(float deltaTime) override;
+		void FixedUpdate() override;
+
+		glm::vec3 RotateAroundTarget();
 
 
-		private:
-			glm::vec3 m_targetPosition;
+	private:
+		glm::vec3 m_targetPosition;
+		float m_angle;
+		float m_startingDistance;
+		float m_speed;
 	};
 }
 

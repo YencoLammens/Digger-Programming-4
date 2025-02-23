@@ -2,6 +2,7 @@
 #include "Renderer.h"
 #include <SDL_ttf.h>
 #include <stdexcept>
+#include <iostream>
 
 dae::FPSComponent::FPSComponent(GameObject* owner, std::shared_ptr<Font> font)
 	: RenderComponent(owner), m_font(font), m_frameCount(0), m_elapsedTime(0), m_fps(0), m_needsUpdate(true), m_position{0,0,0}
@@ -17,18 +18,15 @@ dae::FPSComponent::FPSComponent(GameObject* owner, std::shared_ptr<Font> font)
 void dae::FPSComponent::Update(float deltaTime)
 {
     m_frameCount++;
-    if (deltaTime >= 0.1f)
-    {
-        m_fps = m_frameCount / deltaTime;
-        m_frameCount = 0;
-        m_needsUpdate = true;
-    }
+    m_fps = 1 / deltaTime;
+   
+        
+    
 
-    if (m_needsUpdate)
-    {
-        UpdateFPS();
-        m_needsUpdate = false;
-    }
+    
+    UpdateFPS();
+   
+    
 
     m_position = GetOwner()->GetTransform()->GetWorldPosition();
 
