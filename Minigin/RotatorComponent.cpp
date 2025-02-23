@@ -6,14 +6,14 @@ dae::RotatorComponent::RotatorComponent(GameObject* owner, const glm::vec3& targ
 {
 }
 
-void dae::RotatorComponent::Update(float)
+void dae::RotatorComponent::Update(float elapsedSec)
 {
 	
 	auto owner = GetOwner();
 	auto currentPosition = owner->GetTransform()->GetWorldPosition();
 
-	
-	owner->GetTransform()->SetLocalPosition(RotateAroundTarget(m_targetPosition.x, m_targetPosition.y, currentPosition.x, currentPosition.y, 360));
+	float anglePerTick{ 5 };
+	owner->GetTransform()->SetLocalPosition(RotateAroundTarget(m_targetPosition.x, m_targetPosition.y, currentPosition.x, currentPosition.y, anglePerTick*elapsedSec));
 }
 
 glm::vec3 dae::RotatorComponent::RotateAroundTarget(float centerX, float centerY, float pointX, float pointY, float angleInDegrees) {
