@@ -30,11 +30,8 @@ void dae::FPSComponent::Update(float deltaTime)
         m_needsUpdate = false;
     }
 
-
-   
     m_position = GetOwner()->GetTransform()->GetWorldPosition();
-    
-    
+
 }
 
 void dae::FPSComponent::FixedUpdate()

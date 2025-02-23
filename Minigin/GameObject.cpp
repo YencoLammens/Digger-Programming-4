@@ -6,6 +6,7 @@
 #include "RenderComponent.h"
 #include "TextComponent.h"
 #include "FPSComponent.h"
+#include "RotatorComponent.h"
 
 dae::GameObject::GameObject()
     : m_worldPosition(0.0f, 0.0f, 0.0f), m_localPosition(0.0f, 0.0f, 0.0f)
