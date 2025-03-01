@@ -22,7 +22,7 @@ namespace dae
 		Scene& operator=(Scene&& other) = delete;
 
 
-		std::vector<std::shared_ptr<GameObject>>& GetGameObjects(); // Add this method
+		//std::vector<std::shared_ptr<GameObject>>& GetGameObjects(); // Add this method
 
 		//void AComponentWasMarkedForDeletion();
 

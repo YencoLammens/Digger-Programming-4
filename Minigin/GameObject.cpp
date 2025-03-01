@@ -102,10 +102,12 @@ dae::GameObject* dae::GameObject::GetParent()
 void dae::GameObject::AddChild(GameObject* newChild)
 {
     m_ChildrenArr.push_back(newChild);
+    //SetParent handles the logic
 }
 
 void dae::GameObject::RemoveChild(GameObject* orphanedChild)
 {
+    //Fix this, use std::algorithms
     for (unsigned int idx{0}; idx < m_ChildrenArr.size(); ++idx )
     {
         if (m_ChildrenArr[idx] == orphanedChild)

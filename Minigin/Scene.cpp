@@ -28,10 +28,10 @@ void Scene::RemoveAll()
 	m_objects.clear();
 }
 
-std::vector<std::shared_ptr<GameObject>>& Scene::GetGameObjects() 
-{
-	return m_objects;
-}
+//std::vector<std::shared_ptr<GameObject>>& Scene::GetGameObjects() 
+//{
+//	return m_objects;
+//}
 
 //void dae::Scene::AComponentWasMarkedForDeletion()
 //{
