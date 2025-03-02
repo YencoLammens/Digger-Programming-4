@@ -3,6 +3,7 @@
 #include "SceneManager.h"
 #include "Texture2D.h"
 
+
 int GetOpenGLDriverIndex()
 {
 	auto openglIndex = -1;
@@ -25,6 +26,12 @@ void dae::Renderer::Init(SDL_Window* window)
 	{
 		throw std::runtime_error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
 	}
+
+	//Imgui
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGui_ImplSDL2_InitForOpenGL(window, SDL_GL_GetCurrentContext());
+	ImGui_ImplOpenGL3_Init();
 }
 
 void dae::Renderer::Render() const
@@ -40,11 +47,24 @@ void dae::Renderer::Render() const
 		component->Render();
 	}
 
+
+	ImGui_ImplOpenGL3_NewFrame();
+	//no m_window overload?
+	ImGui_ImplSDL2_NewFrame();
+	ImGui::NewFrame();
+	ImGui::ShowDemoWindow();
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+
 	SDL_RenderPresent(m_renderer);
 }
 
 void dae::Renderer::Destroy()
 {
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplSDL2_Shutdown();
+	ImGui::DestroyContext();
 	if (m_renderer != nullptr)
 	{
 		SDL_DestroyRenderer(m_renderer);
