@@ -11,6 +11,7 @@
 #include "ResourceManager.h"
 #include <chrono>
 #include <thread>
+#include "include/imgui_plot.h"
 
 
 SDL_Window* g_window{};

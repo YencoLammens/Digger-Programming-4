@@ -22,7 +22,7 @@ void dae::Renderer::Init(SDL_Window* window)
 {
 	m_window = window;
 	m_renderer = SDL_CreateRenderer(window, GetOpenGLDriverIndex(), SDL_RENDERER_ACCELERATED);
-	if (m_renderer == nullptr) 
+	if (m_renderer == nullptr)
 	{
 		throw std::runtime_error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
 	}
@@ -32,6 +32,66 @@ void dae::Renderer::Init(SDL_Window* window)
 	ImGui::CreateContext();
 	ImGui_ImplSDL2_InitForOpenGL(window, SDL_GL_GetCurrentContext());
 	ImGui_ImplOpenGL3_Init();
+}
+
+void dae::Renderer::ExecuteExercise1() const
+{
+	static int value = 10;
+
+
+
+	ImGui::Begin("Exercise 1");
+
+	//ImGui::InputText("##hidden", text, IM_ARRAYSIZE(text));
+	ImGui::InputInt("##hidden", &value, 0, 0);
+	ImGui::SameLine(0, 5);
+	if (ImGui::Button("-")) {
+		value--;
+	}
+	//ImGui::Button("-");
+	ImGui::SameLine(0, 5);
+	if (ImGui::Button("+")) {
+		value++;
+	}
+	ImGui::SameLine(0, 10);
+	ImGui::Text("# samples");
+	ImGui::Button("Trash the cache");
+	// Plot the graph
+	//ImGui::PlotLines("NJUH 2", values, IM_ARRAYSIZE(values));
+
+	ImGui::End();
+}
+
+void dae::Renderer::ExecuteExercise2() const
+{
+	static int value = 100;
+
+
+
+	ImGui::Begin("Exercise 2");
+
+	ImGui::InputInt("##hidden", &value, 0, 0);
+	ImGui::SameLine(0, 5);
+	if (ImGui::Button("-")) {
+		value--;
+	}
+	ImGui::SameLine(0, 5);
+	if (ImGui::Button("+")) {
+		value++;
+	}
+	ImGui::SameLine(0, 10);
+	ImGui::Text("# samples");
+	if (ImGui::Button("Trash the cache with GameObject3D")) 
+	{
+		
+	}
+	if (ImGui::Button("Trash the cache with GameObject3DAlt")) 
+	{
+		
+	}
+	
+
+	ImGui::End();
 }
 
 void dae::Renderer::Render() const
@@ -46,17 +106,26 @@ void dae::Renderer::Render() const
 	{
 		component->Render();
 	}
-
-
+	//_____________________________________________________________________________________________
+	//Imgui stuff
 	ImGui_ImplOpenGL3_NewFrame();
 	//no m_window overload?
 	ImGui_ImplSDL2_NewFrame();
 	ImGui::NewFrame();
-	ImGui::ShowDemoWindow();
+
+
+	//Exercise 1
+	ExecuteExercise1();
+
+	//Exercise 2
+	ExecuteExercise2();
+	
+
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-
+	//end of imgui stuff
+	//______________________________________________________________________________________________
 	SDL_RenderPresent(m_renderer);
 }
 
@@ -97,3 +166,5 @@ void dae::Renderer::AddRenderComponent(RenderComponent* renderComponent)
 {
 	m_renderComponentsArr.push_back(renderComponent);
 }
+
+
