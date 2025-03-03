@@ -2,9 +2,6 @@
 #include <SDL.h>
 #include "Singleton.h"
 #include "RenderComponent.h"
-#include "imgui.h"
-#include "backends/imgui_impl_sdl2.h"
-#include "backends/imgui_impl_opengl3.h"
 #include <chrono>
 
 namespace dae
@@ -34,12 +31,7 @@ namespace dae
 		
 
 
-		//Imgui
-		void ExecuteExercise1() const;
-		void ExecuteExercise2() const;
-		std::vector<float> TakeTimesExercise1(const int& amountOfSamples) const;
-		std::vector<float> TakeTimesExercise2(const int& amountOfSamples) const;
-		std::vector<float> TakeTimesExercise2Alt(const int& amountOfSamples) const;
+		
 		
 
 	private:
