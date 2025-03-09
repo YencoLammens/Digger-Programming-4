@@ -1,52 +1,53 @@
 #include <SDL.h>
 #include "InputManager.h"
 #include <iostream>
-
+#include "MoveComponent.h"
 bool dae::InputManager::ProcessInput()
 {
 	//Responsive
 	SDL_Event e;
-	while (SDL_PollEvent(&e)) {
-		if (e.type == SDL_QUIT) {
+	const Uint8* keyStates = SDL_GetKeyboardState(NULL);
+
+	while (SDL_PollEvent(&e)) 
+	{
+		if (e.type == SDL_QUIT) 
+		{
 			return false;
 		}
-		if (e.type == SDL_KEYDOWN) {
-			
-			if (e.key.keysym.sym == SDLK_w || e.key.keysym.sym == SDLK_z)
+		if (e.type == SDL_KEYDOWN) 
+		{
+			for (const auto& [keys, value] : m_KeyboardCommands)
 			{
-				std::cout << "move up";
+				if (keys.first == e.key.keysym.sym && keys.second == ButtonState::DOWN)
+				{
+					value.get()->Execute();
+				}
 			}
-			if (e.key.keysym.sym == SDLK_a || e.key.keysym.sym == SDLK_q)
-			{
-				std::cout << "move left";
-			}
-			if (e.key.keysym.sym == SDLK_d)
-			{
-				std::cout << "move right";
-			}
-			if (e.key.keysym.sym == SDLK_s)
-			{
-				std::cout << "move down";
-			}
-			
 		}
-		if (e.type == SDL_MOUSEBUTTONDOWN) {
-			
+		if (e.type == SDL_KEYUP) 
+		{
+			for (const auto& [keys, value] : m_KeyboardCommands)
+			{
+				if (keys.first == e.key.keysym.sym && keys.second == ButtonState::UP)
+				{
+					value.get()->Execute();
+				}
+			}
 		}
-		
-		
-		// etc...
+	
+	}
+	for (const auto& [keys, value] : m_KeyboardCommands)
+	{
+		if (keyStates[SDL_GetScancodeFromKey(keys.first)] && keys.second == ButtonState::PRESSED)
+		{
+			value.get()->Execute();
+		}
 	}
 
 	return true;
 }
 
-dae::GameObjectCommand::GameObjectCommand(GameObject* gameObject)
-	:m_gameObject(gameObject)
+void dae::InputManager::BindKeyboardCommand(SDL_Keycode key, ButtonState state, std::unique_ptr<Command> command)
 {
-
-}
-
-dae::GameObjectCommand::~GameObjectCommand()
-{
+	m_KeyboardCommands.emplace(std::make_pair(key,state), std::move(command));
 }

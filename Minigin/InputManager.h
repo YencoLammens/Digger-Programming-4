@@ -1,60 +1,37 @@
 #pragma once
-#include "Singleton.h"
-#include <iostream>
 #include <SDL.h>
 #include <vector>
+#include <map>
 #include "GameObject.h"
-
+#include <memory>
+#include "glm.hpp"
+#include "Command.h"
 namespace dae
 {
+	
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
-		enum class ButtonState 
+		enum class ButtonState
 		{
-			RELEASED,
-			PRESSED,
-			HELD
+			DOWN,
+			UP,
+			PRESSED
 
 		};
 		bool ProcessInput();
+		void BindKeyboardCommand(SDL_Keycode key, ButtonState state, std::unique_ptr<Command> command);
 
 		
 
 	private:
-		
+		std::map<std::pair<SDL_Keycode, ButtonState>, std::unique_ptr<Command>> m_KeyboardCommands;
+		//std::map<SDL_Keycode, bool> m_PreviousKeyStates;
 	};
-
-	class Command
-	{
-	public:
-		virtual ~Command() = default;
-		virtual void Execute() = 0;
-
-	};
+	
 
 
-	class GameObjectCommand : public Command
-	{
-	public:
-		GameObjectCommand(GameObject* gameObject);
-		virtual ~GameObjectCommand();
-
-	protected:
-		GameObject* GetGameObject() const { return m_gameObject; }
-
-	private:
-		GameObject* m_gameObject;
-
-	};
-
-	class Move : public GameObjectCommand 
-	{
-		public: void Execute() override
-		{
-			//GetGameObject()->Move();
-		}
-	};
+	
 		
 	
 
