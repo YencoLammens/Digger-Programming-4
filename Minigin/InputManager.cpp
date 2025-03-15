@@ -6,7 +6,7 @@ bool dae::InputManager::ProcessInput()
 {
 	//Responsive
 	SDL_Event e;
-	const Uint8* keyStates = SDL_GetKeyboardState(NULL);
+	const Uint8* keyStates = SDL_GetKeyboardState(nullptr);
 
 	while (SDL_PollEvent(&e)) 
 	{
