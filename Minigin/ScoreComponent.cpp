@@ -5,7 +5,7 @@ dae::ScoreComponent::ScoreComponent(GameObject* owner)
 {
 }
 
-void dae::ScoreComponent::Update(float elapsedSec)
+void dae::ScoreComponent::Update(float)
 {
 }
 

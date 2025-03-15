@@ -1,11 +1,12 @@
 #include "HealthComponent.h"
 
 dae::HealthComponent::HealthComponent(GameObject* owner)
-	:BaseComponent(owner), m_currentHealth(m_startHealth)
+	:BaseComponent(owner)
 {
+	m_currentHealth = m_startHealth;
 }
 
-void dae::HealthComponent::Update(float elapsedSec)
+void dae::HealthComponent::Update(float )
 {
 }
 
