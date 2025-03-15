@@ -6,7 +6,7 @@ dae::HealthComponent::HealthComponent(GameObject* owner)
 	m_currentHealth = m_startHealth;
 }
 
-void dae::HealthComponent::Update(float )
+void dae::HealthComponent::Update(float)
 {
 }
 
@@ -17,8 +17,11 @@ int dae::HealthComponent::GetHealth() const
 
 void dae::HealthComponent::LoseHeart()
 {
+	//Works but doesn't update the display
 	//Seeing as the digger has 3 hearts, this subtracts one and sets the state to dead so when implemented the game CAN reset
 	m_currentHealth -= 1;
+
+	//To be implemented
 	m_isDead = true;
 }
 

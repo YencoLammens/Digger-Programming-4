@@ -18,8 +18,6 @@ dae::TextComponent::TextComponent(GameObject* owner, std::string text, Font* fon
     auto& renderer = Renderer::GetInstance();
 
     renderer.AddRenderComponent(this);
-
-    
     
     
 }

@@ -1,8 +1,9 @@
 #include "ScoreComponent.h"
 
 dae::ScoreComponent::ScoreComponent(GameObject* owner)
-	:BaseComponent(owner), m_score(0)
+	:BaseComponent(owner)
 {
+	m_score = 0;
 }
 
 void dae::ScoreComponent::Update(float)
