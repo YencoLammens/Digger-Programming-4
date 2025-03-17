@@ -64,6 +64,13 @@ bool dae::InputManager::ProcessInput()
 				else if (keys.first == XINPUT_GAMEPAD_DPAD_RIGHT && m_Controller->IsDPadRight()) {
 					value.get()->Execute();
 				}
+
+				if (keys.first == XINPUT_GAMEPAD_X && m_Controller->IsButtonDown(XINPUT_GAMEPAD_X)) {
+					value.get()->Execute();
+				}
+				else if (keys.first == XINPUT_GAMEPAD_A && m_Controller->IsButtonDown(XINPUT_GAMEPAD_A)) {
+					value.get()->Execute();
+				}
 			}
 			if (keys.second == ButtonState::UP && m_Controller.get()->IsButtonReleased(keys.first))
 			{
@@ -82,6 +89,19 @@ bool dae::InputManager::ProcessInput()
 			}
 			
 		}
+		for (const auto& [keys, value] : m_ControllerCommands)
+		{
+			if (keys.second == ButtonState::DOWN)
+			{
+				if (keys.first == XINPUT_GAMEPAD_X && m_Controller->IsButtonDown(XINPUT_GAMEPAD_X)) {
+					value.get()->Execute();
+				}
+				else if (keys.first == XINPUT_GAMEPAD_A && m_Controller->IsButtonDown(XINPUT_GAMEPAD_A)) {
+					value.get()->Execute();
+				}
+			}
+		}
+		
 	}
 	
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseComponent.h"
-
+#include "Observer.h"
 
 namespace dae
 {
@@ -12,7 +12,6 @@ namespace dae
 		int GetHealth() const;
 		void LoseHeart();
 		void Resurrect();
-
 	private:
 		int m_currentHealth;
 		const int m_startHealth{ 3 };

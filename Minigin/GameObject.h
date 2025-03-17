@@ -4,10 +4,11 @@
 #include "BaseComponent.h"
 #include <glm.hpp>
 #include "Scene.h"
+#include "Observer.h"
 
 namespace dae
 {
-	// todo: this should become final.
+	class Observer;
 	class Transform;
 	class GameObject final
 	{
@@ -53,7 +54,12 @@ namespace dae
 			return nullptr;
 		}
 
-		
+
+		//Observers
+		void AddObserver(Observer* observer);
+		void RemoveObserver(Observer* observer);
+		void NotifyObservers(Event event);
+
 		
 		//General methods
 		void Update(float deltaTime);
@@ -67,9 +73,9 @@ namespace dae
 		Transform* GetTransform();
 		
 		std::vector<GameObject*> GetChildren();
-	protected:
-		
 	private:
+		/*void SetThereIsAnOngoingEvent(bool isThereAnOngoingEvent);*/
+
 		void RemoveFlaggedComponents();
 		//Scene* m_ownerScene;
 
@@ -78,7 +84,7 @@ namespace dae
 		bool IsChild(GameObject* possibleChild);
 
 		
-		
+		std::vector<Observer*> m_Observers;
 		std::vector<std::unique_ptr<BaseComponent>> m_componentsArr;
 		std::vector<GameObject*> m_ChildrenArr;
 		GameObject* m_parent{nullptr};

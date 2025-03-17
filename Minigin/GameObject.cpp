@@ -40,6 +40,26 @@ void dae::GameObject::RemoveComponent(BaseComponent* toBeDeletedComponent)
     
 }
 
+void dae::GameObject::AddObserver(Observer* observer)
+{
+    m_Observers.push_back(observer);
+}
+
+void dae::GameObject::RemoveObserver(Observer* observer)
+{
+    m_Observers.erase(std::remove(m_Observers.begin(), m_Observers.end(), observer), m_Observers.end());
+}
+
+void dae::GameObject::NotifyObservers(Event event)
+{
+    if (m_Observers.empty()) return;
+
+    for (Observer* observer : m_Observers)
+    {
+        observer->OnNotify(event, this);
+    }
+}
+
 void dae::GameObject::Update(float deltaTime)
 {
 
@@ -54,6 +74,7 @@ void dae::GameObject::Update(float deltaTime)
         RemoveFlaggedComponents(); //Could cause issues in the future if components of game objects interact with each other, it's this or letting the components deletions happen in the scene which would make a lot of things accesible in an uncomfortable way as far as i can tell.
         m_mustAComponentBeDeleted = false;
     }
+
 
     
 }
@@ -136,6 +157,14 @@ std::vector<dae::GameObject*> dae::GameObject::GetChildren()
 {
     return m_ChildrenArr;
 }
+
+
+
+
+//void dae::GameObject::SetThereIsAnOngoingEvent(bool isThereAnOngoingEvent)
+//{
+//	m_thereIsAnOngoingEvent = isThereAnOngoingEvent;
+//}
 
 dae::Transform* dae::GameObject::GetTransform()
 {

@@ -19,8 +19,11 @@ void dae::HealthComponent::LoseHeart()
 {
 	//Works but doesn't update the display
 	//Seeing as the digger has 3 hearts, this subtracts one and sets the state to dead so when implemented the game CAN reset
-	m_currentHealth -= 1;
-
+	if (m_currentHealth > 0)
+	{
+		--m_currentHealth;
+		GetOwner()->NotifyObservers(Event(EventId::HEALTH_CHANGED));
+	}
 	//To be implemented
 	m_isDead = true;
 }

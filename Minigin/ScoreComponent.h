@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseComponent.h"
+#include "Observer.h"
 
 namespace dae 
 {
@@ -17,7 +18,6 @@ namespace dae
 		void HandleEnemyKilled();
 		//Implement methods for bonus mode
 		//Implement event for when score reaches 20000 to gain an extra life for the player
-
 
 	private:
 		int m_score;

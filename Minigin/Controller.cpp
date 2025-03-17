@@ -58,11 +58,13 @@ public:
     }
     bool IsButtonUp(WORD button) const
     {
-        return (previousState.Gamepad.wButtons & button) != 0;
+        return ((previousState.Gamepad.wButtons & button) != 0) &&
+            ((state.Gamepad.wButtons & button) == 0);
     }
     bool IsButtonPressed(WORD button) const
     {
-        return (state.Gamepad.wButtons & button) != 0;
+        return ((state.Gamepad.wButtons & button) != 0) &&
+            ((previousState.Gamepad.wButtons & button) == 0); 
     }
     bool IsDPadUp() const {
         return (state.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP) != 0;
@@ -92,8 +94,8 @@ dae::Controller::~Controller() = default;
 //bool dae::Controller::IsConnected() const { return pImpl->IsConnected(); }
 void dae::Controller::Update() { pImpl->Update(); }
 bool dae::Controller::IsButtonReleased(WORD button) const { return pImpl->IsButtonReleased(button); }
-bool dae::Controller::IsButtonDown(WORD button) const { return pImpl->IsButtonPressed(button); }
-bool dae::Controller::IsButtonUp(WORD button) const { return pImpl->IsButtonPressed(button); }
+bool dae::Controller::IsButtonDown(WORD button) const { return pImpl->IsButtonDown(button); }
+bool dae::Controller::IsButtonUp(WORD button) const { return pImpl->IsButtonUp(button); }
 bool dae::Controller::IsButtonPressed(WORD button) const { return pImpl->IsButtonPressed(button); }
 
 bool dae::Controller::IsDPadUp() const { return pImpl->IsDPadUp(); }

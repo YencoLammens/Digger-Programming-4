@@ -142,7 +142,7 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		std::this_thread::sleep_for(sleep_time);
 
 
-		//Check if anything needs to be deleted from components, access gameobject, then delete here
+		
 	}
 }
 
