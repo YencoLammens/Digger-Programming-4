@@ -5,6 +5,7 @@
 #include <glm.hpp>
 #include "Scene.h"
 #include "Observer.h"
+#include "Event.h"
 
 namespace dae
 {

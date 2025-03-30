@@ -40,6 +40,9 @@
 #include "HPDisplay.h"
 #include "Event.h"
 #include "ScoreDisplay.h"
+#include "MoveCommand.h"
+#include "DamageCommand.h"
+#include "GainPointsCommand.h"
 void load()
 {
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");

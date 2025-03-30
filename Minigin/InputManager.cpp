@@ -1,7 +1,6 @@
 #include <SDL.h>
 #include "InputManager.h"
 #include <iostream>
-#include "MoveComponent.h"
 bool dae::InputManager::ProcessInput()
 {
 	//Responsive

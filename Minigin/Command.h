@@ -2,9 +2,6 @@
 #include "GameObject.h"
 #include <memory>
 #include "glm.hpp"
-#include "MoveComponent.h"
-#include "HealthComponent.h"
-#include "ScoreComponent.h"
 
 namespace dae
 {
@@ -30,30 +27,6 @@ namespace dae
 
 	};
 
-	class MoveCommand : public GameObjectCommand
-	{
-	public:
-		MoveCommand(GameObject* gameObject, glm::vec3 direction);
-		void Execute() override;
-
-	private:
-		glm::vec3 m_direction;
-
-	};
-
-	class DamageCommand : public GameObjectCommand
-	{
-	public:
-		DamageCommand(GameObject* gameObject);
-		void Execute() override;
-	};
-
-	class GainPointsCommand : public GameObjectCommand
-	{
-	public:
-		GainPointsCommand(GameObject* gameObject);
-		void Execute() override;
-	};
 }
 
 
