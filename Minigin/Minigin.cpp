@@ -42,6 +42,14 @@ void PrintSDLVersion()
 	version = *TTF_Linked_Version();
 	printf("We are linking against SDL_ttf version %u.%u.%u.\n",
 		version.major, version.minor, version.patch);
+
+	SDL_MIXER_VERSION(&version)
+		printf("We compiled against SDL_mixer version %u.%u.%u ...\n",
+			version.major, version.minor, version.patch);
+
+	version = *Mix_Linked_Version();
+	printf("We are linking against SDL_mixer version %u.%u.%u.\n",
+		version.major, version.minor, version.patch);
 }
 
 dae::Minigin::Minigin(const std::string &dataPath)
