@@ -7,7 +7,7 @@ namespace dae
     public:
         //virtual void OnNotify();
         
-        void OnNotify(const Event& event, GameObject* go) override;
+        void OnNotify(const GameEvent& event, GameObject* go) override;
 		
 
     private:

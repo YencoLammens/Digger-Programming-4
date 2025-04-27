@@ -47,7 +47,7 @@ void dae::GameObject::RemoveObserver(Observer* observer)
     m_Observers.erase(std::remove(m_Observers.begin(), m_Observers.end(), observer), m_Observers.end());
 }
 
-void dae::GameObject::NotifyObservers(Event event)
+void dae::GameObject::NotifyObservers(GameEvent event)
 {
     if (m_Observers.empty()) return;
 

@@ -43,23 +43,25 @@ void PrintSDLVersion()
 	printf("We are linking against SDL_ttf version %u.%u.%u.\n",
 		version.major, version.minor, version.patch);
 
-	SDL_MIXER_VERSION(&version)
+	/*SDL_MIXER_VERSION(&version)
 		printf("We compiled against SDL_mixer version %u.%u.%u ...\n",
 			version.major, version.minor, version.patch);
 
 	version = *Mix_Linked_Version();
 	printf("We are linking against SDL_mixer version %u.%u.%u.\n",
-		version.major, version.minor, version.patch);
+		version.major, version.minor, version.patch);*/
 }
 
 dae::Minigin::Minigin(const std::string &dataPath)
 {
 	PrintSDLVersion();
 	
-	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) 
 	{
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
 	}
+	
+
 
 	g_window = SDL_CreateWindow(
 		"Programming 4 assignment",

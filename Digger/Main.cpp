@@ -43,12 +43,34 @@
 #include "MoveCommand.h"
 #include "DamageCommand.h"
 #include "GainPointsCommand.h"
+#include "ServiceLocator.h"
+#include "sdl_SoundSystem.h"
+#include "logging_SoundSystem.h"
+#include "AudioClip.h"
+#include "EventQueue.h"
+
 void load()
 {
+	//Register sound system
+#if _DEBUG
+	dae::ServiceLocator::register_SoundSystem(std::make_unique<dae::logging_SoundSystem>(std::make_unique<dae::sdl_SoundSystem>()));
+#else
+	dae::ServiceLocator::register_SoundSystem(std::make_unique<dae::sdl_SoundSystem>());
+#endif
+
+	//dae::ServiceLocator::register_SoundSystem(std::make_unique<dae::sdl_SoundSystem>());
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
 
+	
+	auto eventQueue = std::make_unique<dae::EventQueue>();
+	eventQueue->push(new dae::SoundEvent(dae::EventId::SCORE_CHANGED, 1, 0.5f));
 
 
+	auto& soundService = dae::ServiceLocator::get_SoundSystem();
+
+	auto clip = std::make_unique<dae::AudioClip>("bnb.wav");
+	soundService.AddAudioClip(clip.get());
+	soundService.Play(0, 0.5f);
 
 	//Background
 	auto go = std::make_unique<dae::GameObject>();
@@ -248,16 +270,15 @@ void load()
 	scene.Add(std::move(go3));
 	scene.Add(std::move(go2));
 
-
-
-
+	
+	//eventQueue->process();
 
 }
 
 int main(int, char* []) {
 	dae::Minigin engine("../Data/");
 	engine.Run(load);
-
+	
 
 	return 0;
 }

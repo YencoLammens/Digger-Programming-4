@@ -1,6 +1,6 @@
 #include "Achievements.h"
 
-void dae::Achievements::OnNotify(const Event& event, GameObject*)
+void dae::Achievements::OnNotify(const GameEvent& event, GameObject*)
 {
 	switch (event.Id)
 	{

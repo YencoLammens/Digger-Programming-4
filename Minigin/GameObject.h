@@ -59,7 +59,7 @@ namespace dae
 		//Observers
 		void AddObserver(Observer* observer);
 		void RemoveObserver(Observer* observer);
-		void NotifyObservers(Event event);
+		void NotifyObservers(GameEvent event);
 
 		
 		//General methods

@@ -22,7 +22,7 @@ void dae::HealthComponent::LoseHeart()
 	if (m_currentHealth > 0)
 	{
 		--m_currentHealth;
-		GetOwner()->NotifyObservers(Event(EventId::HEALTH_CHANGED));
+		GetOwner()->NotifyObservers(GameEvent(EventId::HEALTH_CHANGED));
 	}
 	//To be implemented
 	m_isDead = true;

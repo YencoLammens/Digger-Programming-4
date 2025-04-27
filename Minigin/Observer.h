@@ -8,7 +8,7 @@ namespace dae
 	{
 	public:
 		virtual ~Observer() = default;
-		virtual void OnNotify(const Event& event, GameObject* gameObject) = 0;
+		virtual void OnNotify(const GameEvent& event, GameObject* gameObject) = 0;
 	};
 }
 

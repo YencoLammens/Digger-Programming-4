@@ -9,7 +9,7 @@ dae::HPDisplay::HPDisplay(GameObject* goUI)
 	m_goUI = goUI;
 }
 
-void dae::HPDisplay::OnNotify(const Event& event, GameObject* go)
+void dae::HPDisplay::OnNotify(const GameEvent& event, GameObject* go)
 {
 	switch (event.Id)
 	{

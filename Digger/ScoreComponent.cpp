@@ -34,7 +34,7 @@ void dae::ScoreComponent::PickUpEmerald()
 		m_currentEmeraldStreak = 0;
 	}
 	++m_currentEmeraldStreak;
-	GetOwner()->NotifyObservers(Event(EventId::SCORE_CHANGED));
+	GetOwner()->NotifyObservers(GameEvent(EventId::SCORE_CHANGED));
 }
 
 void dae::ScoreComponent::PickUpGold()

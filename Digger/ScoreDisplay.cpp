@@ -8,7 +8,7 @@ dae::ScoreDisplay::ScoreDisplay(GameObject* goUI)
 	m_goUI = goUI;
 }
 
-void dae::ScoreDisplay::OnNotify(const Event& event, GameObject* go)
+void dae::ScoreDisplay::OnNotify(const GameEvent& event, GameObject* go)
 {
 	switch (event.Id)
 	{

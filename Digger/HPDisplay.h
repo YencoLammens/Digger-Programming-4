@@ -8,7 +8,7 @@ namespace dae
 	{
 	public:
 		HPDisplay(GameObject* goUI);
-		void OnNotify(const Event& event, GameObject* go) override;
+		void OnNotify(const GameEvent& event, GameObject* go) override;
 
 		void Update(float) override {};
 		void FixedUpdate() override {};
