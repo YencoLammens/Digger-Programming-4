@@ -61,16 +61,27 @@ void load()
 	//dae::ServiceLocator::register_SoundSystem(std::make_unique<dae::sdl_SoundSystem>());
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
 
+	/*auto eventQueue = std::make_unique<dae::EventQueue>();
+	eventQueue->push(std::make_unique(dae::SoundEvent(dae::EventId::SCORE_CHANGED, 1, 0.5f)));*/
 	
-	auto eventQueue = std::make_unique<dae::EventQueue>();
-	eventQueue->push(new dae::SoundEvent(dae::EventId::SCORE_CHANGED, 1, 0.5f));
-
 
 	auto& soundService = dae::ServiceLocator::get_SoundSystem();
-
-	auto clip = std::make_unique<dae::AudioClip>("bnb.wav");
+	/*auto clip = std::make_unique<dae::AudioClip>(dae::ResourceManager::GetInstance().GetDataPath() + "/bnb.wav");
 	soundService.AddAudioClip(clip.get());
-	soundService.Play(0, 0.5f);
+	soundService.Play(0, 0.5f);*/
+
+	auto clip = dae::ResourceManager::GetInstance().LoadAudioClip("bnb.wav");
+	soundService.AddAudioClip(clip.get());
+	soundService.Play(0, 1.0f);
+
+
+	/*go = std::make_unique<dae::GameObject>();
+	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	auto textComponent = std::make_unique<dae::TextComponent>(go.get(), "Programming 4 Assignment", font.get());
+	go->GetTransform()->SetLocalPosition(80, 80, 0);
+	go->AddComponent(std::move(textComponent));
+	scene.Add(std::move(go));*/
+	
 
 	//Background
 	auto go = std::make_unique<dae::GameObject>();

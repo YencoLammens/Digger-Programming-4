@@ -6,9 +6,9 @@
 
 
 dae::GameObject::GameObject()
-    : m_worldPosition(0.0f, 0.0f, 0.0f), m_localPosition(0.0f, 0.0f, 0.0f)
+    : m_worldPosition(0.0f, 0.0f, 0.0f), m_localPosition(0.0f, 0.0f, 0.0f), m_transform(std::make_unique<Transform>(this))
 {
-    m_transform = std::make_unique<Transform>(this);
+    
 }
 
 dae::GameObject::~GameObject() = default;

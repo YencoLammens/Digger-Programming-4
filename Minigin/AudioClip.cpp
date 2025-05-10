@@ -2,7 +2,6 @@
 
 dae::AudioClip::AudioClip(const std::string& filePath)
 {
-	//m_chunk = nullptr ?
 	m_chunk = Mix_LoadWAV(filePath.c_str());
 	if (!m_chunk)
 	{
@@ -10,13 +9,13 @@ dae::AudioClip::AudioClip(const std::string& filePath)
 	}
 }
 
-dae::AudioClip::~AudioClip()
-{
-	if (m_chunk)
-	{
-		Mix_FreeChunk(m_chunk);
-	}
-}
+//dae::AudioClip::~AudioClip()
+//{
+//	if (m_chunk)
+//	{
+//		Mix_FreeChunk(m_chunk);
+//	}
+//}
 
 void dae::AudioClip::play() const
 {
