@@ -86,8 +86,11 @@
   <ItemGroup>
     <ClCompile Include="Achievements.cpp" />
     <ClCompile Include="DamageCommand.cpp" />
+    <ClCompile Include="DiggerState.cpp" />
+    <ClCompile Include="EnemyState.cpp" />
     <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="GainPointsCommand.cpp" />
+    <ClCompile Include="GoldbagState.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="HealthDisplay.cpp" />
     <ClCompile Include="HPDisplay.cpp" />
@@ -103,8 +106,12 @@
   <ItemGroup>
     <ClInclude Include="Achievements.h" />
     <ClInclude Include="DamageCommand.h" />
+    <ClInclude Include="DiggerState.h" />
+    <ClInclude Include="EnemyState.h" />
     <ClInclude Include="FPSComponent.h" />
+    <ClInclude Include="FSMComponent.h" />
     <ClInclude Include="GainPointsCommand.h" />
+    <ClInclude Include="GoldbagState.h" />
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="HealthDisplay.h" />
     <ClInclude Include="HPDisplay.h" />
