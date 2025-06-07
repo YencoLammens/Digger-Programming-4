@@ -14,6 +14,7 @@ namespace dae
 	private:
 		const int m_value{ 25 };
 		GameObject* m_player;
+		bool m_hasBeenPickedUp{ false };
 	};
 }
 

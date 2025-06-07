@@ -11,14 +11,15 @@ dae::EmeraldPickupComponent::EmeraldPickupComponent(GameObject* owner, GameObjec
 
 void dae::EmeraldPickupComponent::Update(float)
 {
-	if (utils::IsOverlapping(GetOwner()->GetComponent<HitboxComponent>()->GetHitbox(), m_player->GetComponent<HitboxComponent>()->GetHitbox()))
+	if (utils::IsOverlapping(GetOwner()->GetComponent<HitboxComponent>()->GetHitbox(), m_player->GetComponent<HitboxComponent>()->GetHitbox()) && m_hasBeenPickedUp == false)
 	{
 		OnPickup();
+		m_hasBeenPickedUp = true;
 	}
 }
 void dae::EmeraldPickupComponent::OnPickup()
 {
 	m_player->GetComponent<ScoreComponent>()->PickUpEmerald();
-	//Mark the object for destruction
+	//Mark the gameobject for destruction
 }
 
