@@ -87,6 +87,7 @@
     <ClCompile Include="Achievements.cpp" />
     <ClCompile Include="DamageCommand.cpp" />
     <ClCompile Include="DiggerState.cpp" />
+    <ClCompile Include="EmeraldPickupComponent.cpp" />
     <ClCompile Include="EnemyState.cpp" />
     <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="GainPointsCommand.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="Achievements.h" />
     <ClInclude Include="DamageCommand.h" />
     <ClInclude Include="DiggerState.h" />
+    <ClInclude Include="EmeraldPickupComponent.h" />
     <ClInclude Include="EnemyState.h" />
     <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="FSMComponent.h" />

@@ -51,6 +51,7 @@
 #include "HitboxComponent.h"
 #include "GridMovementComponent.h"
 #include "TileMap.h"
+#include "EmeraldPickupComponent.h"
 
 
 void load()
@@ -123,7 +124,6 @@ void load()
 
 	auto go = std::make_unique<dae::GameObject>();
 	//Digger
-	go = std::make_unique<dae::GameObject>();
 	go->GetTransform()->SetLocalPosition(250, 300, 0);
 	auto renderComponent = std::make_unique<dae::RenderComponent>(go.get());
 	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Digger.png"));
@@ -215,6 +215,22 @@ void load()
 	scene.Add(std::move(go2));
 
 
+
+
+	//Pickup
+	go2 = std::make_unique<dae::GameObject>();
+	renderComponent = std::make_unique<dae::RenderComponent>(go2.get());
+	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Emerald.png"));
+	go2->AddComponent(std::move(renderComponent));
+	go2->GetTransform()->SetLocalPosition(500, 300, 0);
+	hitboxComponent = std::make_unique<dae::HitboxComponent>(go2.get(), 50.f, 50.f);
+	go2->AddComponent(std::move(hitboxComponent));
+	auto pickupComponent = std::make_unique<dae::EmeraldPickupComponent>(go2.get(), go.get());
+	go2->AddComponent(std::move(pickupComponent));
+	scene.Add(std::move(go2));
+
+	/*std::cout << go->GetComponent<dae::HitboxComponent>()->GetHitbox().x << " " << go->GetComponent<dae::HitboxComponent>()->GetHitbox().y <<std::endl;
+	std::cout << go2->GetComponent<dae::HitboxComponent>()->GetHitbox().x << " " << go2->GetComponent<dae::HitboxComponent>()->GetHitbox().y << std::endl;*/
 
 
 
