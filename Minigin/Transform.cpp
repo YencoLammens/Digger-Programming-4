@@ -63,7 +63,7 @@ void dae::Transform::Update(float elapsedSec)
 	m_localPosition += elapsedSec;
 }
 
-void dae::Transform::FixedUpdate()
+void dae::Transform::FixedUpdate(float)
 {
 }
 

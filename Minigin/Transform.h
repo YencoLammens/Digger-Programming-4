@@ -17,7 +17,7 @@ namespace dae
 		void SetPositionDirty();
 
 		void Update(float elapsedSec) override;
-		void FixedUpdate() override;
+		void FixedUpdate(float fixedTimeStep) override;
 		
 	private:
 		glm::vec3 m_localPosition;

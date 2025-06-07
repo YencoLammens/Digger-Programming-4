@@ -12,7 +12,7 @@ namespace dae
 		~RenderComponent() override = default;
 
 		virtual void Update(float elapsedSec) override;
-		virtual void FixedUpdate() override;
+		virtual void FixedUpdate(float fixedTimeStep) override;
 		virtual void Render() const;
 
 		void SetTexture(const std::shared_ptr<Texture2D>& texture);

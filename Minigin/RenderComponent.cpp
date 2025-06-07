@@ -16,7 +16,7 @@ void dae::RenderComponent::Update(float)
 	m_position = GetOwner()->GetTransform()->GetWorldPosition();
 }
 
-void dae::RenderComponent::FixedUpdate()
+void dae::RenderComponent::FixedUpdate(float)
 {
 }
 

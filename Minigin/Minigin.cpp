@@ -62,13 +62,12 @@ dae::Minigin::Minigin(const std::string &dataPath)
 	}
 	
 
-
 	g_window = SDL_CreateWindow(
 		"Programming 4 assignment",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		640,
-		480,
+		1000,
+		650,
 		SDL_WINDOW_OPENGL
 	);
 	if (g_window == nullptr) 
@@ -133,6 +132,7 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	float lag = 0.0f;
 	//float fixed_time_step = 0.1f;
 	long ms_per_frame = 16;
+	float fixed_time_step = 0.02f;
 
 	while (do_continue)
 	{
@@ -142,11 +142,14 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		lag += delta_time;
 
 		do_continue = input.ProcessInput();
-		/*while (lag >= fixed_time_step)
+
+		while (lag >= fixed_time_step)
 		{
-			fixed_update(fixed_time_step);
+			sceneManager.FixedUpdate(fixed_time_step);
 			lag -= fixed_time_step;
-		}*/
+		}
+
+		
 		sceneManager.Update(delta_time);
 		renderer.Render();
 		const auto sleep_time = current_time + std::chrono::milliseconds(ms_per_frame) - std::chrono::high_resolution_clock::now();

@@ -17,6 +17,13 @@ void dae::SceneManager::Update(float deltaTime)
 //	}
 //}
 
+void dae::SceneManager::FixedUpdate(float fixed_time_step)
+{
+	for (const auto& scene : m_scenes)
+	{
+		scene->FixedUpdate(fixed_time_step);
+	}
+}
 
 
 dae::Scene& dae::SceneManager::CreateScene(const std::string& name)

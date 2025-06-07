@@ -45,6 +45,9 @@ void Scene::Update(float deltaTime)
 		object->Update(deltaTime);
 	}
 
+
+
+	
 	////if check necessary so it doesn't check all objects every update every time
 	//if (m_isThereAComponentToBeDeleted == true)
 	//{
@@ -54,8 +57,15 @@ void Scene::Update(float deltaTime)
 	//	}
 	//	m_isThereAComponentToBeDeleted = false;
 	//}
-	
 }
+void Scene::FixedUpdate(float fixedTimeStep)
+{
+	for (auto& object : m_objects)
+	{
+		object->FixedUpdate(fixedTimeStep);
+	}
+}
+
 //
 //void Scene::Render() const
 //{

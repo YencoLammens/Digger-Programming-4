@@ -33,6 +33,6 @@ glm::vec3 dae::RotatorComponent::RotateAroundTarget() {
 	return glm::vec3{ x, y, 0 };
 }
 
-void dae::RotatorComponent::FixedUpdate()
+void dae::RotatorComponent::FixedUpdate(float)
 {
 }

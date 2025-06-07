@@ -76,11 +76,11 @@ void dae::GameObject::Update(float deltaTime)
     
 }
 
-void dae::GameObject::FixedUpdate()
+void dae::GameObject::FixedUpdate(float fixedTimeStep)
 {
 	for (auto& component : m_componentsArr)
 	{
-		component->FixedUpdate();
+		component->FixedUpdate(fixedTimeStep);
 	}
 }
 

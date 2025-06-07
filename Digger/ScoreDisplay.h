@@ -10,7 +10,7 @@ namespace dae
 		void OnNotify(const GameEvent& event, GameObject* go) override;
 
 		void Update(float) override {};
-		void FixedUpdate() override {};
+		void FixedUpdate(float) override {};
 
 
 	private:

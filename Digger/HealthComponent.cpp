@@ -10,6 +10,10 @@ void dae::HealthComponent::Update(float)
 {
 }
 
+void dae::HealthComponent::FixedUpdate(float)
+{
+}
+
 int dae::HealthComponent::GetHealth() const
 {
 	return m_currentHealth;

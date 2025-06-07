@@ -91,8 +91,10 @@
     <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="GainPointsCommand.cpp" />
     <ClCompile Include="GoldbagState.cpp" />
+    <ClCompile Include="GridMovementComponent.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="HealthDisplay.cpp" />
+    <ClCompile Include="HitboxComponent.cpp" />
     <ClCompile Include="HPDisplay.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MoveCommand.cpp" />
@@ -101,6 +103,7 @@
     <ClCompile Include="ScoreComponent.cpp" />
     <ClCompile Include="ScoreDisplay.cpp" />
     <ClCompile Include="TextComponent.cpp" />
+    <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -112,8 +115,10 @@
     <ClInclude Include="FSMComponent.h" />
     <ClInclude Include="GainPointsCommand.h" />
     <ClInclude Include="GoldbagState.h" />
+    <ClInclude Include="GridMovementComponent.h" />
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="HealthDisplay.h" />
+    <ClInclude Include="HitboxComponent.h" />
     <ClInclude Include="HPDisplay.h" />
     <ClInclude Include="MoveCommand.h" />
     <ClInclude Include="MoveComponent.h" />
@@ -121,6 +126,8 @@
     <ClInclude Include="ScoreComponent.h" />
     <ClInclude Include="ScoreDisplay.h" />
     <ClInclude Include="TextComponent.h" />
+    <ClInclude Include="TileMap.h" />
+    <ClInclude Include="TileType.h" />
     <ClInclude Include="TransformComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

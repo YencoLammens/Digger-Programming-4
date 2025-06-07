@@ -11,6 +11,7 @@ namespace dae
 		explicit MoveComponent(GameObject* owner, float speed = 100.0f);
 
 		void Update(float elapsedSec) override;
+		void FixedUpdate(float) override;
 		void SetDirectionX(float directionX);
 		void SetDirectionY(float directionY);
 

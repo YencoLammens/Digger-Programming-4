@@ -64,7 +64,7 @@ namespace dae
 		
 		//General methods
 		void Update(float deltaTime);
-		void FixedUpdate();
+		void FixedUpdate(float fixedTimeStep);
 		//void Render() const;
 
 		//Parent-child related

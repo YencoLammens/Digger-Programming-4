@@ -10,6 +10,10 @@ void dae::ScoreComponent::Update(float)
 {
 }
 
+void dae::ScoreComponent::FixedUpdate(float)
+{
+}
+
 int dae::ScoreComponent::GetScore() const
 {
 	return m_score;

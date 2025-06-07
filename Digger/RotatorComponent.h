@@ -13,7 +13,7 @@ namespace dae
 		~RotatorComponent() override = default;
 
 		void Update(float deltaTime) override;
-		void FixedUpdate() override;
+		void FixedUpdate(float) override;
 
 		glm::vec3 RotateAroundTarget();
 

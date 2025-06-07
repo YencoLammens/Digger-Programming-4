@@ -48,6 +48,10 @@
 #include "logging_SoundSystem.h"
 #include "AudioClip.h"
 #include "EventQueue.h"
+#include "HitboxComponent.h"
+#include "GridMovementComponent.h"
+#include "TileMap.h"
+
 
 void load()
 {
@@ -83,44 +87,46 @@ void load()
 	scene.Add(std::move(go));*/
 	
 
-	//Background
+	////Background
+	//auto go = std::make_unique<dae::GameObject>();
+	//auto renderComponent = std::make_unique<dae::RenderComponent>(go.get());
+	//renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("background.png"));
+	//go->AddComponent(std::move(renderComponent));
+	//scene.Add(std::move(go));
+
+	////DAE Logo
+	//go = std::make_unique<dae::GameObject>();
+	//renderComponent = std::make_unique<dae::RenderComponent>(go.get());
+	//renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("logo.png"));
+	//go->AddComponent(std::move(renderComponent));
+	//go->GetTransform()->SetLocalPosition(216, 150, 0);
+
+	//scene.Add(std::move(go));
+
+	////Title
+	//go = std::make_unique<dae::GameObject>();
+	/*auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	auto textComponent = std::make_unique<dae::TextComponent>(go.get(), "Programming 4 Assignment", font.get());*/
+	///*go->GetTransform()->SetLocalPosition(80, 80, 0);
+	//go->AddComponent(std::move(textComponent));
+	//scene.Add(std::move(go));*/
+
+	////FPS display
+	//go = std::make_unique<dae::GameObject>();
+	//go->GetTransform()->SetLocalPosition(10, 10, 0);
+	//auto fpsComponent = std::make_unique<dae::FPSComponent>(go.get(), font);
+	//go->AddComponent(std::move(fpsComponent));
+	//scene.Add(std::move(go));
+
+	//Map n stuff
+	auto tileMap = std::make_unique<dae::TileMap>(1000.0f, 650.0f);
+
 	auto go = std::make_unique<dae::GameObject>();
-	auto renderComponent = std::make_unique<dae::RenderComponent>(go.get());
-	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("background.png"));
-	go->AddComponent(std::move(renderComponent));
-	scene.Add(std::move(go));
-
-	//DAE Logo
-	go = std::make_unique<dae::GameObject>();
-	renderComponent = std::make_unique<dae::RenderComponent>(go.get());
-	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("logo.png"));
-	go->AddComponent(std::move(renderComponent));
-	go->GetTransform()->SetLocalPosition(216, 150, 0);
-
-	scene.Add(std::move(go));
-
-	//Title
-	go = std::make_unique<dae::GameObject>();
-	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	auto textComponent = std::make_unique<dae::TextComponent>(go.get(), "Programming 4 Assignment", font.get());
-	go->GetTransform()->SetLocalPosition(80, 80, 0);
-	go->AddComponent(std::move(textComponent));
-	scene.Add(std::move(go));
-
-	//FPS display
-	go = std::make_unique<dae::GameObject>();
-	go->GetTransform()->SetLocalPosition(10, 10, 0);
-	auto fpsComponent = std::make_unique<dae::FPSComponent>(go.get(), font);
-	go->AddComponent(std::move(fpsComponent));
-	scene.Add(std::move(go));
-
-
-
 	//Digger
 	go = std::make_unique<dae::GameObject>();
 	go->GetTransform()->SetLocalPosition(250, 300, 0);
-	renderComponent = std::make_unique<dae::RenderComponent>(go.get());
-	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("DiggerScreenshot.png"));
+	auto renderComponent = std::make_unique<dae::RenderComponent>(go.get());
+	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Digger.png"));
 	go->AddComponent(std::move(renderComponent));
 	go->GetTransform()->SetLocalPosition(230, 300, 0);
 	auto moveComponent = std::make_unique<dae::MoveComponent>(go.get());
@@ -129,6 +135,10 @@ void load()
 	go->AddComponent(std::move(healthComponent));
 	auto scoreComponent = std::make_unique<dae::ScoreComponent>(go.get());
 	go->AddComponent(std::make_unique<dae::ScoreComponent>(go.get()));
+	auto hitboxComponent = std::make_unique<dae::HitboxComponent>(go.get(), 50.f, 50.f);
+	go->AddComponent(std::move(hitboxComponent));
+	auto gridMovementComponent = std::make_unique<dae::GridMovementComponent>(go.get(), 50.0f, 200.0f, tileMap.get());
+	go->AddComponent(std::move(gridMovementComponent));
 	//auto rotatorComponent = std::make_unique<dae::RotatorComponent>(go.get(), glm::vec3(200, 200, 0), 2.0f);
 	//go->AddComponent(std::move(rotatorComponent);
 
@@ -164,11 +174,11 @@ void load()
 
 
 	//Tutorial displays
-	font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
+	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
 
 	auto go2 = std::make_unique<dae::GameObject>();
 	go2->GetTransform()->SetLocalPosition(10, 220, 0);
-	textComponent = std::make_unique<dae::TextComponent>(go2.get(), "Use WASD to move the first Digger, C to inflict damage, and X to gain points", font.get());
+	auto textComponent = std::make_unique<dae::TextComponent>(go2.get(), "Use WASD to move the first Digger, C to inflict damage, and X to gain points", font.get());
 	go2->AddComponent(std::move(textComponent));
 	scene.Add(std::move(go2));
 
@@ -213,7 +223,7 @@ void load()
 
 	renderComponent = std::make_unique<dae::RenderComponent>(go2.get());
 	//renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("NobbinScreenshot.png"));
-	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("DiggerScreenshot.png"));
+	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Nobbin.png"));
 	go2->AddComponent(std::move(renderComponent));
 	go2->GetTransform()->SetLocalPosition(300, 300, 0);
 	moveComponent = std::make_unique<dae::MoveComponent>(go2.get(), 200.0f);
@@ -267,7 +277,7 @@ void load()
 	go2->AddObserver(go3->GetComponent<dae::HPDisplay>());
 	scene.Add(std::move(go3));
 
-
+	
 
 
 	//Score display digger2

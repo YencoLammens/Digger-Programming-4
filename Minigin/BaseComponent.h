@@ -12,7 +12,7 @@ namespace dae
 		BaseComponent& operator=(const BaseComponent& other) = delete;
 		BaseComponent& operator=(BaseComponent&& other) = delete;
 		virtual void Update(float elapsedSec) = 0;
-		virtual void FixedUpdate();
+		virtual void FixedUpdate(float fixedTimeStep) = 0;
 
 		void MarkForDeletion() { m_toBeDeleted = true; };
 		bool IsMarkedForDeletion() { return m_toBeDeleted; }

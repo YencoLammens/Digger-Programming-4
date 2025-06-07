@@ -13,6 +13,10 @@ void dae::MoveComponent::Update(float elapsedSec)
 	GetOwner()->GetTransform()->SetLocalPosition(newPosition);
 }
 
+void dae::MoveComponent::FixedUpdate(float)
+{
+}
+
 void dae::MoveComponent::SetDirectionX(float directionX)
 {
 	m_direction.x = directionX;
