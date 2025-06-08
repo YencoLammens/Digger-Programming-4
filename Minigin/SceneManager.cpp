@@ -6,6 +6,8 @@ void dae::SceneManager::Update(float deltaTime)
 	for(auto& scene : m_scenes)
 	{
 		scene->Update(deltaTime);
+
+		scene->RemoveFlaggedObjects();
 	}
 }
  
@@ -22,6 +24,14 @@ void dae::SceneManager::FixedUpdate(float fixed_time_step)
 	for (const auto& scene : m_scenes)
 	{
 		scene->FixedUpdate(fixed_time_step);
+	}
+}
+
+void dae::SceneManager::LateUpdate()
+{
+	for (const auto& scene : m_scenes)
+	{
+		scene->LateUpdate();
 	}
 }
 

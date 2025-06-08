@@ -65,6 +65,7 @@ namespace dae
 		//General methods
 		void Update(float deltaTime);
 		void FixedUpdate(float fixedTimeStep);
+		void LateUpdate();
 		//void Render() const;
 
 		//Parent-child related
@@ -74,12 +75,17 @@ namespace dae
 		Transform* GetTransform();
 		
 		std::vector<GameObject*> GetChildren();
+
+		void MarkForDeletion();
+		bool IsMarkedForDeletion() const { return m_toBeDeleted; }
+		void RemoveFlaggedComponents();
 	private:
 		/*void SetThereIsAnOngoingEvent(bool isThereAnOngoingEvent);*/
 
-		void RemoveFlaggedComponents();
+		
 		//Scene* m_ownerScene;
 
+		
 		void AddChild(GameObject* newChild);
 		void RemoveChild(GameObject* orphanedChild);
 		bool IsChild(GameObject* possibleChild);
@@ -95,6 +101,6 @@ namespace dae
 
 		bool m_positionIsDirty = false;
 		bool m_mustAComponentBeDeleted = false;
-		
+		bool m_toBeDeleted = false;
 	};
 }

@@ -66,11 +66,7 @@ void dae::GameObject::Update(float deltaTime)
     }
 
     
-    if (m_mustAComponentBeDeleted == true)
-    {
-        RemoveFlaggedComponents(); //Could cause issues in the future if components of game objects interact with each other, it's this or letting the components deletions happen in the scene which would make a lot of things accesible in an uncomfortable way as far as i can tell.
-        m_mustAComponentBeDeleted = false;
-    }
+    
 
 
     
@@ -82,6 +78,20 @@ void dae::GameObject::FixedUpdate(float fixedTimeStep)
 	{
 		component->FixedUpdate(fixedTimeStep);
 	}
+}
+
+void dae::GameObject::LateUpdate()
+{
+	for (auto& component : m_componentsArr)
+	{
+		component->LateUpdate();
+	}
+
+    if (m_mustAComponentBeDeleted == true)
+    {
+        RemoveFlaggedComponents(); //Could cause issues in the future if components of game objects interact with each other, it's this or letting the components deletions happen in the scene which would make a lot of things accesible in an uncomfortable way as far as i can tell.
+        m_mustAComponentBeDeleted = false;
+    }
 }
 
 //void dae::GameObject::Render() const
@@ -155,6 +165,26 @@ std::vector<dae::GameObject*> dae::GameObject::GetChildren()
     return m_ChildrenArr;
 }
 
+void dae::GameObject::MarkForDeletion()
+{
+	m_toBeDeleted = true;
+
+	for (auto& child : m_ChildrenArr)
+	{
+		this->RemoveChild(child);
+	}
+
+	for (auto& observer : m_Observers)
+	{
+		this->RemoveObserver(observer);
+	}
+
+	for (auto& component : m_componentsArr)
+	{
+		component->MarkForDeletion();
+	}
+}
+
 
 
 
@@ -171,6 +201,12 @@ dae::Transform* dae::GameObject::GetTransform()
 
 void dae::GameObject::RemoveFlaggedComponents()
 {
+    
+    if (GameObject::GetComponent<dae::RenderComponent>())
+    {
+        dae::Renderer::GetInstance().RemoveRenderComponent(GameObject::GetComponent<dae::RenderComponent>());
+    }
+
     for (unsigned int idx{ 0 }; idx < m_componentsArr.size(); ++idx)
     {
         if (m_componentsArr[idx]->IsMarkedForDeletion())

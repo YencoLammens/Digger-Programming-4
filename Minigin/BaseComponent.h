@@ -13,6 +13,7 @@ namespace dae
 		BaseComponent& operator=(BaseComponent&& other) = delete;
 		virtual void Update(float elapsedSec) = 0;
 		virtual void FixedUpdate(float fixedTimeStep) = 0;
+		void LateUpdate() { /* Default implementation does nothing */ };
 
 		void MarkForDeletion() { m_toBeDeleted = true; };
 		bool IsMarkedForDeletion() { return m_toBeDeleted; }

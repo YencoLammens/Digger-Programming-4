@@ -40,6 +40,7 @@ void dae::Renderer::Render() const
 	SDL_RenderClear(m_renderer);
 
 	//SceneManager::GetInstance().Render();
+
 	
 	for (const auto& component : m_renderComponentsArr)
 	{
@@ -85,3 +86,7 @@ void dae::Renderer::AddRenderComponent(RenderComponent* renderComponent)
 	m_renderComponentsArr.push_back(renderComponent);
 }
 
+void dae::Renderer::RemoveRenderComponent(RenderComponent* renderComponent)
+{
+	m_renderComponentsArr.erase(std::remove(m_renderComponentsArr.begin(), m_renderComponentsArr.end(), renderComponent), m_renderComponentsArr.end());
+}
