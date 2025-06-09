@@ -8,7 +8,8 @@ namespace dae
 	{
 		HEALTH_CHANGED,
 		SCORE_CHANGED,
-		SCORE_REACHED_500
+		SCORE_REACHED_500,
+		PLAYER_DIED
 	};
 
 	struct Event

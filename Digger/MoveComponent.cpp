@@ -10,48 +10,62 @@ dae::MoveComponent::MoveComponent(GameObject* owner, float speed)
 
 void dae::MoveComponent::Update(float deltaTime)
 {
-	auto* transform = GetOwner()->GetTransform();
-	glm::vec3 currentPosition = transform->GetWorldPosition();
-
-	if (!m_isMoving)
+	if (m_canMove)
 	{
-		// Snap to grid
-		currentPosition.x = std::round(currentPosition.x / m_tileSize) * m_tileSize;
-		currentPosition.y = std::round(currentPosition.y / m_tileSize) * m_tileSize;
-		transform->SetLocalPosition(currentPosition);
+		auto* transform = GetOwner()->GetTransform();
+		glm::vec3 currentPosition = transform->GetWorldPosition();
 
-		// If there's no pending direction stop moving
-		if (m_pendingDirection == glm::vec3{ 0.f })
+		if (!m_isMoving)
 		{
-			m_direction = glm::vec3{ 0.f };
-			return;
+			// Snap to grid
+			currentPosition.x = std::round(currentPosition.x / m_tileSize) * m_tileSize;
+			currentPosition.y = std::round(currentPosition.y / m_tileSize) * m_tileSize;
+			transform->SetLocalPosition(currentPosition);
+
+			// If there's no pending direction stop moving
+			if (m_pendingDirection == glm::vec3{ 0.f })
+			{
+				m_direction = glm::vec3{ 0.f };
+				return;
+			}
+
+			// Set direction and target tile
+			m_direction = m_pendingDirection;
+			m_targetPosition = currentPosition + m_direction * m_tileSize;
+			m_isMoving = true;
 		}
 
-		// Set direction and target tile
-		m_direction = m_pendingDirection;
-		m_targetPosition = currentPosition + m_direction * m_tileSize;
-		m_isMoving = true;
-	}
+		// Move toward target tile
+		glm::vec3 directionToTarget = glm::normalize(m_targetPosition - currentPosition);
+		glm::vec3 velocity = directionToTarget * m_speed * deltaTime;
 
-	// Move toward target tile
-	glm::vec3 directionToTarget = glm::normalize(m_targetPosition - currentPosition);
-	glm::vec3 velocity = directionToTarget * m_speed * deltaTime;
-
-	// if close enough, snap and finish
-	if (glm::length(m_targetPosition - currentPosition) <= glm::length(velocity))
-	{
-		transform->SetLocalPosition(m_targetPosition);
-		m_isMoving = false; // Re-evaluate direction next frame
+		// if close enough, snap and finish
+		if (glm::length(m_targetPosition - currentPosition) <= glm::length(velocity))
+		{
+			transform->SetLocalPosition(m_targetPosition);
+			m_isMoving = false; // Re-evaluate direction next frame
+		}
+		else
+		{
+			transform->SetLocalPosition(currentPosition + velocity);
+		}
 	}
-	else
-	{
-		transform->SetLocalPosition(currentPosition + velocity);
-	}
+	
 }
 
 void dae::MoveComponent::SetDirection(const glm::vec3& direction)
 {
 	m_pendingDirection = direction;
+}
+
+void dae::MoveComponent::DisableMovement()
+{
+	m_canMove = false;
+}
+
+void dae::MoveComponent::EnableMovement()
+{
+	m_canMove = true;
 }
 
 

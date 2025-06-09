@@ -54,6 +54,8 @@
 #include "EmeraldPickupComponent.h"
 #include "BonusPickupComponent.h"
 #include "GoldPickupComponent.h"
+#include "EnemyComponent.h"
+#include "DeathAnimationComponent.h"
 
 
 void load()
@@ -81,6 +83,9 @@ void load()
 	soundService.AddAudioClip(clip.get());
 	soundService.Play(0, 1.0f);
 
+
+
+	dae::ResourceManager::GetInstance().LoadTexture("Gravestone.png");
 
 	/*go = std::make_unique<dae::GameObject>();
 	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
@@ -138,6 +143,8 @@ void load()
 	go->AddComponent(std::make_unique<dae::ScoreComponent>(go.get()));
 	auto hitboxComponent = std::make_unique<dae::HitboxComponent>(go.get(), 50.f, 50.f);
 	go->AddComponent(std::move(hitboxComponent));
+	auto deathAnimationComponent = std::make_unique<dae::DeathAnimationComponent>(go.get());
+	go->AddComponent(std::move(deathAnimationComponent));
 	/*auto gridMovementComponent = std::make_unique<dae::GridMovementComponent>(go.get(), 50.0f, 200.0f, tileMap.get());
 	go->AddComponent(std::move(gridMovementComponent));*/
 	//auto rotatorComponent = std::make_unique<dae::RotatorComponent>(go.get(), glm::vec3(200, 200, 0), 2.0f);
@@ -267,38 +274,42 @@ void load()
 	go2->GetTransform()->SetLocalPosition(300, 300, 0);
 	moveComponent = std::make_unique<dae::MoveComponent>(go2.get(), 200.0f);
 	go2->AddComponent(std::move(moveComponent));
-	healthComponent = std::make_unique<dae::HealthComponent>(go2.get());
+	/*healthComponent = std::make_unique<dae::HealthComponent>(go2.get());
 	go2->AddComponent(std::move(healthComponent));
 	scoreComponent = std::make_unique<dae::ScoreComponent>(go2.get());
-	go2->AddComponent(std::move(scoreComponent));
+	go2->AddComponent(std::move(scoreComponent))*/;
+	hitboxComponent = std::make_unique<dae::HitboxComponent>(go2.get(), 50.f, 50.f);
+	go2->AddComponent(std::move(hitboxComponent));
+	auto enemyComponent = std::make_unique<dae::EnemyComponent>(go2.get(), go.get());
+	go2->AddComponent(std::move(enemyComponent));
 	//rotatorComponent = std::make_unique<dae::RotatorComponent>(go2.get(), glm::vec3(0,0,0), 5.0f);
 	//go2->AddComponent(std::move(rotatorComponent));
 
 	//go2->SetParent(go.get(), false);
 
-	//Pressed
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_UP, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, -1, 0 }));
+	////Pressed
+	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_UP, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, -1, 0 }));
 
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_LEFT, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ -1, 0, 0 }));
+	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_LEFT, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ -1, 0, 0 }));
 
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_RIGHT, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 1, 0, 0 }));
+	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_RIGHT, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 1, 0, 0 }));
 
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_DOWN, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 1, 0 }));
-
-
-	//Down
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_X, dae::InputManager::ButtonState::DOWN, std::make_unique<dae::DamageCommand>(go2.get()));
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_A, dae::InputManager::ButtonState::DOWN, std::make_unique<dae::GainPointsCommand>(go2.get()));
+	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_DOWN, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 1, 0 }));
 
 
-	//Up
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_UP, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
+	////Down
+	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_X, dae::InputManager::ButtonState::DOWN, std::make_unique<dae::DamageCommand>(go2.get()));
+	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_A, dae::InputManager::ButtonState::DOWN, std::make_unique<dae::GainPointsCommand>(go2.get()));
 
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_LEFT, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
 
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_RIGHT, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
+	////Up
+	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_UP, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
 
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_DOWN, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
+	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_LEFT, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
+
+	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_RIGHT, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
+
+	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_DOWN, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
 
 
 
@@ -307,27 +318,27 @@ void load()
 	//HUD displays for Digger2
 
 	//Health display digger2
-	auto go3 = std::make_unique<dae::GameObject>();
-	go3->GetTransform()->SetLocalPosition(10, 330, 0);
-	textComponent = std::make_unique<dae::TextComponent>(go3.get(), "# lives: " + std::to_string(go2->GetComponent<dae::HealthComponent>()->GetHealth()), font.get());
-	go3->AddComponent(std::move(textComponent));
-	hpDisplayComponent = std::make_unique<dae::HPDisplay>(go3.get());
-	go3->AddComponent(std::move(hpDisplayComponent));
-	go2->AddObserver(go3->GetComponent<dae::HPDisplay>());
-	scene.Add(std::move(go3));
+	//auto go3 = std::make_unique<dae::GameObject>();
+	//go3->GetTransform()->SetLocalPosition(10, 330, 0);
+	//textComponent = std::make_unique<dae::TextComponent>(go3.get(), "# lives: " + std::to_string(go2->GetComponent<dae::HealthComponent>()->GetHealth()), font.get());
+	//go3->AddComponent(std::move(textComponent));
+	//hpDisplayComponent = std::make_unique<dae::HPDisplay>(go3.get());
+	//go3->AddComponent(std::move(hpDisplayComponent));
+	//go2->AddObserver(go3->GetComponent<dae::HPDisplay>());
+	//scene.Add(std::move(go3));
 
-	
+	//
 
 
-	//Score display digger2
-	go3 = std::make_unique<dae::GameObject>();
-	go3->GetTransform()->SetLocalPosition(10, 360, 0);
-	textComponent = std::make_unique<dae::TextComponent>(go3.get(), "Score: " + std::to_string(go2->GetComponent<dae::ScoreComponent>()->GetScore()), font.get());
-	go3->AddComponent(std::move(textComponent));
-	scoreDisplayComponent = std::make_unique<dae::ScoreDisplay>(go3.get());
-	go3->AddComponent(std::move(scoreDisplayComponent));
-	go2->AddObserver(go3->GetComponent<dae::ScoreDisplay>());
-	scene.Add(std::move(go3));
+	////Score display digger2
+	//go3 = std::make_unique<dae::GameObject>();
+	//go3->GetTransform()->SetLocalPosition(10, 360, 0);
+	//textComponent = std::make_unique<dae::TextComponent>(go3.get(), "Score: " + std::to_string(go2->GetComponent<dae::ScoreComponent>()->GetScore()), font.get());
+	//go3->AddComponent(std::move(textComponent));
+	//scoreDisplayComponent = std::make_unique<dae::ScoreDisplay>(go3.get());
+	//go3->AddComponent(std::move(scoreDisplayComponent));
+	//go2->AddObserver(go3->GetComponent<dae::ScoreDisplay>());
+	//scene.Add(std::move(go3));
 	scene.Add(std::move(go2));
 
 	
