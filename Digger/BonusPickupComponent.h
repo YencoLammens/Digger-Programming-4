@@ -3,10 +3,10 @@
 #include "GameObject.h"
 namespace dae
 {
-	class EmeraldPickupComponent : public BaseComponent
+	class BonusPickupComponent : public BaseComponent
 	{
 	public:
-		EmeraldPickupComponent(GameObject* owner, GameObject* player);
+		BonusPickupComponent(GameObject* owner, GameObject* player);
 		void Update(float elapsedSec) override;
 		void FixedUpdate(float) override {}
 
@@ -17,5 +17,4 @@ namespace dae
 		bool m_hasBeenPickedUp{ false };
 	};
 }
-
 

@@ -52,6 +52,8 @@
 #include "GridMovementComponent.h"
 #include "TileMap.h"
 #include "EmeraldPickupComponent.h"
+#include "BonusPickupComponent.h"
+#include "GoldPickupComponent.h"
 
 
 void load()
@@ -216,8 +218,7 @@ void load()
 
 
 
-
-	//Pickup
+	//Pickup emerald
 	go2 = std::make_unique<dae::GameObject>();
 	renderComponent = std::make_unique<dae::RenderComponent>(go2.get());
 	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Emerald.png"));
@@ -225,14 +226,37 @@ void load()
 	go2->GetTransform()->SetLocalPosition(500, 300, 0);
 	hitboxComponent = std::make_unique<dae::HitboxComponent>(go2.get(), 50.f, 50.f);
 	go2->AddComponent(std::move(hitboxComponent));
-	auto pickupComponent = std::make_unique<dae::EmeraldPickupComponent>(go2.get(), go.get());
-	go2->AddComponent(std::move(pickupComponent));
+	auto emeraldPickupComponent = std::make_unique<dae::EmeraldPickupComponent>(go2.get(), go.get());
+	go2->AddComponent(std::move(emeraldPickupComponent));
 	scene.Add(std::move(go2));
 
-	/*std::cout << go->GetComponent<dae::HitboxComponent>()->GetHitbox().x << " " << go->GetComponent<dae::HitboxComponent>()->GetHitbox().y <<std::endl;
-	std::cout << go2->GetComponent<dae::HitboxComponent>()->GetHitbox().x << " " << go2->GetComponent<dae::HitboxComponent>()->GetHitbox().y << std::endl;*/
+	
 
+	//Pickup bonus
+	go2 = std::make_unique<dae::GameObject>();
+	renderComponent = std::make_unique<dae::RenderComponent>(go2.get());
+	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Bonus.png"));
+	go2->AddComponent(std::move(renderComponent));
+	go2->GetTransform()->SetLocalPosition(200, 100, 0);
+	hitboxComponent = std::make_unique<dae::HitboxComponent>(go2.get(), 50.f, 50.f);
+	go2->AddComponent(std::move(hitboxComponent));
+	auto BonusPickupComponent = std::make_unique<dae::BonusPickupComponent>(go2.get(), go.get());
+	go2->AddComponent(std::move(BonusPickupComponent));
+	scene.Add(std::move(go2));
 
+	//Pickup gold
+	go2 = std::make_unique<dae::GameObject>();
+	renderComponent = std::make_unique<dae::RenderComponent>(go2.get());
+	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Gold.png"));
+	go2->AddComponent(std::move(renderComponent));
+	go2->GetTransform()->SetLocalPosition(300, 100, 0);
+	hitboxComponent = std::make_unique<dae::HitboxComponent>(go2.get(), 30.f, 30.f);
+	go2->AddComponent(std::move(hitboxComponent));
+	auto goldPickupComponent = std::make_unique<dae::GoldPickupComponent>(go2.get(), go.get());
+	go2->AddComponent(std::move(goldPickupComponent));
+	scene.Add(std::move(go2));
+
+	
 
 	//Nobbin or digger 2
 	go2 = std::make_unique<dae::GameObject>();

@@ -85,6 +85,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Achievements.cpp" />
+    <ClCompile Include="BonusPickupComponent.cpp" />
     <ClCompile Include="DamageCommand.cpp" />
     <ClCompile Include="DiggerState.cpp" />
     <ClCompile Include="EmeraldPickupComponent.cpp" />
@@ -92,6 +93,7 @@
     <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="GainPointsCommand.cpp" />
     <ClCompile Include="GoldbagState.cpp" />
+    <ClCompile Include="GoldPickupComponent.cpp" />
     <ClCompile Include="GridMovementComponent.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="HealthDisplay.cpp" />
@@ -109,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Achievements.h" />
+    <ClInclude Include="BonusPickupComponent.h" />
     <ClInclude Include="DamageCommand.h" />
     <ClInclude Include="DiggerState.h" />
     <ClInclude Include="EmeraldPickupComponent.h" />
@@ -117,6 +120,7 @@
     <ClInclude Include="FSMComponent.h" />
     <ClInclude Include="GainPointsCommand.h" />
     <ClInclude Include="GoldbagState.h" />
+    <ClInclude Include="GoldPickupComponent.h" />
     <ClInclude Include="GridMovementComponent.h" />
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="HealthDisplay.h" />

@@ -16,6 +16,7 @@ namespace dae
 
 		void PickUpEmerald();
 		void PickUpGold();
+		void PickUpBonus();
 		void HandleEnemyKilled();
 		//Implement methods for bonus mode
 		//Implement event for when score reaches 20000 to gain an extra life for the player

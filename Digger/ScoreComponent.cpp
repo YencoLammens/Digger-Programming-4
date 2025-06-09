@@ -44,6 +44,13 @@ void dae::ScoreComponent::PickUpEmerald()
 void dae::ScoreComponent::PickUpGold()
 {
 	m_score += m_goldScore;
+	GetOwner()->NotifyObservers(GameEvent(EventId::SCORE_CHANGED));
+}
+
+void dae::ScoreComponent::PickUpBonus()
+{
+	m_score += m_bonusScore;
+	GetOwner()->NotifyObservers(GameEvent(EventId::SCORE_CHANGED));
 }
 
 void dae::ScoreComponent::HandleEnemyKilled()
