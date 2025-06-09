@@ -4,14 +4,31 @@
 #include "HitboxComponent.h"
 #include "DeathAnimationComponent.h"
 #include "HealthComponent.h"
+#include "ResourceManager.h"
+#include "RenderComponent.h"
 
-dae::EnemyComponent::EnemyComponent(GameObject* owner, GameObject* player, float speed)
-	:BaseComponent(owner), m_player(player), m_speed(speed)
+dae::EnemyComponent::EnemyComponent(GameObject* owner, GameObject* player)
+	:BaseComponent(owner), m_player(player)
 {
 }
 
-void dae::EnemyComponent::Update(float)
+void dae::EnemyComponent::Update(float deltaTime)
 {
+	m_timerBeforeTransformation += deltaTime;
+
+	if (m_timerBeforeTransformation >= m_timerDuration && m_currentType == EnemyType::Nobbin)
+	{
+		FormChange(EnemyType::Hobbin);
+		m_timerBeforeTransformation = 0;
+	
+	}
+	else if (m_timerBeforeTransformation >= m_timerDuration / 2 && m_currentType == EnemyType::Hobbin)
+	{
+		FormChange(EnemyType::Nobbin);
+		m_timerBeforeTransformation = 0;
+		
+	}
+
 }
 
 void dae::EnemyComponent::FixedUpdate(float)
@@ -27,5 +44,19 @@ void dae::EnemyComponent::FixedUpdate(float)
 			GetOwner()->MarkForDeletion();
 			return;
 		}
+	}
+}
+
+void dae::EnemyComponent::FormChange(EnemyType newType)
+{
+	m_currentType = newType;
+
+	if (newType == EnemyType::Hobbin)
+	{
+		GetOwner()->GetComponent<RenderComponent>()->SetTexture(ResourceManager::GetInstance().LoadTexture("Hobbin.png"));
+	}
+	else if (newType == EnemyType::Nobbin)
+	{
+		GetOwner()->GetComponent<RenderComponent>()->SetTexture(ResourceManager::GetInstance().LoadTexture("Nobbin.png"));
 	}
 }

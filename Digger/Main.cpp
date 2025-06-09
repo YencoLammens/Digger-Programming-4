@@ -54,8 +54,8 @@
 #include "EmeraldPickupComponent.h"
 #include "BonusPickupComponent.h"
 #include "GoldPickupComponent.h"
-#include "EnemyComponent.h"
 #include "DeathAnimationComponent.h"
+#include "EnemyComponent.h"
 
 
 void load()
@@ -86,6 +86,7 @@ void load()
 
 
 	dae::ResourceManager::GetInstance().LoadTexture("Gravestone.png");
+	dae::ResourceManager::GetInstance().LoadTexture("Hobbin.png");
 
 	/*go = std::make_unique<dae::GameObject>();
 	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
