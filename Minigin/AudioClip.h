@@ -7,7 +7,7 @@ namespace dae
 	{
 	public:
 		explicit AudioClip(const std::string& filePath);
-		/*~AudioClip();*/
+		~AudioClip();
 
 		void play() const;
 		void set_volume(float volume);

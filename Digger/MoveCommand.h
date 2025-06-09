@@ -14,6 +14,7 @@ namespace dae
 		glm::vec3 m_direction;
 
 	};
+
 }
 
 

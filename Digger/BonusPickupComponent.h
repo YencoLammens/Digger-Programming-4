@@ -7,7 +7,7 @@ namespace dae
 	{
 	public:
 		BonusPickupComponent(GameObject* owner, GameObject* player);
-		void Update(float elapsedSec) override;
+		void Update(float deltaTime) override;
 		void FixedUpdate(float) override {}
 
 		void OnPickup();

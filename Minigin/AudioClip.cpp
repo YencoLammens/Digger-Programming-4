@@ -9,20 +9,16 @@ dae::AudioClip::AudioClip(const std::string& filePath)
 	}
 }
 
-//dae::AudioClip::~AudioClip()
-//{
-//	if (m_chunk)
-//	{
-//		Mix_FreeChunk(m_chunk);
-//	}
-//}
+dae::AudioClip::~AudioClip()
+{
+	//Mix_FreeChunk(m_chunk);
+}
 
 void dae::AudioClip::play() const
 {
 	Mix_VolumeChunk(m_chunk, static_cast<int>(m_volume * MIX_MAX_VOLUME));
 	Mix_PlayChannel(-1, m_chunk, 0);
 }
-
 
 void dae::AudioClip::set_volume(float volume)
 {

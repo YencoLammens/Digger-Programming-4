@@ -9,7 +9,7 @@ namespace dae
 		void Play(const sound_id, const float) override {}
 		void AddAudioClip(AudioClip*) override {}
 	};
-
+	
 	class ServiceLocator final
 	{
 		static std::unique_ptr<SoundSystem> _SoundSystem_instance;

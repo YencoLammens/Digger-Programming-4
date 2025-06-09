@@ -9,6 +9,5 @@ dae::MoveCommand::MoveCommand(GameObject* gameObject, glm::vec3 direction)
 
 void dae::MoveCommand::Execute()
 {
-	GetGameObject()->GetComponent<MoveComponent>()->SetDirectionX(m_direction.x);
-	GetGameObject()->GetComponent<MoveComponent>()->SetDirectionY(m_direction.y);
+	GetGameObject()->GetComponent<MoveComponent>()->SetDirection(m_direction);
 }

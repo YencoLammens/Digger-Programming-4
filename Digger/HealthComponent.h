@@ -8,7 +8,7 @@ namespace dae
 	{
 	public:
 		HealthComponent(GameObject* owner);
-		void Update(float elapsedSec) override;
+		void Update(float deltaTime) override;
 		void FixedUpdate(float) override;
 		int GetHealth() const;
 		void LoseHeart();

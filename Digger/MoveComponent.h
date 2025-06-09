@@ -1,7 +1,6 @@
 #pragma once
 #include "glm.hpp"
 #include "BaseComponent.h"
-#include "Transform.h"
 
 namespace dae
 {
@@ -10,15 +9,18 @@ namespace dae
 	public:
 		explicit MoveComponent(GameObject* owner, float speed = 100.0f);
 
-		void Update(float elapsedSec) override;
-		void FixedUpdate(float) override;
-		void SetDirectionX(float directionX);
-		void SetDirectionY(float directionY);
+		void Update(float deltaTime) override;
+		void FixedUpdate(float) override {}
+
+		void SetDirection(const glm::vec3& direction);
 
 	private:
 		float m_speed;
 		glm::vec3 m_direction;
+		glm::vec3 m_pendingDirection;
+		const float m_tileSize{ 32.f};
+		glm::vec3 m_targetPosition{ 0.f }; // where we're moving to
+		bool m_isMoving = false;
 	};
-
 }
 

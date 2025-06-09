@@ -16,7 +16,7 @@ namespace dae
 		bool IsPositionDirty();
 		void SetPositionDirty();
 
-		void Update(float elapsedSec) override;
+		void Update(float deltaTime) override;
 		void FixedUpdate(float fixedTimeStep) override;
 		
 	private:

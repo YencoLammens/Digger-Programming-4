@@ -58,9 +58,9 @@ void dae::Transform::SetPositionDirty()
 	}
 }
 
-void dae::Transform::Update(float elapsedSec)
+void dae::Transform::Update(float deltaTime)
 {
-	m_localPosition += elapsedSec;
+	m_localPosition += deltaTime;
 }
 
 void dae::Transform::FixedUpdate(float)

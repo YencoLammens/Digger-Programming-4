@@ -14,10 +14,10 @@ namespace dae
 
         }
 
-        void dae::FSMComponent::Update(float elapsedSec) override
+        void dae::FSMComponent::Update(float deltaTime) override
         {
 
-            if (m_currentState) m_currentState->Update(GetOwner(), elapsedSec);
+            if (m_currentState) m_currentState->Update(GetOwner(), deltaTime);
 
         }
 

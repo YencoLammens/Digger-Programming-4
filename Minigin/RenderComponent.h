@@ -11,7 +11,7 @@ namespace dae
 		RenderComponent(GameObject* owner);
 		~RenderComponent() override = default;
 
-		virtual void Update(float elapsedSec) override;
+		virtual void Update(float deltaTime) override;
 		virtual void FixedUpdate(float fixedTimeStep) override;
 		virtual void Render() const;
 

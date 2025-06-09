@@ -8,7 +8,7 @@ namespace dae
 	{
 	public:
 		HitboxComponent(GameObject* owner, float width, float height);
-		void Update(float elapsedSec) override;
+		void Update(float deltaTime) override;
 		void FixedUpdate(float fixedTimeStep) override;
 		const dae::Rectf GetHitbox() const;
 	private:
