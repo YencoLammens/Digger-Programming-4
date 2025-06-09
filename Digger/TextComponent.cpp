@@ -46,8 +46,8 @@ void dae::TextComponent::SetText(const std::string& text)
 
 void dae::TextComponent::TextToSurface()
 {
-    const SDL_Color color = { 255, 255, 255, 255 }; // only white text is supported now
-    const auto surface = TTF_RenderText_Blended(m_font->GetFont(), m_text.c_str(), SDL_Color{ 255, 255, 255 });
+    const SDL_Color color = { 0, 255, 0, 255 }; // only green text is supported now
+    const auto surface = TTF_RenderText_Blended(m_font->GetFont(), m_text.c_str(), SDL_Color{ 0, 255, 0 });
     if (surface == nullptr)
     {
         throw std::runtime_error(std::string("Render text failed: ") + SDL_GetError());

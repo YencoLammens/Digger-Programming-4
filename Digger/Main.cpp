@@ -56,6 +56,7 @@
 #include "GoldPickupComponent.h"
 #include "DeathAnimationComponent.h"
 #include "EnemyComponent.h"
+#include <format>
 
 
 void load()
@@ -183,10 +184,10 @@ void load()
 
 
 	//Tutorial displays
-	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
+	auto font = dae::ResourceManager::GetInstance().LoadFont("PressStart2P-Regular.ttf", 32);
 
 	auto go2 = std::make_unique<dae::GameObject>();
-	go2->GetTransform()->SetLocalPosition(10, 220, 0);
+	/*go2->GetTransform()->SetLocalPosition(10, 220, 0);
 	auto textComponent = std::make_unique<dae::TextComponent>(go2.get(), "Use WASD to move the first Digger", font.get());
 	go2->AddComponent(std::move(textComponent));
 	scene.Add(std::move(go2));
@@ -195,19 +196,19 @@ void load()
 	go2->GetTransform()->SetLocalPosition(10, 240, 0);
 	textComponent = std::make_unique<dae::TextComponent>(go2.get(), "Use the DPAD to move the second Digger", font.get());
 	go2->AddComponent(std::move(textComponent));
-	scene.Add(std::move(go2));
+	scene.Add(std::move(go2));*/
 
 	//HUD displays for Digger
 
 	//Health display digger
-	go2 = std::make_unique<dae::GameObject>();
+	/*go2 = std::make_unique<dae::GameObject>();
 	go2->GetTransform()->SetLocalPosition(10, 270, 0);
 	textComponent = std::make_unique<dae::TextComponent>(go2.get(), "# lives: " + std::to_string(go->GetComponent<dae::HealthComponent>()->GetHealth()), font.get());
 	go2->AddComponent(std::move(textComponent));
 	auto hpDisplayComponent = std::make_unique<dae::HPDisplay>(go2.get());
 	go2->AddComponent(std::move(hpDisplayComponent));
 	go->AddObserver(go2->GetComponent<dae::HPDisplay>());
-	scene.Add(std::move(go2));
+	scene.Add(std::move(go2));*/
 
 
 
@@ -215,8 +216,9 @@ void load()
 
 	//Score display digger
 	go2 = std::make_unique<dae::GameObject>();
-	go2->GetTransform()->SetLocalPosition(10, 300, 0);
-	textComponent = std::make_unique<dae::TextComponent>(go2.get(), "Score: " + std::to_string(go->GetComponent<dae::ScoreComponent>()->GetScore()), font.get());
+	go2->GetTransform()->SetLocalPosition(50, 10, 0);
+	std::string scoreString = std::format("{:05}", go->GetComponent<dae::ScoreComponent>()->GetScore());
+	auto textComponent = std::make_unique<dae::TextComponent>(go2.get(), scoreString, font.get());
 	go2->AddComponent(std::move(textComponent));
 	auto scoreDisplayComponent = std::make_unique<dae::ScoreDisplay>(go2.get());
 	go2->AddComponent(std::move(scoreDisplayComponent));
