@@ -22,7 +22,7 @@ void dae::RenderComponent::FixedUpdate(float)
 
 void dae::RenderComponent::Render() const
 {
-	if (m_texture != nullptr)
+	if (m_texture != nullptr && m_enabled)
 	{
 		Renderer::GetInstance().RenderTexture(*m_texture, GetOwner()->GetTransform()->GetWorldPosition().x, GetOwner()->GetTransform()->GetWorldPosition().y);
 	}

@@ -18,11 +18,14 @@ namespace dae
 		void SetTexture(const std::shared_ptr<Texture2D>& texture);
 		//void SetPosition(float x, float y);
 
+		void SetEnabled(bool enabled) { m_enabled = enabled; }
 
 	private:
 		std::shared_ptr<Texture2D> m_texture;
 
 		glm::vec3 m_position;
+
+		bool m_enabled{ true };
 	};
 }
 

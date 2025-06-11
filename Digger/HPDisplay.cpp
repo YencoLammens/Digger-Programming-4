@@ -1,20 +1,54 @@
 #include "HPDisplay.h"
+#include "GameObject.h"
+#include "RenderComponent.h"
 #include "HealthComponent.h"
-#include "TextComponent.h"
-
 
 dae::HPDisplay::HPDisplay(GameObject* goUI)
-	:BaseComponent(goUI)
+	: BaseComponent(goUI)
 {
-	m_goUI = goUI;
+}
+
+void dae::HPDisplay::SetHeartIcons(const std::vector<GameObject*>& heartIcons)
+{
+	m_HeartIcons = heartIcons;
 }
 
 void dae::HPDisplay::OnNotify(const GameEvent& event, GameObject* go)
 {
-	switch (event.Id)
+	if (event.Id != EventId::HEALTH_CHANGED || !go)
+		return;
+
+	auto healthComp = go->GetComponent<HealthComponent>();
+	if (!healthComp)
+		return;
+
+	int currentHP = healthComp->GetHealth();
+	for (size_t i = 0; i < m_HeartIcons.size(); ++i)
 	{
-	case EventId::HEALTH_CHANGED :
-		m_goUI->GetComponent<TextComponent>()->SetText("# lives: " + std::to_string(go->GetComponent<HealthComponent>()->GetHealth()));
-		break;
+		auto* heartGO = m_HeartIcons[i];
+		if (!heartGO) continue;
+
+		auto* renderComp = heartGO->GetComponent<RenderComponent>();
+		if (renderComp)
+		{
+			std::cout << "Current HP: " << currentHP << "\n";
+			renderComp->SetEnabled(i < currentHP);
+		}
 	}
 }
+//
+//void dae::HPDisplay::Render() const
+//{
+//	if (!m_Texture) return;
+//
+//	const auto pos = m_goUI->GetTransform()->GetWorldPosition();
+//
+//	for (int i = 0; i < m_Lives; ++i)
+//	{
+//		dae::Renderer::GetInstance().RenderTexture(
+//			m_Texture,
+//			pos.x + i * m_Spacing,
+//			pos.y
+//		);
+//	}
+//}

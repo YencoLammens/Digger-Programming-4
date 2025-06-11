@@ -56,6 +56,7 @@
 #include "GoldPickupComponent.h"
 #include "DeathAnimationComponent.h"
 #include "EnemyComponent.h"
+#include "FireballComponent.h"
 #include <format>
 
 
@@ -201,14 +202,34 @@ void load()
 	//HUD displays for Digger
 
 	//Health display digger
-	/*go2 = std::make_unique<dae::GameObject>();
-	go2->GetTransform()->SetLocalPosition(10, 270, 0);
-	textComponent = std::make_unique<dae::TextComponent>(go2.get(), "# lives: " + std::to_string(go->GetComponent<dae::HealthComponent>()->GetHealth()), font.get());
-	go2->AddComponent(std::move(textComponent));
+	go2 = std::make_unique<dae::GameObject>();
+	//go2->GetTransform()->SetLocalPosition(240, 0, 0);
 	auto hpDisplayComponent = std::make_unique<dae::HPDisplay>(go2.get());
+	
+
+	std::vector<dae::GameObject*> hearts;
+	auto texture = dae::ResourceManager::GetInstance().LoadTexture("Digger.png");
+
+	for (int i = 0; i <= 2; ++i) // for 3 lives
+	{
+		auto heartGo = std::make_unique<dae::GameObject>();
+		heartGo->GetTransform()->SetLocalPosition(240.f + i * 60.f, 0.f, 0.f);
+
+		renderComponent = std::make_unique<dae::RenderComponent>(heartGo.get());
+		renderComponent->SetTexture(texture);
+		heartGo->AddComponent(std::move(renderComponent));
+
+		hearts.push_back(heartGo.get());
+		scene.Add(std::move(heartGo));
+	}
+	
+	hpDisplayComponent->SetHeartIcons(hearts);
+	
 	go2->AddComponent(std::move(hpDisplayComponent));
 	go->AddObserver(go2->GetComponent<dae::HPDisplay>());
-	scene.Add(std::move(go2));*/
+	scene.Add(std::move(go2));
+
+	
 
 
 
