@@ -10,7 +10,8 @@ namespace dae
 		SCORE_CHANGED,
 		SCORE_REACHED_500,
 		PLAYER_DIED,
-		COLLIDED,
+		ENEMY_DIED,
+		COLLIDED
 	};
 
 	struct Event

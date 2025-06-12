@@ -4,7 +4,7 @@
 
 namespace dae 
 {
-	class ScoreComponent : public BaseComponent
+	class ScoreComponent : public BaseComponent, public Observer
 	{
 	public:
 		ScoreComponent(GameObject* owner);
@@ -18,6 +18,7 @@ namespace dae
 		void PickUpGold();
 		void PickUpBonus();
 		void HandleEnemyKilled();
+		void OnNotify(const GameEvent& event, GameObject* go) override;
 		//Implement methods for bonus mode
 		//Implement event for when score reaches 20000 to gain an extra life for the player
 

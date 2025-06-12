@@ -58,5 +58,21 @@ void dae::ScoreComponent::PickUpBonus()
 void dae::ScoreComponent::HandleEnemyKilled()
 {
 	m_score += m_enemyKilledScore;
+	GetOwner()->NotifyObservers(GameEvent(EventId::SCORE_CHANGED));
 }
+
+void dae::ScoreComponent::OnNotify(const GameEvent& event, GameObject*)
+{
+	if (event.Id == EventId::ENEMY_DIED)
+	{
+		HandleEnemyKilled();
+		if (m_score >= m_scoreToGainExtraLife)
+		{
+			//GetOwner()->NotifyObservers(GameEvent(EventId::SCORE_REACHED_500));
+			//m_score = 0; // Reset score after gaining extra life
+		}
+		return;
+	}
+}
+
 

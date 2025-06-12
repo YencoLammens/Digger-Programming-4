@@ -245,15 +245,16 @@ void load()
 
 
 	//Score display digger
-	go2 = std::make_unique<dae::GameObject>();
-	go2->GetTransform()->SetLocalPosition(50, 10, 0);
+	auto scoreGo = std::make_unique<dae::GameObject>();
+	scoreGo->GetTransform()->SetLocalPosition(50, 10, 0);
 	std::string scoreString = std::format("{:05}", go->GetComponent<dae::ScoreComponent>()->GetScore());
-	auto textComponent = std::make_unique<dae::TextComponent>(go2.get(), scoreString, font.get());
-	go2->AddComponent(std::move(textComponent));
-	auto scoreDisplayComponent = std::make_unique<dae::ScoreDisplay>(go2.get());
-	go2->AddComponent(std::move(scoreDisplayComponent));
-	go->AddObserver(go2->GetComponent<dae::ScoreDisplay>());
-	scene.Add(std::move(go2));
+	auto textComponent = std::make_unique<dae::TextComponent>(scoreGo.get(), scoreString, font.get());
+	scoreGo->AddComponent(std::move(textComponent));
+	auto scoreDisplayComponent = std::make_unique<dae::ScoreDisplay>(scoreGo.get());
+	scoreGo->AddComponent(std::move(scoreDisplayComponent));
+	go->AddObserver(scoreGo->GetComponent<dae::ScoreDisplay>());
+	scene.Add(std::move(scoreGo));
+	
 
 
 
@@ -315,6 +316,11 @@ void load()
 	go2->AddComponent(std::move(hitboxComponent));
 	auto enemyComponent = std::make_unique<dae::EnemyComponent>(go2.get(), go.get());
 	go2->AddComponent(std::move(enemyComponent));
+	go2->AddObserver(go->GetComponent<dae::ScoreComponent>());
+	
+
+	
+	
 	//rotatorComponent = std::make_unique<dae::RotatorComponent>(go2.get(), glm::vec3(0,0,0), 5.0f);
 	//go2->AddComponent(std::move(rotatorComponent));
 

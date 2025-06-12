@@ -11,6 +11,12 @@
 dae::EnemyComponent::EnemyComponent(GameObject* owner, GameObject* player)
 	:BaseComponent(owner), m_player(player)
 {
+	GetOwner()->AddObserver(this);
+}
+
+dae::EnemyComponent::~EnemyComponent()
+{
+	GetOwner()->RemoveObserver(this);
 }
 
 void dae::EnemyComponent::Update(float deltaTime)
@@ -42,7 +48,7 @@ void dae::EnemyComponent::FixedUpdate(float)
 			m_player->NotifyObservers(GameEvent(EventId::PLAYER_DIED));
 			m_player->GetComponent<HealthComponent>()->Death();
 			m_player->GetComponent<DeathAnimationComponent>()->PlayerDeath();
-			GetOwner()->MarkForDeletion();
+			KillEnemy();
 			return;
 		}
 	}
@@ -62,17 +68,20 @@ void dae::EnemyComponent::FormChange(EnemyType newType)
 	}
 }
 
-void dae::EnemyComponent::OnNotify(const GameEvent& event, GameObject* go)
+void dae::EnemyComponent::KillEnemy()
+{
+	GetOwner()->NotifyObservers(GameEvent(EventId::ENEMY_DIED));
+	GetOwner()->RemoveObserver(this);
+	GetOwner()->MarkForDeletion();
+}
+
+void dae::EnemyComponent::OnNotify(const GameEvent& event, GameObject*)
 {
 	if (event.Id == EventId::COLLIDED)
 	{
-		if (utils::IsOverlapping(GetOwner()->GetComponent<HitboxComponent>()->GetHitbox(), go->GetComponent<HitboxComponent>()->GetHitbox()))
-		{
-			if (go->GetComponent<Fireball>())
-			{
-				go->MarkForDeletion();
-			}
-			GetOwner()->MarkForDeletion();
-		}
+		
+		KillEnemy();
+		//Will kill it if it collides with anything, not just the fireball, bad
+		
 	}
 }

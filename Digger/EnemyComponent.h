@@ -16,6 +16,7 @@ namespace dae
 
 	public:
 		explicit EnemyComponent(GameObject* owner, GameObject* player);
+		~EnemyComponent() override;
 		void Update(float deltaTime) override;
 		void FixedUpdate(float deltaTime) override;
 		void OnNotify(const GameEvent& event, GameObject* go) override;
@@ -27,6 +28,7 @@ namespace dae
 		float m_timerBeforeTransformation{ 0 };
 		const float m_timerDuration{ 10.0f };
 		EnemyType m_currentType{ EnemyType::Nobbin };
+		void KillEnemy();
 
 		
 
