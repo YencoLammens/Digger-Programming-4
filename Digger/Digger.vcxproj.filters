@@ -45,9 +45,6 @@
     <ClCompile Include="TextComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TransformComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MoveCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -61,9 +58,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GoldbagState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HitboxComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GridMovementComponent.cpp">
@@ -87,7 +81,13 @@
     <ClCompile Include="DeathAnimationComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FireballComponent.cpp">
+    <ClCompile Include="FireballLauncherComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FireballCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Fireball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -119,9 +119,6 @@
     <ClInclude Include="TextComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TransformComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MoveCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -138,9 +135,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GoldbagState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HitboxComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GridMovementComponent.h">
@@ -167,7 +161,13 @@
     <ClInclude Include="DeathAnimationComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FireballComponent.h">
+    <ClInclude Include="FireballLauncherComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FireballCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Fireball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

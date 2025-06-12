@@ -103,12 +103,15 @@
   <ItemGroup>
     <ClInclude Include="AudioClip.h" />
     <ClInclude Include="BaseComponent.h" />
+    <ClInclude Include="basic_ColliderSystem.h" />
+    <ClInclude Include="ColliderSystem.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventQueue.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="HitboxComponent.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="logging_SoundSystem.h" />
     <ClInclude Include="Minigin.h" />
@@ -130,12 +133,15 @@
   <ItemGroup>
     <ClCompile Include="AudioClip.cpp" />
     <ClCompile Include="BaseComponent.cpp" />
+    <ClCompile Include="basic_ColliderSystem.cpp" />
+    <ClCompile Include="ColliderSystem.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventQueue.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="HitboxComponent.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="logging_SoundSystem.cpp" />
     <ClCompile Include="Minigin.cpp" />

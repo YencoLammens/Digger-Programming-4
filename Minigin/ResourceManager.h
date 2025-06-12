@@ -4,6 +4,7 @@
 #include <memory>
 #include <map>
 #include "Singleton.h"
+#include "AudioClip.h"
 
 namespace dae
 {

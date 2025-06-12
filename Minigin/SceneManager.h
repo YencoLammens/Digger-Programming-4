@@ -16,6 +16,7 @@ namespace dae
 		/*void Render();*/
 		void FixedUpdate(float fixed_time_step);
 		void LateUpdate();
+		Scene* GetScene(const int idx) const;
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;

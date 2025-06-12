@@ -90,6 +90,15 @@
     <ClInclude Include="Rectf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ColliderSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="basic_ColliderSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HitboxComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -162,6 +171,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Rectf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="basic_ColliderSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HitboxComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

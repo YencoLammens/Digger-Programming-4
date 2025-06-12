@@ -5,10 +5,10 @@
 #include <glm.hpp>
 #include "Scene.h"
 #include "Observer.h"
-#include "Event.h"
 
 namespace dae
 {
+	struct GameEvent;
 	class Observer;
 	class Transform;
 	class GameObject final

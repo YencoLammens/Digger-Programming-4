@@ -35,6 +35,12 @@ void dae::SceneManager::LateUpdate()
 	}
 }
 
+dae::Scene* dae::SceneManager::GetScene(const int idx) const
+{
+	Scene* scene = m_scenes[idx].get();
+	return scene;
+}
+
 
 dae::Scene& dae::SceneManager::CreateScene(const std::string& name)
 {
@@ -42,3 +48,5 @@ dae::Scene& dae::SceneManager::CreateScene(const std::string& name)
 	m_scenes.push_back(scene);
 	return *scene;
 }
+
+

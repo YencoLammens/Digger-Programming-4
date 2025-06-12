@@ -1,6 +1,7 @@
 #include "ScoreDisplay.h"
 #include "TextComponent.h"
 #include "ScoreComponent.h"
+#include "Event.h"
 
 dae::ScoreDisplay::ScoreDisplay(GameObject* goUI)
 	:BaseComponent(goUI)

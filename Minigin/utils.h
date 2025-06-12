@@ -4,7 +4,6 @@
 namespace utils
 {
 	bool IsOverlapping(const dae::Rectf& r1, const dae::Rectf& r2);
-	
 }
 
 

@@ -2,6 +2,7 @@
 #include <vector>
 #include <SDL_mixer.h>
 #include "AudioClip.h"
+
 using sound_id = unsigned short;
 namespace dae 
 {

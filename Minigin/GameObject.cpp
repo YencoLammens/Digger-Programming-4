@@ -3,7 +3,7 @@
 #include "ResourceManager.h"
 #include "Renderer.h"
 #include "BaseComponent.h"
-
+#include "Event.h"
 
 dae::GameObject::GameObject()
     : m_worldPosition(0.0f, 0.0f, 0.0f), m_localPosition(0.0f, 0.0f, 0.0f), m_transform(std::make_unique<Transform>(this))

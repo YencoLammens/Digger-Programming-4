@@ -11,6 +11,7 @@ namespace dae
 		void Update(float deltaTime) override;
 		void FixedUpdate(float fixedTimeStep) override;
 		const dae::Rectf GetHitbox() const;
+		void OnCollision();
 	private:
 		Rectf m_hitbox;
 	};

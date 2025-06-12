@@ -23,5 +23,11 @@ dae::GameEvent::GameEvent(EventId eventId)
 
 void dae::GameEvent::process()
 {
+
 }
+
+//dae::ColliderEvent::ColliderEvent(EventId eventId, collider_id colliderId)
+//	: Event(eventId), m_colliderId(colliderId)
+//{
+//}
 

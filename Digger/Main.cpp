@@ -56,7 +56,8 @@
 #include "GoldPickupComponent.h"
 #include "DeathAnimationComponent.h"
 #include "EnemyComponent.h"
-#include "FireballComponent.h"
+#include "FireballLauncherComponent.h"
+#include "FireballCommand.h"
 #include <format>
 
 
@@ -70,8 +71,7 @@ void load()
 #endif
 
 	//dae::ServiceLocator::register_SoundSystem(std::make_unique<dae::sdl_SoundSystem>());
-	auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
-
+	auto& scene = dae::SceneManager::GetInstance().CreateScene("Level");
 	/*auto eventQueue = std::make_unique<dae::EventQueue>();
 	eventQueue->push(std::make_unique(dae::SoundEvent(dae::EventId::SCORE_CHANGED, 1, 0.5f)));*/
 	
@@ -89,6 +89,7 @@ void load()
 
 	dae::ResourceManager::GetInstance().LoadTexture("Gravestone.png");
 	dae::ResourceManager::GetInstance().LoadTexture("Hobbin.png");
+	dae::ResourceManager::GetInstance().LoadTexture("Fireball.png");
 
 	/*go = std::make_unique<dae::GameObject>();
 	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
@@ -148,6 +149,8 @@ void load()
 	go->AddComponent(std::move(hitboxComponent));
 	auto deathAnimationComponent = std::make_unique<dae::DeathAnimationComponent>(go.get());
 	go->AddComponent(std::move(deathAnimationComponent));
+	auto FireballLauncherComponent = std::make_unique<dae::FireballLauncherComponent>(go.get());
+	go->AddComponent(std::move(FireballLauncherComponent));
 	/*auto gridMovementComponent = std::make_unique<dae::GridMovementComponent>(go.get(), 50.0f, 200.0f, tileMap.get());
 	go->AddComponent(std::move(gridMovementComponent));*/
 	//auto rotatorComponent = std::make_unique<dae::RotatorComponent>(go.get(), glm::vec3(200, 200, 0), 2.0f);
@@ -165,6 +168,8 @@ void load()
 
 	dae::InputManager::GetInstance().BindKeyboardCommand(SDLK_s, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go.get(), glm::vec3{ 0, 1, 0 }));
 
+	dae::InputManager::GetInstance().BindKeyboardCommand(SDLK_SPACE, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::FireballCommand>(go.get(), glm::vec3{ 1, 0, 0 }));
+
 
 	//Down
 	/*dae::InputManager::GetInstance().BindKeyboardCommand(SDLK_c, dae::InputManager::ButtonState::DOWN, std::make_unique<dae::DamageCommand>(go.get()));
@@ -173,7 +178,6 @@ void load()
 	
 
 	//Up
-	dae::InputManager::GetInstance().BindKeyboardCommand(SDLK_w, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go.get(), glm::vec3{ 0, 0, 0 }));
 	dae::InputManager::GetInstance().BindKeyboardCommand(SDLK_z, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go.get(), glm::vec3{ 0, 0, 0 }));
 
 	dae::InputManager::GetInstance().BindKeyboardCommand(SDLK_a, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go.get(), glm::vec3{ 0, 0, 0 }));

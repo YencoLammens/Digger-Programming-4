@@ -1,5 +1,7 @@
 #include "HealthComponent.h"
 #include "MoveComponent.h"
+#include "Event.h"
+#include "GameObject.h"
 dae::HealthComponent::HealthComponent(GameObject* owner)
 	:BaseComponent(owner)
 {
@@ -58,5 +60,3 @@ void dae::HealthComponent::Resurrect()
 		GetOwner()->GetComponent<MoveComponent>()->EnableMovement();
 	}
 }
-
-

@@ -1,9 +1,11 @@
 #pragma once
-#include "Event.h"
-#include "GameObject.h"
+//#include "Event.h"
+//#include "GameObject.h"
 
 namespace dae 
 {
+	struct GameEvent;
+	class GameObject;
 	class Observer
 	{
 	public:

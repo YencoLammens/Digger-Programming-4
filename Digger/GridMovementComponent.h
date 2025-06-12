@@ -14,7 +14,7 @@ namespace dae
         void Update(float deltaTime) override;
 		void FixedUpdate(float fixedTimeStep) override;
         void SetDirection(glm::vec3 dir);  // Called by input system
-        void SetMap(TileMap* tileMap);  // Optional for collision
+        void SetMap(TileMap* tileMap);  // Optional for collider
 
     private:
         bool IsAlignedToGrid() const;

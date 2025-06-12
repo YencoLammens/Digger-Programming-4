@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "utils.h"
+#include "Event.h"
 
 dae::HitboxComponent::HitboxComponent(GameObject* owner, float width, float height)
 	: BaseComponent(owner), m_hitbox{GetOwner()->GetTransform()->GetWorldPosition().x ,GetOwner()->GetTransform()->GetWorldPosition().y, width, height}
@@ -28,4 +29,7 @@ const dae::Rectf dae::HitboxComponent::GetHitbox() const
 	return m_hitbox;
 }
 
-
+void dae::HitboxComponent::OnCollision()
+{
+	GetOwner()->NotifyObservers(GameEvent(EventId::COLLIDED));
+}

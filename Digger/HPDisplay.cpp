@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "RenderComponent.h"
 #include "HealthComponent.h"
+#include "Event.h"
+#include <iostream>
 
 dae::HPDisplay::HPDisplay(GameObject* goUI)
 	: BaseComponent(goUI)
