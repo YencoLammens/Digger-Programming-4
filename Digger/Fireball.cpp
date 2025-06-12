@@ -16,7 +16,6 @@ void dae::Fireball::Update(float deltaTime)
 {
 	m_position += m_direction * deltaTime * m_speed;
 	GetOwner()->GetTransform()->SetLocalPosition(m_position);
-	std::cout << m_position.x << ", " << m_position.y << ", " << m_position.z << std::endl;
 
 	m_lifetimer += deltaTime;
 
@@ -37,11 +36,15 @@ void dae::Fireball::OnNotify(const GameEvent& event, GameObject*)
 	if (event.Id == EventId::COLLIDED)
 	{
 		KillProjectile();
+		return;
 	}
+
+
 }
 
 void dae::Fireball::KillProjectile()
 {
-	this->MarkForDeletion();
+	GetOwner()->MarkForDeletion();
+	GetOwner()->RemoveObserver(this);
 }
 

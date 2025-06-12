@@ -7,6 +7,7 @@
 #include "ResourceManager.h"
 #include "SceneManager.h"
 #include "HitboxComponent.h"
+#include "ServiceLocator.h"
 
 dae::FireballLauncherComponent::FireballLauncherComponent(GameObject* owner)
 	: BaseComponent(owner)
@@ -32,20 +33,24 @@ void dae::FireballLauncherComponent::Fire(const glm::vec3& direction)
 
 void dae::FireballLauncherComponent::CreateFireball(const glm::vec3& direction)
 {
-	m_pFireball = std::make_unique<GameObject>();
+	auto pfireball = std::make_unique<GameObject>();
 
-	auto transform = std::make_unique<Transform>(m_pFireball.get());
-	auto fireball = std::make_unique<Fireball>(m_pFireball.get(), GetOwner()->GetTransform()->GetWorldPosition(), direction);
-	auto render = std::make_unique<RenderComponent>(m_pFireball.get());
-	auto hitbox = std::make_unique<HitboxComponent>(m_pFireball.get(), 25.f, 25.f);
+	auto transform = std::make_unique<Transform>(pfireball.get());
+	glm::vec3 position = glm::vec3{ GetOwner()->GetTransform()->GetWorldPosition().x + 51, GetOwner()->GetTransform()->GetWorldPosition().y + 10, 0 };
+	auto fireball = std::make_unique<Fireball>(pfireball.get(), position, direction);
+	auto render = std::make_unique<RenderComponent>(pfireball.get());
+	auto hitbox = std::make_unique<HitboxComponent>(pfireball.get(), 25.f, 25.f);
 	render->SetTexture(ResourceManager::GetInstance().LoadTexture("Fireball.png"));
 
-	m_pFireball->AddComponent(std::move(transform));
-	m_pFireball->AddComponent(std::move(fireball));
-	m_pFireball->AddComponent(std::move(render));
-	m_pFireball->AddComponent(std::move(hitbox));
+	pfireball->AddComponent(std::move(transform));
+	pfireball->AddComponent(std::move(render));
+	pfireball->AddComponent(std::move(hitbox));
+	pfireball->AddObserver(fireball.get());
+	pfireball->AddComponent(std::move(fireball));
+	
+	
+	ServiceLocator::get_ColliderSystem().AddGOwithHitbox(pfireball.get());
 
 
-	// Add to scene (replace `scene` with your actual scene reference)
-	SceneManager::GetInstance().GetScene(0)->Add(std::move(m_pFireball));
+	SceneManager::GetInstance().GetScene(0)->Add(std::move(pfireball));
 }

@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include <algorithm>
+#include "ServiceLocator.h"
 
 using namespace dae;
 
@@ -63,6 +64,9 @@ void Scene::FixedUpdate(float fixedTimeStep)
 	{
 		object->FixedUpdate(fixedTimeStep);
 	}
+
+	dae::ServiceLocator::get_ColliderSystem().FixedUpdate(fixedTimeStep);
+	
 }
 
 void Scene::LateUpdate()

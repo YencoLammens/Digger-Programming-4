@@ -33,7 +33,6 @@ void dae::HPDisplay::OnNotify(const GameEvent& event, GameObject* go)
 		auto* renderComp = heartGO->GetComponent<RenderComponent>();
 		if (renderComp)
 		{
-			std::cout << "Current HP: " << currentHP << "\n";
 			renderComp->SetEnabled(i < currentHP);
 		}
 	}

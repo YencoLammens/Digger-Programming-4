@@ -10,16 +10,18 @@ void dae::basic_ColliderSystem::FixedUpdate(float)
 	{
 		for (auto& gameObject2 : gameObjects)
 		{
-			if (gameObject != gameObject2)
+			if (utils::IsOverlapping(gameObject->GetComponent<HitboxComponent>()->GetHitbox(), gameObject2->GetComponent<HitboxComponent>()->GetHitbox()))
 			{
-				if (utils::IsOverlapping(gameObject->GetComponent<HitboxComponent>()->GetHitbox(), gameObject2->GetComponent<HitboxComponent>()->GetHitbox()))
+				if (gameObject != gameObject2)
 				{
 				
-					gameObject->NotifyObservers(GameEvent(EventId::COLLIDED));
-					gameObject2->NotifyObservers(GameEvent(EventId::COLLIDED));
-					/*gameObject->GetComponent<HitboxComponent>()->OnCollision(gameObject2);
-					gameObject2->GetComponent<HitboxComponent>()->OnCollision(gameObject);*/
+				/*	gameObject->NotifyObservers(GameEvent(EventId::COLLIDED));
+					gameObject2->NotifyObservers(GameEvent(EventId::COLLIDED));*/
+					gameObject->GetComponent<HitboxComponent>()->OnCollision(gameObject2);
+					gameObject2->GetComponent<HitboxComponent>()->OnCollision(gameObject);
+					std::cout << "Collision go brr" << std::endl;
 					break;
+					
 				}
 			}
 		}

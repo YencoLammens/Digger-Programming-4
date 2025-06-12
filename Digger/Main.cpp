@@ -59,6 +59,7 @@
 #include "FireballLauncherComponent.h"
 #include "FireballCommand.h"
 #include <format>
+#include "basic_ColliderSystem.h"
 
 
 void load()
@@ -69,6 +70,8 @@ void load()
 #else
 	dae::ServiceLocator::register_SoundSystem(std::make_unique<dae::sdl_SoundSystem>());
 #endif
+
+	dae::ServiceLocator::register_ColliderSystem(std::make_unique<dae::basic_ColliderSystem>());
 
 	//dae::ServiceLocator::register_SoundSystem(std::make_unique<dae::sdl_SoundSystem>());
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("Level");
@@ -85,6 +88,8 @@ void load()
 	soundService.AddAudioClip(clip.get());
 	soundService.Play(0, 1.0f);
 
+
+	//auto& colliderService = dae::ServiceLocator::get_ColliderSystem();
 
 
 	dae::ResourceManager::GetInstance().LoadTexture("Gravestone.png");

@@ -18,9 +18,9 @@ namespace dae
 		void FixedUpdate(float /*fixedTimeStep*/) override {}
 
 	private:
-		std::unique_ptr<GameObject> m_pFireball;
+		//std::unique_ptr<GameObject> m_pFireball;
 		float m_CooldownTime{ 1.0f };
-		float m_TimeSinceLastFire{ 0.0f };
+		float m_TimeSinceLastFire{ 1.0f };
 
 		void CreateFireball(const glm::vec3& direction);
 	};
