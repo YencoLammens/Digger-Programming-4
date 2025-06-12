@@ -18,7 +18,7 @@ namespace dae
 		const glm::vec3 m_startPosition;
 		glm::vec3 m_direction;
 		glm::vec3 m_position;
-		const float m_speed{ 200.0f };
+		const float m_speed{ 500.0f };
 		float m_lifetime{ 5.0f };
 		float m_lifetimer{ 0.0f };
 	};

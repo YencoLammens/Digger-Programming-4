@@ -1,6 +1,7 @@
 #include "RenderComponent.h"
 #include "Renderer.h"
 #include "GameObject.h"
+#include "SpriteRenderStateComponent.h"
 
 dae::RenderComponent::RenderComponent(GameObject* owner)
 	: BaseComponent(owner), m_position{0, 0, 0}
@@ -22,9 +23,27 @@ void dae::RenderComponent::FixedUpdate(float)
 
 void dae::RenderComponent::Render() const
 {
-	if (m_texture != nullptr && m_enabled)
+	
+
+	if (m_texture && m_enabled)
 	{
-		Renderer::GetInstance().RenderTexture(*m_texture, GetOwner()->GetTransform()->GetWorldPosition().x, GetOwner()->GetTransform()->GetWorldPosition().y);
+		auto* transform = GetOwner()->GetTransform();
+		const auto pos = transform->GetWorldPosition();
+
+		auto* spriteState = GetOwner()->GetComponent<SpriteRenderStateComponent>();
+		if (spriteState)
+		{
+			Renderer::GetInstance().RenderTexture(
+				*m_texture,
+				pos.x, pos.y,
+				spriteState->GetRotation(),
+				spriteState->GetFlipX()
+			);
+		}
+		else
+		{
+			Renderer::GetInstance().RenderTexture(*m_texture, pos.x, pos.y);
+		}
 	}
 }
 

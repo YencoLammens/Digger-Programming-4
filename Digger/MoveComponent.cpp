@@ -2,9 +2,10 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include <cmath> // std::fmod, std::round
+#include "SpriteRenderStateComponent.h"
 
 dae::MoveComponent::MoveComponent(GameObject* owner, float speed)
-	: BaseComponent(owner), m_speed(speed), m_direction(0.f), m_pendingDirection(0.f)
+	: BaseComponent(owner), m_speed(speed), m_direction(0.f), m_pendingDirection(0.f), m_previousDirection(m_direction)
 {
 }
 
@@ -14,6 +15,8 @@ void dae::MoveComponent::Update(float deltaTime)
 	{
 		auto* transform = GetOwner()->GetTransform();
 		glm::vec3 currentPosition = transform->GetWorldPosition();
+
+		
 
 		if (!m_isMoving)
 		{
@@ -56,6 +59,33 @@ void dae::MoveComponent::Update(float deltaTime)
 void dae::MoveComponent::SetDirection(const glm::vec3& direction)
 {
 	m_pendingDirection = direction;
+	m_previousDirection = m_direction; // Store previous direction for potential use
+
+	auto* spriteState = GetOwner()->GetComponent<SpriteRenderStateComponent>();
+	if (spriteState)
+	{
+		
+		if (direction.x < 0.f)
+		{
+			spriteState->SetFlipX(true);
+			spriteState->SetRotation(0.f);
+		}
+		else if (direction.x > 0.f)
+		{
+			spriteState->SetFlipX(false);
+			spriteState->SetRotation(0.f);
+		}
+		else if (direction.y < 0.f)
+		{
+			spriteState->SetFlipX(false);
+			spriteState->SetRotation(270.f);
+		}
+		else if (direction.y > 0.f)
+		{
+			spriteState->SetFlipX(false);
+			spriteState->SetRotation(90.f);
+		}
+	}
 }
 
 void dae::MoveComponent::DisableMovement()

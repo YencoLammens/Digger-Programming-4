@@ -58,6 +58,16 @@ void dae::Transform::SetPositionDirty()
 	}
 }
 
+void dae::Transform::SetRotation(float angleDegrees)
+{
+	m_rotationDegrees = angleDegrees;
+}
+
+float dae::Transform::GetRotation() const
+{
+	return m_rotationDegrees;
+}
+
 void dae::Transform::Update(float deltaTime)
 {
 	m_localPosition += deltaTime;

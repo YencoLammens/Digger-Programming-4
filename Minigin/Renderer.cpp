@@ -79,6 +79,44 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
 }
 
+void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y, const float angleDegrees) const
+{
+	SDL_Rect dst{};
+	dst.x = static_cast<int>(x);
+	dst.y = static_cast<int>(y);
+	SDL_QueryTexture(texture.GetSDLTexture(), nullptr, nullptr, &dst.w, &dst.h);
+
+	SDL_RenderCopyEx(
+		GetSDLRenderer(),
+		texture.GetSDLTexture(),
+		nullptr,				// src rect (null = full texture)
+		&dst,					// dst rect
+		angleDegrees,			// rotation angle
+		nullptr,				// rotation center (null = center of dst)
+		SDL_FLIP_NONE			// no flipping
+	);
+}
+
+void dae::Renderer::RenderTexture(const Texture2D& texture, float x, float y, float angleDegrees, bool flipX) const
+{
+	SDL_Rect dst{};
+	dst.x = static_cast<int>(x);
+	dst.y = static_cast<int>(y);
+	SDL_QueryTexture(texture.GetSDLTexture(), nullptr, nullptr, &dst.w, &dst.h);
+
+	SDL_RendererFlip flip = flipX ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+
+	SDL_RenderCopyEx(
+		GetSDLRenderer(),
+		texture.GetSDLTexture(),
+		nullptr,
+		&dst,
+		angleDegrees,
+		nullptr,
+		flip
+	);
+}
+
 SDL_Renderer* dae::Renderer::GetSDLRenderer() const { return m_renderer; }
 
 void dae::Renderer::AddRenderComponent(RenderComponent* renderComponent)

@@ -16,12 +16,20 @@ namespace dae
 		bool IsPositionDirty();
 		void SetPositionDirty();
 
+		void SetRotation(float angleDegrees);
+		float GetRotation() const;
+		void SetFlipX(bool flip) { m_flipX = flip; }
+		bool GetFlipX() const { return m_flipX; }
+
 		void Update(float deltaTime) override;
 		void FixedUpdate(float fixedTimeStep) override;
+		
 		
 	private:
 		glm::vec3 m_localPosition;
 		glm::vec3 m_worldPosition;
 		bool m_positionIsDirty = false;
+		float m_rotationDegrees{ 0.0f };
+		bool m_flipX{ false };
 	};
 }

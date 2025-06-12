@@ -60,6 +60,7 @@
 #include "FireballCommand.h"
 #include <format>
 #include "basic_ColliderSystem.h"
+#include "SpriteRenderStateComponent.h"
 
 
 void load()
@@ -154,8 +155,10 @@ void load()
 	go->AddComponent(std::move(hitboxComponent));
 	auto deathAnimationComponent = std::make_unique<dae::DeathAnimationComponent>(go.get());
 	go->AddComponent(std::move(deathAnimationComponent));
-	auto FireballLauncherComponent = std::make_unique<dae::FireballLauncherComponent>(go.get());
-	go->AddComponent(std::move(FireballLauncherComponent));
+	auto fireballLauncherComponent = std::make_unique<dae::FireballLauncherComponent>(go.get());
+	go->AddComponent(std::move(fireballLauncherComponent));
+	auto spriteStateComponent = std::make_unique<dae::SpriteRenderStateComponent>(go.get());
+	go->AddComponent(std::move(spriteStateComponent));
 	/*auto gridMovementComponent = std::make_unique<dae::GridMovementComponent>(go.get(), 50.0f, 200.0f, tileMap.get());
 	go->AddComponent(std::move(gridMovementComponent));*/
 	//auto rotatorComponent = std::make_unique<dae::RotatorComponent>(go.get(), glm::vec3(200, 200, 0), 2.0f);
