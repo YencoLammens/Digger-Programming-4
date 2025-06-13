@@ -2,6 +2,7 @@
 #include "MoveComponent.h"
 #include "Event.h"
 #include "GameObject.h"
+#include "ServiceLocator.h"
 dae::HealthComponent::HealthComponent(GameObject* owner)
 	:BaseComponent(owner)
 {
@@ -48,6 +49,8 @@ void dae::HealthComponent::Death()
 	m_isDead = true;
 	LoseHeart();
 	GetOwner()->GetComponent<MoveComponent>()->DisableMovement();
+	ServiceLocator::get_SoundSystem().Play(0, 0.2f);
+	ServiceLocator::get_SoundSystem().Play(1, 0.2f);
 }
 
 void dae::HealthComponent::Resurrect()

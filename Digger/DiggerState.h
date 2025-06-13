@@ -10,16 +10,16 @@ namespace dae
 		Dead
 	};
 
-	class DiggerState
-	{
-	public:
-		virtual ~DiggerState() = default;
-		/*virtual void HandleInput(GameObject& gameObject) {};
-		virtual void HandleEvent(GameObject& gameObject) {};
-		virtual void Update(GameObject& gameObject, float deltaTime) {};
-		virtual void enter(GameObject& gameObject) {}
-		virtual void exit(GameObject& gameObject) {}*/
-	};
+	//class DiggerState
+	//{
+	//public:
+	//	virtual ~DiggerState() = default;
+	//	/*virtual void HandleInput(GameObject& gameObject) {};
+	//	virtual void HandleEvent(GameObject& gameObject) {};
+	//	virtual void Update(GameObject& gameObject, float deltaTime) {};
+	//	virtual void enter(GameObject& gameObject) {}
+	//	virtual void exit(GameObject& gameObject) {}*/
+	//};
 
 	/*class DiggerIdleState : public DiggerState
 	{

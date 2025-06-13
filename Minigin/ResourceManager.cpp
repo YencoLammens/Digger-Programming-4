@@ -37,13 +37,26 @@ std::shared_ptr<dae::Font> dae::ResourceManager::LoadFont(const std::string& fil
 	return m_loadedFonts.at(key);
 }
 
-std::unique_ptr<dae::AudioClip> dae::ResourceManager::LoadAudioClip(const std::string& file)
+//std::unique_ptr<dae::AudioClip> dae::ResourceManager::LoadAudioClip(const std::string& file)
+//{
+//	const auto fullPath = m_dataPath/file;
+//	const auto filename = fs::path(fullPath).filename().string();
+//	if (m_loadedAudioClips.find(filename) == m_loadedAudioClips.end())
+//		m_loadedAudioClips.insert(std::pair(filename, std::make_unique<AudioClip>(fullPath.string())));
+//	return std::move(m_loadedAudioClips.at(filename));
+//}
+
+dae::AudioClip* dae::ResourceManager::LoadAudioClip(const std::string& file)
 {
-	const auto fullPath = m_dataPath/file;
+	const auto fullPath = m_dataPath / file;
 	const auto filename = fs::path(fullPath).filename().string();
+
 	if (m_loadedAudioClips.find(filename) == m_loadedAudioClips.end())
-		m_loadedAudioClips.insert(std::pair(filename, std::make_unique<AudioClip>(fullPath.string())));
-	return std::move(m_loadedAudioClips.at(filename));
+	{
+		m_loadedAudioClips[filename] = std::make_unique<AudioClip>(fullPath.string());
+	}
+
+	return m_loadedAudioClips[filename].get();
 }
 
 void dae::ResourceManager::UnloadUnusedResources()

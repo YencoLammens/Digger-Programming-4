@@ -36,6 +36,9 @@ void dae::FireballLauncherComponent::CreateFireball(const glm::vec3& direction)
 	auto pfireball = std::make_unique<GameObject>();
 
 	auto transform = std::make_unique<Transform>(pfireball.get());
+
+	//auto rotation = GetOwner()->GetTransform()->GetRotation();
+	
 	glm::vec3 position = glm::vec3{ GetOwner()->GetTransform()->GetWorldPosition().x + 51, GetOwner()->GetTransform()->GetWorldPosition().y + 10, 0 };
 	auto fireball = std::make_unique<Fireball>(pfireball.get(), position, direction);
 	auto render = std::make_unique<RenderComponent>(pfireball.get());

@@ -7,6 +7,7 @@
 #include "ResourceManager.h"
 #include "RenderComponent.h"
 #include "Fireball.h"
+#include "ServiceLocator.h"
 
 dae::EnemyComponent::EnemyComponent(GameObject* owner, GameObject* player)
 	:BaseComponent(owner), m_player(player)
@@ -73,6 +74,7 @@ void dae::EnemyComponent::KillEnemy()
 	GetOwner()->NotifyObservers(GameEvent(EventId::ENEMY_DIED));
 	GetOwner()->RemoveObserver(this);
 	GetOwner()->MarkForDeletion();
+	ServiceLocator::get_SoundSystem().Play(7, 0.3f);
 }
 
 void dae::EnemyComponent::OnNotify(const GameEvent& event, GameObject*)

@@ -5,11 +5,13 @@
 #include "HitboxComponent.h"
 #include "EnemyComponent.h"
 #include "Event.h"
+#include "ServiceLocator.h"
 
 dae::Fireball::Fireball(GameObject* owner, const glm::vec3& startPos, const glm::vec3& direction) 
 	: BaseComponent(owner), m_startPosition(startPos), m_direction(direction)
 {
 	m_position = startPos ;
+	ServiceLocator::get_SoundSystem().Play(2, 0.3f);
 }
 
 void dae::Fireball::Update(float deltaTime)
@@ -35,6 +37,7 @@ void dae::Fireball::OnNotify(const GameEvent& event, GameObject*)
 {
 	if (event.Id == EventId::COLLIDED)
 	{
+		ServiceLocator::get_SoundSystem().Play(3, 0.3f);
 		KillProjectile();
 		return;
 	}

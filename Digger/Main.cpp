@@ -85,10 +85,32 @@ void load()
 	soundService.AddAudioClip(clip.get());
 	soundService.Play(0, 0.5f);*/
 
-	auto clip = dae::ResourceManager::GetInstance().LoadAudioClip("bnb.wav");
-	soundService.AddAudioClip(clip.get());
-	soundService.Play(0, 1.0f);
+	
+	auto clip = dae::ResourceManager::GetInstance().LoadAudioClip("PlayerDeathImpact.mp3");
+	soundService.AddAudioClip(clip);
+	
+	clip = dae::ResourceManager::GetInstance().LoadAudioClip("PlayerDeath.mp3");
+	soundService.AddAudioClip(clip);
 
+	clip = dae::ResourceManager::GetInstance().LoadAudioClip("Fireball.mp3");
+	soundService.AddAudioClip(clip);
+
+	clip = dae::ResourceManager::GetInstance().LoadAudioClip("FireballImpact.mp3");
+	soundService.AddAudioClip(clip);
+
+	clip = dae::ResourceManager::GetInstance().LoadAudioClip("EmeraldPickup.mp3");
+	soundService.AddAudioClip(clip);
+
+	clip = dae::ResourceManager::GetInstance().LoadAudioClip("GoldPickup.mp3");
+	soundService.AddAudioClip(clip);
+
+	clip = dae::ResourceManager::GetInstance().LoadAudioClip("BoostPickup.mp3");
+	soundService.AddAudioClip(clip);
+
+	clip = dae::ResourceManager::GetInstance().LoadAudioClip("EnemyDeath.mp3");
+	soundService.AddAudioClip(clip);
+	
+	soundService.Play(5, 0.2f);
 
 	//auto& colliderService = dae::ServiceLocator::get_ColliderSystem();
 
@@ -262,16 +284,20 @@ void load()
 
 
 	//Pickup emerald
-	go2 = std::make_unique<dae::GameObject>();
-	renderComponent = std::make_unique<dae::RenderComponent>(go2.get());
-	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Emerald.png"));
-	go2->AddComponent(std::move(renderComponent));
-	go2->GetTransform()->SetLocalPosition(500, 300, 0);
-	hitboxComponent = std::make_unique<dae::HitboxComponent>(go2.get(), 50.f, 50.f);
-	go2->AddComponent(std::move(hitboxComponent));
-	auto emeraldPickupComponent = std::make_unique<dae::EmeraldPickupComponent>(go2.get(), go.get());
-	go2->AddComponent(std::move(emeraldPickupComponent));
-	scene.Add(std::move(go2));
+	for (int i{ 0 }; i < 8; ++i)
+	{
+		go2 = std::make_unique<dae::GameObject>();
+		renderComponent = std::make_unique<dae::RenderComponent>(go2.get());
+		renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Emerald.png"));
+		go2->AddComponent(std::move(renderComponent));
+		go2->GetTransform()->SetLocalPosition(static_cast<float>(100 + i * 100), 400, 0);
+		hitboxComponent = std::make_unique<dae::HitboxComponent>(go2.get(), 50.f, 50.f);
+		go2->AddComponent(std::move(hitboxComponent));
+		auto emeraldPickupComponent = std::make_unique<dae::EmeraldPickupComponent>(go2.get(), go.get());
+		go2->AddComponent(std::move(emeraldPickupComponent));
+		scene.Add(std::move(go2));
+	}
+	
 
 	
 

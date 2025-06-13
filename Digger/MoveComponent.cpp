@@ -59,7 +59,7 @@ void dae::MoveComponent::Update(float deltaTime)
 void dae::MoveComponent::SetDirection(const glm::vec3& direction)
 {
 	m_pendingDirection = direction;
-	m_previousDirection = m_direction; // Store previous direction for potential use
+	m_previousDirection = m_direction; // Store previous direction for potential use+
 
 	auto* spriteState = GetOwner()->GetComponent<SpriteRenderStateComponent>();
 	if (spriteState)

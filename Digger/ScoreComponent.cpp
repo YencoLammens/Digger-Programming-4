@@ -1,6 +1,7 @@
 #include "ScoreComponent.h"
 #include "GameObject.h"
 #include "Event.h"
+#include "ServiceLocator.h"
 
 dae::ScoreComponent::ScoreComponent(GameObject* owner)
 	:BaseComponent(owner)
@@ -34,25 +35,28 @@ void dae::ScoreComponent::ResetScore()
 void dae::ScoreComponent::PickUpEmerald()
 {
 	m_score += m_emeraldScore;
-	if (m_currentEmeraldStreak == m_emeraldMaxStreak)
+	if (m_currentEmeraldStreak == m_emeraldMaxStreak - 1)
 	{
 		m_score += m_emeraldStreakScore;
 		m_currentEmeraldStreak = 0;
 	}
 	++m_currentEmeraldStreak;
 	GetOwner()->NotifyObservers(GameEvent(EventId::SCORE_CHANGED));
+	ServiceLocator::get_SoundSystem().Play(4, 0.5f);
 }
 
 void dae::ScoreComponent::PickUpGold()
 {
 	m_score += m_goldScore;
 	GetOwner()->NotifyObservers(GameEvent(EventId::SCORE_CHANGED));
+	ServiceLocator::get_SoundSystem().Play(5, 0.5f);
 }
 
 void dae::ScoreComponent::PickUpBonus()
 {
 	m_score += m_bonusScore;
 	GetOwner()->NotifyObservers(GameEvent(EventId::SCORE_CHANGED));
+	ServiceLocator::get_SoundSystem().Play(6, 0.5f);
 }
 
 void dae::ScoreComponent::HandleEnemyKilled()
