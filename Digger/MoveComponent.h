@@ -1,6 +1,7 @@
 #pragma once
 #include "glm.hpp"
 #include "BaseComponent.h"
+#include "Rectf.h"
 
 namespace dae
 {
@@ -23,10 +24,11 @@ namespace dae
 		glm::vec3 m_direction;
 		glm::vec3 m_pendingDirection;
 		glm::vec3 m_previousDirection;
-		const float m_tileSize{ 32.f};
+		const float m_tileSize{ 50.f};
 		glm::vec3 m_targetPosition{ 0.f }; // where we're moving to
 		bool m_isMoving = false;
 		bool m_canMove = true;
+		Rectf m_movementBounds{ 5, 35, 950 ,570 };
 	};
 }
 

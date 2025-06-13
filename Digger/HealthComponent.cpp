@@ -2,6 +2,7 @@
 #include "MoveComponent.h"
 #include "Event.h"
 #include "GameObject.h"
+#include "FireballLauncherComponent.h"
 #include "ServiceLocator.h"
 dae::HealthComponent::HealthComponent(GameObject* owner)
 	:BaseComponent(owner)
@@ -49,8 +50,10 @@ void dae::HealthComponent::Death()
 	m_isDead = true;
 	LoseHeart();
 	GetOwner()->GetComponent<MoveComponent>()->DisableMovement();
+	GetOwner()->GetComponent<FireballLauncherComponent>()->SetCanFire(false);
 	ServiceLocator::get_SoundSystem().Play(0, 0.2f);
 	ServiceLocator::get_SoundSystem().Play(1, 0.2f);
+	
 }
 
 void dae::HealthComponent::Resurrect()
@@ -61,5 +64,6 @@ void dae::HealthComponent::Resurrect()
 		
 		m_isDead = false;
 		GetOwner()->GetComponent<MoveComponent>()->EnableMovement();
+		GetOwner()->GetComponent<FireballLauncherComponent>()->SetCanFire(true);
 	}
 }

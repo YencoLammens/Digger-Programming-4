@@ -120,6 +120,7 @@ void load()
 	dae::ResourceManager::GetInstance().LoadTexture("Gravestone.png");
 	dae::ResourceManager::GetInstance().LoadTexture("Hobbin.png");
 	dae::ResourceManager::GetInstance().LoadTexture("Fireball.png");
+	dae::ResourceManager::GetInstance().LoadTexture("DiggerOom.png");
 
 	/*go = std::make_unique<dae::GameObject>();
 	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
@@ -343,9 +344,9 @@ void load()
 	//renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("NobbinScreenshot.png"));
 	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Nobbin.png"));
 	go2->AddComponent(std::move(renderComponent));
-	go2->GetTransform()->SetLocalPosition(300, 300, 0);
-	moveComponent = std::make_unique<dae::MoveComponent>(go2.get(), 200.0f);
-	go2->AddComponent(std::move(moveComponent));
+	go2->GetTransform()->SetLocalPosition(600, 550, 0);
+	/*moveComponent = std::make_unique<dae::MoveComponent>(go2.get(), 200.0f);
+	go2->AddComponent(std::move(moveComponent));*/
 	/*healthComponent = std::make_unique<dae::HealthComponent>(go2.get());
 	go2->AddComponent(std::move(healthComponent));
 	scoreComponent = std::make_unique<dae::ScoreComponent>(go2.get());

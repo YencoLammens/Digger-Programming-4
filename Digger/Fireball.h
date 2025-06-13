@@ -16,11 +16,12 @@ namespace dae
 		void KillProjectile();
 	private:
 		const glm::vec3 m_startPosition;
-		glm::vec3 m_direction;
+		glm::vec3 m_direction{ 1,0,0 };
 		glm::vec3 m_position;
 		const float m_speed{ 500.0f };
 		float m_lifetime{ 5.0f };
 		float m_lifetimer{ 0.0f };
+		GameObject* m_launcherObject{ nullptr }; // The object that launched this fireball
 	};
 }
 
