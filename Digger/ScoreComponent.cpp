@@ -34,15 +34,17 @@ void dae::ScoreComponent::ResetScore()
 
 void dae::ScoreComponent::PickUpEmerald()
 {
+	ServiceLocator::get_SoundSystem().Play(4, 0.5f);
 	m_score += m_emeraldScore;
 	if (m_currentEmeraldStreak == m_emeraldMaxStreak - 1)
 	{
 		m_score += m_emeraldStreakScore;
 		m_currentEmeraldStreak = 0;
+		ServiceLocator::get_SoundSystem().Play(8, 0.5f);
 	}
 	++m_currentEmeraldStreak;
 	GetOwner()->NotifyObservers(GameEvent(EventId::SCORE_CHANGED));
-	ServiceLocator::get_SoundSystem().Play(4, 0.5f);
+	
 }
 
 void dae::ScoreComponent::PickUpGold()

@@ -64,27 +64,35 @@ void dae::MoveComponent::SetDirection(const glm::vec3& direction)
 	auto* spriteState = GetOwner()->GetComponent<SpriteRenderStateComponent>();
 	if (spriteState)
 	{
+		if (m_canMove)
+		{
+			if (direction.x < 0.f)
+			{
+				spriteState->SetFlipX(true);
+				spriteState->SetRotation(0.f);
+			}
+			else if (direction.x > 0.f)
+			{
+				spriteState->SetFlipX(false);
+				spriteState->SetRotation(0.f);
+			}
+			else if (direction.y < 0.f)
+			{
+				spriteState->SetFlipX(false);
+				spriteState->SetRotation(270.f);
+			}
+			else if (direction.y > 0.f)
+			{
+				spriteState->SetFlipX(false);
+				spriteState->SetRotation(90.f);
+			}
+		}
+		else
+		{
+			spriteState->SetFlipX(false);
+			spriteState->SetRotation(0.f);
+		}
 		
-		if (direction.x < 0.f)
-		{
-			spriteState->SetFlipX(true);
-			spriteState->SetRotation(0.f);
-		}
-		else if (direction.x > 0.f)
-		{
-			spriteState->SetFlipX(false);
-			spriteState->SetRotation(0.f);
-		}
-		else if (direction.y < 0.f)
-		{
-			spriteState->SetFlipX(false);
-			spriteState->SetRotation(270.f);
-		}
-		else if (direction.y > 0.f)
-		{
-			spriteState->SetFlipX(false);
-			spriteState->SetRotation(90.f);
-		}
 	}
 }
 

@@ -109,12 +109,14 @@ void load()
 
 	clip = dae::ResourceManager::GetInstance().LoadAudioClip("EnemyDeath.mp3");
 	soundService.AddAudioClip(clip);
+
+	clip = dae::ResourceManager::GetInstance().LoadAudioClip("Scorestreak.mp3");
+	soundService.AddAudioClip(clip);
 	
-	soundService.Play(5, 0.2f);
 
 	//auto& colliderService = dae::ServiceLocator::get_ColliderSystem();
 
-
+	dae::ResourceManager::GetInstance().LoadTexture("Map.png");
 	dae::ResourceManager::GetInstance().LoadTexture("Gravestone.png");
 	dae::ResourceManager::GetInstance().LoadTexture("Hobbin.png");
 	dae::ResourceManager::GetInstance().LoadTexture("Fireball.png");
@@ -160,10 +162,17 @@ void load()
 
 	//Map n stuff
 	auto tileMap = std::make_unique<dae::TileMap>(1000.0f, 650.0f);
-
+	
 	auto go = std::make_unique<dae::GameObject>();
-	//Digger
 	auto renderComponent = std::make_unique<dae::RenderComponent>(go.get());
+	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Map.png"));
+	go->AddComponent(std::move(renderComponent));
+	go->GetTransform()->SetLocalPosition(0, 50, 0);
+	scene.Add(std::move(go));
+
+	go = std::make_unique<dae::GameObject>();
+	//Digger
+	renderComponent = std::make_unique<dae::RenderComponent>(go.get());
 	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Digger.png"));
 	go->AddComponent(std::move(renderComponent));
 	go->GetTransform()->SetLocalPosition(96, 128, 0);
@@ -355,29 +364,30 @@ void load()
 
 	//go2->SetParent(go.get(), false);
 
-	////Pressed
-	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_UP, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, -1, 0 }));
+	//Pressed
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_UP, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, -1, 0 }));
 
-	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_LEFT, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ -1, 0, 0 }));
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_LEFT, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ -1, 0, 0 }));
 
-	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_RIGHT, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 1, 0, 0 }));
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_RIGHT, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 1, 0, 0 }));
 
-	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_DOWN, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 1, 0 }));
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_DOWN, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 1, 0 }));
+
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_A, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::FireballCommand>(go2.get(), glm::vec3{ 1, 0, 0 }));
+
+	//Down
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_X, dae::InputManager::ButtonState::DOWN, std::make_unique<dae::DamageCommand>(go2.get()));
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_A, dae::InputManager::ButtonState::DOWN, std::make_unique<dae::GainPointsCommand>(go2.get()));
 
 
-	////Down
-	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_X, dae::InputManager::ButtonState::DOWN, std::make_unique<dae::DamageCommand>(go2.get()));
-	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_A, dae::InputManager::ButtonState::DOWN, std::make_unique<dae::GainPointsCommand>(go2.get()));
+	//Up
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_UP, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
 
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_LEFT, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
 
-	////Up
-	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_UP, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_RIGHT, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
 
-	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_LEFT, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
-
-	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_RIGHT, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
-
-	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_DOWN, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_DOWN, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
 
 
 
