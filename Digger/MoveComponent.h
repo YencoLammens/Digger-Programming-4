@@ -24,7 +24,7 @@ namespace dae
 		glm::vec3 m_direction;
 		glm::vec3 m_pendingDirection;
 		glm::vec3 m_previousDirection;
-		const float m_tileSize{ 50.f};
+		const float m_tileSize{ 30.f};
 		glm::vec3 m_targetPosition{ 0.f }; // where we're moving to
 		bool m_isMoving = false;
 		bool m_canMove = true;

@@ -15,12 +15,13 @@ void dae::HealthComponent::Update(float deltaTime)
 	if (m_isDead)
 	{
 		m_deathTimer += deltaTime;
+		if (m_deathTimer >= m_deathDuration)
+		{
+			Resurrect();
+		}
 	}
 
-	if (m_deathTimer >= m_deathDuration)
-	{
-		Resurrect();
-	}
+	
 	
 }
 
@@ -35,14 +36,12 @@ int dae::HealthComponent::GetHealth() const
 
 void dae::HealthComponent::LoseHeart()
 {
-	//Works but doesn't update the display
-	//Seeing as the digger has 3 hearts, this subtracts one and sets the state to dead so when implemented the game CAN reset
 	if (m_currentHealth > 0)
 	{
 		--m_currentHealth;
 		GetOwner()->NotifyObservers(GameEvent(EventId::HEALTH_CHANGED));
 	}
-	//To be implemented
+	
 }
 
 void dae::HealthComponent::Death()

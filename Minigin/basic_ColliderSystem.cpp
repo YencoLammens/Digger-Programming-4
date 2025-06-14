@@ -19,7 +19,7 @@ void dae::basic_ColliderSystem::FixedUpdate(float)
 					gameObject2->NotifyObservers(GameEvent(EventId::COLLIDED));*/
 					gameObject->GetComponent<HitboxComponent>()->OnCollision(gameObject2);
 					gameObject2->GetComponent<HitboxComponent>()->OnCollision(gameObject);
-					std::cout << "Collision go brr" << std::endl;
+				
 					break;
 					
 				}

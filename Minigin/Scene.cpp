@@ -2,7 +2,6 @@
 #include "GameObject.h"
 #include <algorithm>
 #include "ServiceLocator.h"
-
 using namespace dae;
 
 unsigned int Scene::m_idCounter = 0;
@@ -104,4 +103,16 @@ void Scene::RemoveFlaggedObjects()
 		}
 	}
 }
+
+void dae::Scene::ResetLevel()
+{
+	//for (auto& object : m_objects)
+	//{
+	//	object->MarkForDeletion();
+	//}
+	//m_mustAnObjectBeDeleted = true;
+	//m_objects.clear();
+	//m_idCounter = 0; // Reset ID counter if needed
+}
+
 

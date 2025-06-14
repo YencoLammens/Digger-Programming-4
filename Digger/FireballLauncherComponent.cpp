@@ -32,7 +32,7 @@ void dae::FireballLauncherComponent::Update(float deltaTime)
 }
 
 void dae::FireballLauncherComponent::Fire(const glm::vec3& direction)
-{
+    {
 	if (!m_canFire)
 		return;
 	
@@ -52,31 +52,31 @@ void dae::FireballLauncherComponent::CreateFireball(const glm::vec3& direction)
 	auto transform = std::make_unique<Transform>(pfireball.get());
 
 	
-	//float launchPositionX{ 0 };
-	//float launchPositionY{ 0 };
-	////auto rotation = GetOwner()->GetTransform()->GetRotation();
-	//if (direction.x == 1)
-	//{
-	//	launchPositionX = GetOwner()->GetTransform()->GetWorldPosition().x + 51;
-	//	launchPositionY = GetOwner()->GetTransform()->GetWorldPosition().y + 10;
-	//}
-	//else if (direction.x == -1)
-	//{
-	//	launchPositionX = GetOwner()->GetTransform()->GetWorldPosition().x - 51;
-	//	launchPositionY = GetOwner()->GetTransform()->GetWorldPosition().y + 10;
-	//}
-	//else if (direction.y == 1)
-	//{
-	//	launchPositionX = GetOwner()->GetTransform()->GetWorldPosition().y + 51;
-	//	launchPositionY = GetOwner()->GetTransform()->GetWorldPosition().x + 10;
-	//}
-	//else if (direction.y == -1)
-	//{
-	//	launchPositionX = GetOwner()->GetTransform()->GetWorldPosition().y + 51;
-	//	launchPositionY = GetOwner()->GetTransform()->GetWorldPosition().x + 10;
-	//}
+	float launchPositionX{ 0 };
+	float launchPositionY{ 0 };
+	//auto rotation = GetOwner()->GetTransform()->GetRotation();
+	if (direction.x == 1 && direction.y == 0)
+	{
+		launchPositionX = GetOwner()->GetTransform()->GetWorldPosition().x + 51;
+		launchPositionY = GetOwner()->GetTransform()->GetWorldPosition().y + 10;
+	}
+	else if (direction.x == -1 && direction.y == 0)
+	{
+		launchPositionX = GetOwner()->GetTransform()->GetWorldPosition().x - 31;
+		launchPositionY = GetOwner()->GetTransform()->GetWorldPosition().y + 10;
+	}
+	else if (direction.x == 0 && direction.y == 1)
+	{
+		launchPositionX = GetOwner()->GetTransform()->GetWorldPosition().x + 10;
+		launchPositionY = GetOwner()->GetTransform()->GetWorldPosition().y + 51 ;
+	}
+	else if (direction.x == 0 && direction.y == -1)
+	{
+		launchPositionX = GetOwner()->GetTransform()->GetWorldPosition().x + 10;
+		launchPositionY = GetOwner()->GetTransform()->GetWorldPosition().y - 51;
+	}
 	
-	glm::vec3 position = glm::vec3{ GetOwner()->GetTransform()->GetWorldPosition().x + 51, GetOwner()->GetTransform()->GetWorldPosition().y + 10, 0 };
+	glm::vec3 position = glm::vec3{ launchPositionX, launchPositionY, 0 };
 	auto fireball = std::make_unique<Fireball>(pfireball.get(), position, direction);
 	auto render = std::make_unique<RenderComponent>(pfireball.get());
 	auto hitbox = std::make_unique<HitboxComponent>(pfireball.get(), 25.f, 25.f);

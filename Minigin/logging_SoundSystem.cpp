@@ -9,7 +9,7 @@ dae::logging_SoundSystem::logging_SoundSystem(std::unique_ptr<SoundSystem>&& rea
 void dae::logging_SoundSystem::Play(const sound_id id, const float volume)
 {
 	_real_SoundSystem->Play(id, volume);
-	std::cout << "Playing " << id << "at volume " << volume << std::endl;
+	
 }
 
 void dae::logging_SoundSystem::AddAudioClip(AudioClip* audioClip)

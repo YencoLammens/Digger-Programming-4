@@ -104,7 +104,6 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MoveCommand.cpp" />
     <ClCompile Include="MoveComponent.cpp" />
-    <ClCompile Include="RotatorComponent.cpp" />
     <ClCompile Include="ScoreComponent.cpp" />
     <ClCompile Include="ScoreDisplay.cpp" />
     <ClCompile Include="TextComponent.cpp" />
@@ -131,7 +130,6 @@
     <ClInclude Include="HPDisplay.h" />
     <ClInclude Include="MoveCommand.h" />
     <ClInclude Include="MoveComponent.h" />
-    <ClInclude Include="RotatorComponent.h" />
     <ClInclude Include="ScoreComponent.h" />
     <ClInclude Include="ScoreDisplay.h" />
     <ClInclude Include="TextComponent.h" />

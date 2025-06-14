@@ -32,7 +32,6 @@
 #include "Scene.h"
 #include "FPSComponent.h"
 #include "Transform.h"
-#include "RotatorComponent.h"
 #include "MoveComponent.h"
 #include "Command.h"
 #include "HealthComponent.h"
@@ -316,7 +315,7 @@ void load()
 	renderComponent = std::make_unique<dae::RenderComponent>(go2.get());
 	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Bonus.png"));
 	go2->AddComponent(std::move(renderComponent));
-	go2->GetTransform()->SetLocalPosition(200, 100, 0);
+	go2->GetTransform()->SetLocalPosition(800, 65, 0);
 	hitboxComponent = std::make_unique<dae::HitboxComponent>(go2.get(), 50.f, 50.f);
 	go2->AddComponent(std::move(hitboxComponent));
 	auto BonusPickupComponent = std::make_unique<dae::BonusPickupComponent>(go2.get(), go.get());
@@ -328,7 +327,7 @@ void load()
 	renderComponent = std::make_unique<dae::RenderComponent>(go2.get());
 	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Gold.png"));
 	go2->AddComponent(std::move(renderComponent));
-	go2->GetTransform()->SetLocalPosition(300, 100, 0);
+	go2->GetTransform()->SetLocalPosition(350, 560, 0);
 	hitboxComponent = std::make_unique<dae::HitboxComponent>(go2.get(), 30.f, 30.f);
 	go2->AddComponent(std::move(hitboxComponent));
 	auto goldPickupComponent = std::make_unique<dae::GoldPickupComponent>(go2.get(), go.get());
@@ -339,7 +338,6 @@ void load()
 
 	//Nobbin
 	go2 = std::make_unique<dae::GameObject>();
-
 	renderComponent = std::make_unique<dae::RenderComponent>(go2.get());
 	//renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("NobbinScreenshot.png"));
 	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Nobbin.png"));
@@ -356,7 +354,47 @@ void load()
 	auto enemyComponent = std::make_unique<dae::EnemyComponent>(go2.get(), go.get());
 	go2->AddComponent(std::move(enemyComponent));
 	go2->AddObserver(go->GetComponent<dae::ScoreComponent>());
+	scene.Add(std::move(go2));
 	
+	//Nobbin 2
+	go2 = std::make_unique<dae::GameObject>();
+	renderComponent = std::make_unique<dae::RenderComponent>(go2.get());
+	//renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("NobbinScreenshot.png"));
+	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Nobbin.png"));
+	go2->AddComponent(std::move(renderComponent));
+	go2->GetTransform()->SetLocalPosition(640, 300, 0);
+	/*moveComponent = std::make_unique<dae::MoveComponent>(go2.get(), 200.0f);
+	go2->AddComponent(std::move(moveComponent));*/
+	/*healthComponent = std::make_unique<dae::HealthComponent>(go2.get());
+	go2->AddComponent(std::move(healthComponent));
+	scoreComponent = std::make_unique<dae::ScoreComponent>(go2.get());
+	go2->AddComponent(std::move(scoreComponent))*/;
+	hitboxComponent = std::make_unique<dae::HitboxComponent>(go2.get(), 50.f, 50.f);
+	go2->AddComponent(std::move(hitboxComponent));
+	enemyComponent = std::make_unique<dae::EnemyComponent>(go2.get(), go.get());
+	go2->AddComponent(std::move(enemyComponent));
+	go2->AddObserver(go->GetComponent<dae::ScoreComponent>());
+	scene.Add(std::move(go2));
+
+	//Nobbin 3
+	go2 = std::make_unique<dae::GameObject>();
+	renderComponent = std::make_unique<dae::RenderComponent>(go2.get());
+	//renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("NobbinScreenshot.png"));
+	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Nobbin.png"));
+	go2->AddComponent(std::move(renderComponent));
+	go2->GetTransform()->SetLocalPosition(700, 65, 0);
+	/*moveComponent = std::make_unique<dae::MoveComponent>(go2.get(), 200.0f);
+	go2->AddComponent(std::move(moveComponent));*/
+	/*healthComponent = std::make_unique<dae::HealthComponent>(go2.get());
+	go2->AddComponent(std::move(healthComponent));
+	scoreComponent = std::make_unique<dae::ScoreComponent>(go2.get());
+	go2->AddComponent(std::move(scoreComponent))*/;
+	hitboxComponent = std::make_unique<dae::HitboxComponent>(go2.get(), 50.f, 50.f);
+	go2->AddComponent(std::move(hitboxComponent));
+	enemyComponent = std::make_unique<dae::EnemyComponent>(go2.get(), go.get());
+	go2->AddComponent(std::move(enemyComponent));
+	go2->AddObserver(go->GetComponent<dae::ScoreComponent>());
+	scene.Add(std::move(go2));
 
 	
 	
@@ -366,29 +404,29 @@ void load()
 	//go2->SetParent(go.get(), false);
 
 	//Pressed
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_UP, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, -1, 0 }));
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_UP, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go.get(), glm::vec3{ 0, -1, 0 }));
 
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_LEFT, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ -1, 0, 0 }));
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_LEFT, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go.get(), glm::vec3{ -1, 0, 0 }));
 
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_RIGHT, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 1, 0, 0 }));
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_RIGHT, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go.get(), glm::vec3{ 1, 0, 0 }));
 
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_DOWN, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 1, 0 }));
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_DOWN, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go.get(), glm::vec3{ 0, 1, 0 }));
 
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_A, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::FireballCommand>(go2.get(), glm::vec3{ 1, 0, 0 }));
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_A, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::FireballCommand>(go.get(), glm::vec3{ 1, 0, 0 }));
 
-	//Down
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_X, dae::InputManager::ButtonState::DOWN, std::make_unique<dae::DamageCommand>(go2.get()));
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_A, dae::InputManager::ButtonState::DOWN, std::make_unique<dae::GainPointsCommand>(go2.get()));
+	////Down
+	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_X, dae::InputManager::ButtonState::DOWN, std::make_unique<dae::DamageCommand>(go2.get()));
+	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_A, dae::InputManager::ButtonState::DOWN, std::make_unique<dae::GainPointsCommand>(go2.get()));
 
 
 	//Up
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_UP, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_UP, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go.get(), glm::vec3{ 0, 0, 0 }));
 
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_LEFT, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_LEFT, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go.get(), glm::vec3{ 0, 0, 0 }));
 
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_RIGHT, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_RIGHT, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go.get(), glm::vec3{ 0, 0, 0 }));
 
-	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_DOWN, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go2.get(), glm::vec3{ 0, 0, 0 }));
+	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_DOWN, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go.get(), glm::vec3{ 0, 0, 0 }));
 
 
 
@@ -418,7 +456,7 @@ void load()
 	//go3->AddComponent(std::move(scoreDisplayComponent));
 	//go2->AddObserver(go3->GetComponent<dae::ScoreDisplay>());
 	//scene.Add(std::move(go3));
-	scene.Add(std::move(go2));
+	
 
 	
 	//eventQueue->process();

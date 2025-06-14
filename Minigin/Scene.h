@@ -19,6 +19,8 @@ namespace dae
 
 		void RemoveFlaggedObjects();
 
+		void ResetLevel();
+
 		~Scene();
 		Scene(const Scene& other) = delete;
 		Scene(Scene&& other) = delete;
