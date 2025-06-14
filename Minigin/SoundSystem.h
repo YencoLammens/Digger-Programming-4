@@ -17,6 +17,10 @@ namespace dae
 
 	public:
 		virtual ~SoundSystem() = default;
+		SoundSystem(const SoundSystem&) = delete;
+		SoundSystem& operator=(const SoundSystem&) = delete;
+		SoundSystem(SoundSystem&&) = delete;
+		SoundSystem& operator=(SoundSystem&&) = delete;
 		virtual void Play(const sound_id id, const float volume) = 0;
 
 

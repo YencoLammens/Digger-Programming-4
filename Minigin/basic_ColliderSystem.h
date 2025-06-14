@@ -10,6 +10,10 @@ namespace dae
 	public:
 
 		~basic_ColliderSystem() = default;
+		basic_ColliderSystem(const basic_ColliderSystem&) = delete;
+		basic_ColliderSystem& operator=(const basic_ColliderSystem&) = delete;
+		basic_ColliderSystem(basic_ColliderSystem&&) = delete;
+		basic_ColliderSystem& operator=(basic_ColliderSystem&&) = delete;
 
 		void FixedUpdate(float fixedTimeStep) override;
 		void AddGOwithHitbox(GameObject* gameObject) override;

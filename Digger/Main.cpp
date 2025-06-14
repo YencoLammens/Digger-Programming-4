@@ -1,16 +1,4 @@
-//#if _DEBUG
-//#if __has_include(<vld.h>)
-//#include <vld.h>
-//#endif
-//#endif
-//
-//#include "Minigin.h"
-//
-//int main(int, char* []) {
-//	dae::Minigin engine;
-//	engine.Run();
-//	return 0;
-//}
+
 
 #include <SDL.h>
 
@@ -48,8 +36,6 @@
 #include "AudioClip.h"
 #include "EventQueue.h"
 #include "HitboxComponent.h"
-#include "GridMovementComponent.h"
-#include "TileMap.h"
 #include "EmeraldPickupComponent.h"
 #include "BonusPickupComponent.h"
 #include "GoldPickupComponent.h"
@@ -121,48 +107,9 @@ void load()
 	dae::ResourceManager::GetInstance().LoadTexture("Fireball.png");
 	dae::ResourceManager::GetInstance().LoadTexture("DiggerOom.png");
 
-	/*go = std::make_unique<dae::GameObject>();
-	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	auto textComponent = std::make_unique<dae::TextComponent>(go.get(), "Programming 4 Assignment", font.get());
-	go->GetTransform()->SetLocalPosition(80, 80, 0);
-	go->AddComponent(std::move(textComponent));
-	scene.Add(std::move(go));*/
 	
 
-	////Background
-	//auto go = std::make_unique<dae::GameObject>();
-	//auto renderComponent = std::make_unique<dae::RenderComponent>(go.get());
-	//renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("background.png"));
-	//go->AddComponent(std::move(renderComponent));
-	//scene.Add(std::move(go));
-
-	////DAE Logo
-	//go = std::make_unique<dae::GameObject>();
-	//renderComponent = std::make_unique<dae::RenderComponent>(go.get());
-	//renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("logo.png"));
-	//go->AddComponent(std::move(renderComponent));
-	//go->GetTransform()->SetLocalPosition(216, 150, 0);
-
-	//scene.Add(std::move(go));
-
-	////Title
-	//go = std::make_unique<dae::GameObject>();
-	/*auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	auto textComponent = std::make_unique<dae::TextComponent>(go.get(), "Programming 4 Assignment", font.get());*/
-	///*go->GetTransform()->SetLocalPosition(80, 80, 0);
-	//go->AddComponent(std::move(textComponent));
-	//scene.Add(std::move(go));*/
-
-	////FPS display
-	//go = std::make_unique<dae::GameObject>();
-	//go->GetTransform()->SetLocalPosition(10, 10, 0);
-	//auto fpsComponent = std::make_unique<dae::FPSComponent>(go.get(), font);
-	//go->AddComponent(std::move(fpsComponent));
-	//scene.Add(std::move(go));
-
-	//Map n stuff
-	auto tileMap = std::make_unique<dae::TileMap>(1000.0f, 650.0f);
-	
+	//Map and stuff
 	auto go = std::make_unique<dae::GameObject>();
 	auto renderComponent = std::make_unique<dae::RenderComponent>(go.get());
 	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Map.png"));
@@ -227,20 +174,11 @@ void load()
 	dae::InputManager::GetInstance().BindKeyboardCommand(SDLK_s, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go.get(), glm::vec3{ 0, 0, 0 }));
 
 
-	//Tutorial displays
+	
 	auto font = dae::ResourceManager::GetInstance().LoadFont("PressStart2P-Regular.ttf", 32);
 
 	auto go2 = std::make_unique<dae::GameObject>();
-	/*go2->GetTransform()->SetLocalPosition(10, 220, 0);
-	auto textComponent = std::make_unique<dae::TextComponent>(go2.get(), "Use WASD to move the first Digger", font.get());
-	go2->AddComponent(std::move(textComponent));
-	scene.Add(std::move(go2));
-
-	go2 = std::make_unique<dae::GameObject>();
-	go2->GetTransform()->SetLocalPosition(10, 240, 0);
-	textComponent = std::make_unique<dae::TextComponent>(go2.get(), "Use the DPAD to move the second Digger", font.get());
-	go2->AddComponent(std::move(textComponent));
-	scene.Add(std::move(go2));*/
+	
 
 	//HUD displays for Digger
 
@@ -339,16 +277,9 @@ void load()
 	//Nobbin
 	go2 = std::make_unique<dae::GameObject>();
 	renderComponent = std::make_unique<dae::RenderComponent>(go2.get());
-	//renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("NobbinScreenshot.png"));
 	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Nobbin.png"));
 	go2->AddComponent(std::move(renderComponent));
 	go2->GetTransform()->SetLocalPosition(600, 550, 0);
-	/*moveComponent = std::make_unique<dae::MoveComponent>(go2.get(), 200.0f);
-	go2->AddComponent(std::move(moveComponent));*/
-	/*healthComponent = std::make_unique<dae::HealthComponent>(go2.get());
-	go2->AddComponent(std::move(healthComponent));
-	scoreComponent = std::make_unique<dae::ScoreComponent>(go2.get());
-	go2->AddComponent(std::move(scoreComponent))*/;
 	hitboxComponent = std::make_unique<dae::HitboxComponent>(go2.get(), 50.f, 50.f);
 	go2->AddComponent(std::move(hitboxComponent));
 	auto enemyComponent = std::make_unique<dae::EnemyComponent>(go2.get(), go.get());
@@ -359,16 +290,9 @@ void load()
 	//Nobbin 2
 	go2 = std::make_unique<dae::GameObject>();
 	renderComponent = std::make_unique<dae::RenderComponent>(go2.get());
-	//renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("NobbinScreenshot.png"));
 	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Nobbin.png"));
 	go2->AddComponent(std::move(renderComponent));
 	go2->GetTransform()->SetLocalPosition(640, 300, 0);
-	/*moveComponent = std::make_unique<dae::MoveComponent>(go2.get(), 200.0f);
-	go2->AddComponent(std::move(moveComponent));*/
-	/*healthComponent = std::make_unique<dae::HealthComponent>(go2.get());
-	go2->AddComponent(std::move(healthComponent));
-	scoreComponent = std::make_unique<dae::ScoreComponent>(go2.get());
-	go2->AddComponent(std::move(scoreComponent))*/;
 	hitboxComponent = std::make_unique<dae::HitboxComponent>(go2.get(), 50.f, 50.f);
 	go2->AddComponent(std::move(hitboxComponent));
 	enemyComponent = std::make_unique<dae::EnemyComponent>(go2.get(), go.get());
@@ -379,16 +303,9 @@ void load()
 	//Nobbin 3
 	go2 = std::make_unique<dae::GameObject>();
 	renderComponent = std::make_unique<dae::RenderComponent>(go2.get());
-	//renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("NobbinScreenshot.png"));
 	renderComponent->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("Nobbin.png"));
 	go2->AddComponent(std::move(renderComponent));
 	go2->GetTransform()->SetLocalPosition(700, 65, 0);
-	/*moveComponent = std::make_unique<dae::MoveComponent>(go2.get(), 200.0f);
-	go2->AddComponent(std::move(moveComponent));*/
-	/*healthComponent = std::make_unique<dae::HealthComponent>(go2.get());
-	go2->AddComponent(std::move(healthComponent));
-	scoreComponent = std::make_unique<dae::ScoreComponent>(go2.get());
-	go2->AddComponent(std::move(scoreComponent))*/;
 	hitboxComponent = std::make_unique<dae::HitboxComponent>(go2.get(), 50.f, 50.f);
 	go2->AddComponent(std::move(hitboxComponent));
 	enemyComponent = std::make_unique<dae::EnemyComponent>(go2.get(), go.get());
@@ -398,11 +315,8 @@ void load()
 
 	
 	
-	//rotatorComponent = std::make_unique<dae::RotatorComponent>(go2.get(), glm::vec3(0,0,0), 5.0f);
-	//go2->AddComponent(std::move(rotatorComponent));
 
-	//go2->SetParent(go.get(), false);
-
+	
 	//Pressed
 	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_UP, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::MoveCommand>(go.get(), glm::vec3{ 0, -1, 0 }));
 
@@ -414,10 +328,7 @@ void load()
 
 	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_A, dae::InputManager::ButtonState::PRESSED, std::make_unique<dae::FireballCommand>(go.get(), glm::vec3{ 1, 0, 0 }));
 
-	////Down
-	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_X, dae::InputManager::ButtonState::DOWN, std::make_unique<dae::DamageCommand>(go2.get()));
-	//dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_A, dae::InputManager::ButtonState::DOWN, std::make_unique<dae::GainPointsCommand>(go2.get()));
-
+	
 
 	//Up
 	dae::InputManager::GetInstance().BindControllerCommand(XINPUT_GAMEPAD_DPAD_UP, dae::InputManager::ButtonState::UP, std::make_unique<dae::MoveCommand>(go.get(), glm::vec3{ 0, 0, 0 }));
@@ -431,31 +342,6 @@ void load()
 
 
 	scene.Add(std::move(go));
-
-	//HUD displays for Digger2
-
-	//Health display digger2
-	//auto go3 = std::make_unique<dae::GameObject>();
-	//go3->GetTransform()->SetLocalPosition(10, 330, 0);
-	//textComponent = std::make_unique<dae::TextComponent>(go3.get(), "# lives: " + std::to_string(go2->GetComponent<dae::HealthComponent>()->GetHealth()), font.get());
-	//go3->AddComponent(std::move(textComponent));
-	//hpDisplayComponent = std::make_unique<dae::HPDisplay>(go3.get());
-	//go3->AddComponent(std::move(hpDisplayComponent));
-	//go2->AddObserver(go3->GetComponent<dae::HPDisplay>());
-	//scene.Add(std::move(go3));
-
-	//
-
-
-	////Score display digger2
-	//go3 = std::make_unique<dae::GameObject>();
-	//go3->GetTransform()->SetLocalPosition(10, 360, 0);
-	//textComponent = std::make_unique<dae::TextComponent>(go3.get(), "Score: " + std::to_string(go2->GetComponent<dae::ScoreComponent>()->GetScore()), font.get());
-	//go3->AddComponent(std::move(textComponent));
-	//scoreDisplayComponent = std::make_unique<dae::ScoreDisplay>(go3.get());
-	//go3->AddComponent(std::move(scoreDisplayComponent));
-	//go2->AddObserver(go3->GetComponent<dae::ScoreDisplay>());
-	//scene.Add(std::move(go3));
 	
 
 	

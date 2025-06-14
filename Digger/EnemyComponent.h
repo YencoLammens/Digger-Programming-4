@@ -17,6 +17,11 @@ namespace dae
 	public:
 		explicit EnemyComponent(GameObject* owner, GameObject* player);
 		~EnemyComponent() override;
+		EnemyComponent(const EnemyComponent&) = delete;
+		EnemyComponent& operator=(const EnemyComponent&) = delete;
+		EnemyComponent(EnemyComponent&&) = delete;
+		EnemyComponent& operator=(EnemyComponent&&) = delete;
+
 		void Update(float deltaTime) override;
 		void FixedUpdate(float deltaTime) override;
 		void OnNotify(const GameEvent& event, GameObject* go) override;

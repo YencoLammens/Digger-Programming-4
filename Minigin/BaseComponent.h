@@ -11,6 +11,7 @@ namespace dae
 		BaseComponent(BaseComponent&& other) = delete;
 		BaseComponent& operator=(const BaseComponent& other) = delete;
 		BaseComponent& operator=(BaseComponent&& other) = delete;
+
 		virtual void Update(float deltaTime) = 0;
 		virtual void FixedUpdate(float fixedTimeStep) = 0;
 		void LateUpdate() { /* Default implementation does nothing */ };

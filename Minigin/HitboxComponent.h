@@ -9,6 +9,11 @@ namespace dae
 	public:
 		HitboxComponent(GameObject* owner, float width, float height);
 		~HitboxComponent() override;
+		HitboxComponent(const HitboxComponent&) = delete;
+		HitboxComponent& operator=(const HitboxComponent&) = delete;
+		HitboxComponent(HitboxComponent&&) = delete;
+		HitboxComponent& operator=(HitboxComponent&&) = delete;
+
 		void Update(float deltaTime) override;
 		void FixedUpdate(float fixedTimeStep) override;
 		const dae::Rectf GetHitbox() const;

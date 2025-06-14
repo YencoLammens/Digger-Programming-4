@@ -10,7 +10,10 @@ namespace dae
 	public:
 		RenderComponent(GameObject* owner);
 		~RenderComponent() override = default;
-
+		RenderComponent(const RenderComponent&) = delete;
+		RenderComponent& operator=(const RenderComponent&) = delete;
+		RenderComponent(RenderComponent&&) = delete;
+		RenderComponent& operator=(RenderComponent&&) = delete;
 		virtual void Update(float deltaTime) override;
 		virtual void FixedUpdate(float fixedTimeStep) override;
 		virtual void Render() const;

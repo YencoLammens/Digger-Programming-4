@@ -8,6 +8,10 @@ namespace dae
 	public:
 		explicit AudioClip(const std::string& filePath);
 		~AudioClip();
+		AudioClip(const AudioClip&) = delete;
+		AudioClip& operator=(const AudioClip&) = delete;
+		AudioClip(AudioClip&&) = delete;
+		AudioClip& operator=(AudioClip&&) = delete;
 
 		void play() const;
 		void set_volume(float volume);

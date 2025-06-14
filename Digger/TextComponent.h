@@ -15,6 +15,10 @@ namespace dae
 	public:
 		TextComponent(GameObject* owner, std::string text, Font* font);
 		~TextComponent() = default;
+		TextComponent(const TextComponent&) = delete;
+		TextComponent& operator=(const TextComponent&) = delete;
+		TextComponent(TextComponent&&) = delete;
+		TextComponent& operator=(TextComponent&&) = delete;
 
 		void Update(float deltaTime) override;
 		void SetText(const std::string& text);

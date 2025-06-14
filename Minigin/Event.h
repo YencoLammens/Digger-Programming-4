@@ -18,6 +18,11 @@ namespace dae
 	{
 		explicit Event(EventId id);
 		virtual ~Event() = default;
+
+		Event(const Event&) = delete;
+		Event& operator=(const Event&) = delete;
+		Event(Event&&) = delete;
+		Event& operator=(Event&&) = delete;
 		const EventId Id;
 
 		virtual void process() = 0;

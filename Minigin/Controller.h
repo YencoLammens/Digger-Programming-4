@@ -15,6 +15,11 @@ namespace dae
         explicit Controller(int index);
         ~Controller();
 
+        Controller(const Controller&) = delete;
+        Controller& operator=(const Controller&) = delete;
+        Controller(Controller&&) = delete;
+        Controller& operator=(Controller&&) = delete;
+
         //bool IsConnected() const;
         void Update();
         bool IsButtonReleased(WORD button) const;

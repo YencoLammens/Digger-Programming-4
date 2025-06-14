@@ -84,7 +84,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Achievements.cpp" />
     <ClCompile Include="BonusPickupComponent.cpp" />
     <ClCompile Include="DamageCommand.cpp" />
     <ClCompile Include="DeathAnimationComponent.cpp" />
@@ -94,11 +93,9 @@
     <ClCompile Include="Fireball.cpp" />
     <ClCompile Include="FireballCommand.cpp" />
     <ClCompile Include="FireballLauncherComponent.cpp" />
-    <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="GainPointsCommand.cpp" />
     <ClCompile Include="GoldbagState.cpp" />
     <ClCompile Include="GoldPickupComponent.cpp" />
-    <ClCompile Include="GridMovementComponent.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="HPDisplay.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -107,10 +104,8 @@
     <ClCompile Include="ScoreComponent.cpp" />
     <ClCompile Include="ScoreDisplay.cpp" />
     <ClCompile Include="TextComponent.cpp" />
-    <ClCompile Include="TileMap.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Achievements.h" />
     <ClInclude Include="BonusPickupComponent.h" />
     <ClInclude Include="DamageCommand.h" />
     <ClInclude Include="DeathAnimationComponent.h" />
@@ -120,12 +115,10 @@
     <ClInclude Include="Fireball.h" />
     <ClInclude Include="FireballCommand.h" />
     <ClInclude Include="FireballLauncherComponent.h" />
-    <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="FSMComponent.h" />
     <ClInclude Include="GainPointsCommand.h" />
     <ClInclude Include="GoldbagState.h" />
     <ClInclude Include="GoldPickupComponent.h" />
-    <ClInclude Include="GridMovementComponent.h" />
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="HPDisplay.h" />
     <ClInclude Include="MoveCommand.h" />
@@ -133,8 +126,6 @@
     <ClInclude Include="ScoreComponent.h" />
     <ClInclude Include="ScoreDisplay.h" />
     <ClInclude Include="TextComponent.h" />
-    <ClInclude Include="TileMap.h" />
-    <ClInclude Include="TileType.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -15,6 +15,10 @@ namespace dae
 
 	public:
 		virtual ~ColliderSystem() = default;
+		ColliderSystem(const ColliderSystem&) = delete;
+		ColliderSystem& operator=(const ColliderSystem&) = delete;
+		ColliderSystem(ColliderSystem&&) = delete;
+		ColliderSystem& operator=(ColliderSystem&&) = delete;
 
 		virtual void FixedUpdate(float fixedTimeStep) = 0;
 		virtual void AddGOwithHitbox(GameObject* gameObject) = 0;
