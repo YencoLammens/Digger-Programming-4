@@ -9,6 +9,7 @@ namespace dae
 	{
 	public:
 
+		basic_ColliderSystem() = default;
 		~basic_ColliderSystem() = default;
 		basic_ColliderSystem(const basic_ColliderSystem&) = delete;
 		basic_ColliderSystem& operator=(const basic_ColliderSystem&) = delete;
@@ -19,6 +20,9 @@ namespace dae
 		void AddGOwithHitbox(GameObject* gameObject) override;
 		void RemoveGOwithHitbox(GameObject* gameObject) override;
 
+
+	protected:
+		
 	private:
 		std::vector<GameObject*> gameObjects;
 	};

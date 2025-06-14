@@ -9,6 +9,7 @@ namespace dae
 	class Observer
 	{
 	public:
+		Observer() = default;
 		virtual ~Observer() = default;
 		Observer(const Observer&) = delete;
 		Observer& operator=(const Observer&) = delete;

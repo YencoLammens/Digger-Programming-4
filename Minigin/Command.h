@@ -16,6 +16,9 @@ namespace dae
 		Command& operator=(Command&&) = delete;
 		virtual void Execute() = 0;
 
+	protected:
+		Command() = default;
+
 	};
 	class GameObjectCommand : public Command
 	{

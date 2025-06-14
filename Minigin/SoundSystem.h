@@ -26,6 +26,7 @@ namespace dae
 
 		virtual void AddAudioClip(AudioClip* audioClip) = 0;
 	protected:
+		SoundSystem() = default;
 		std::vector<AudioClip*> audioClips;
 
 	

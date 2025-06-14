@@ -24,7 +24,8 @@ namespace dae
 		virtual void AddGOwithHitbox(GameObject* gameObject) = 0;
 		virtual void RemoveGOwithHitbox(GameObject* gameObject) = 0;
 
-	
+	protected:
+		ColliderSystem() = default;
 
 	};
 }
