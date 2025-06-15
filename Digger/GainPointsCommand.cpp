@@ -8,5 +8,5 @@ dae::GainPointsCommand::GainPointsCommand(GameObject* gameObject)
 
 void dae::GainPointsCommand::Execute()
 {
-	GetGameObject()->GetComponent<ScoreComponent>()->PickUpEmerald();
+	//GetGameObject()->GetComponent<ScoreComponent>()->PickUpEmerald();
 }
